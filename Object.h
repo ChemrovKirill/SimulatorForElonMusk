@@ -38,6 +38,6 @@ public:
 	void SetY(const double& new_y) { y = new_y; }
 	void SetHeight(const double& new_height) { height = new_height; }
 	void SetWidth(const double& new_width) { width = new_width; }
-	void Draw(RenderWindow& window) { window.draw(sprite); }
-
+	void Draw(RenderWindow& window) const { window.draw(sprite); }
+	void Rotate(const double& angle) { sprite.rotate(angle); }
 };
