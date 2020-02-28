@@ -1,14 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "Object.h"
 
-int main()
-{
-	int x;
+int main() {
     sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
     sf::CircleShape shape(200.f);
     shape.setFillColor(sf::Color::Red);
 
     Object test_object_1("test.png", 100, 100, 100, 50);
+    Object test_object_2("test.png", 100, 100, 100, 50);
+    test_object_2.Rotate(45);
 
     while (window.isOpen())
     {
@@ -23,6 +23,7 @@ int main()
         window.draw(shape);
 
         test_object_1.Draw(window);
+        test_object_2.Draw(window);
 
         window.display();
     }
