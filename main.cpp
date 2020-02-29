@@ -1,13 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "Object.h"
+#include "RigidBody.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
     sf::CircleShape shape(200.f);
     shape.setFillColor(sf::Color::Red);
 
-    Object test_object_1("test.png", 100, 100, 100, 50);
-    Object test_object_2("test.png", 100, 100, 100, 50);
+    Object test_object_1("test.png", 100, 100, 100, 50, 0);
+    Object test_object_2("test.png", 100, 100, 100, 50, 45);
     test_object_2.Rotate(45);
 
     while (window.isOpen())
