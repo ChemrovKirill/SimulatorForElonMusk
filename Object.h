@@ -18,33 +18,22 @@ private:
 	SoundBuffer buffer;
 	Sound sound;
 public:
-	Object(const String& f, const float& start_x, const float& start_y, 
-		const float& w, const float& h, const float& start_angle)
-		: file(f), height(h), width(w), position(start_x, start_y), angle(start_angle) {
-		//buffer.loadFromFile("sounds/" + f_sound);
-		//sound.setBuffer(buffer);
-		image.loadFromFile("images/" + f);
-		image.createMaskFromColor(Color(0, 255, 0));
-		texture.loadFromImage(image);
-		sprite.setTexture(texture);
-		sprite.setTextureRect(IntRect(0, 0, w, h));
-		sprite.setPosition(position.x, position.y);
-		sprite.rotate(angle);
-	}
+	Object(const String& f, const Vector2f new_position,
+		const float& w, const float& h, const float& start_angle);
 
-	bool Exist() const { return exist; }
-	float GetX() const { return position.x; }
-	float GetY() const { return position.y; }
-	float GetHeight() const { return height; }
-	float GetWidth() const { return width; }
-	float GetAngle() const { return angle; }
 
-	void SetX(const float& new_x) { position.x = new_x; }
-	void SetY(const float& new_y) { position.y = new_y; }
-	void SetHeight(const float& new_height) { height = new_height; }
-	void SetWidth(const float& new_width) { width = new_width; }
-	void SetAngle(const float& new_angle) { angle = new_angle; }
+bool Exist() const;
+	Vector2f GetPosition() const;
+	float GetHeight() const;
+	float GetWidth() const;
+	float GetAngle() const;
 
-	void Draw(RenderWindow& window) const { window.draw(sprite); }
-	void Rotate(const float& new_angle) { sprite.rotate(new_angle); }
+	void SetPosition(const Vector2f& new_position);
+	void SetHeight(const float& new_height);
+	void SetWidth(const float& new_width);
+	void SetAngle(const float& new_angle);
+
+	void SetObjectPosition(const Vector2f& new_position, const float& new_angle);
+	void Draw(RenderWindow& window) const;
+	void Rotate(const float& new_angle);
 };
