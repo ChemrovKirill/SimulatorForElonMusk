@@ -4,19 +4,18 @@ using namespace sf;
 
 Surface::Surface() {
 	vertex_count = size_t(pixel_size / x_spacing);
-	surface.setPrimitiveType(LinesStrip);
+	surface.setPrimitiveType(TriangleStrip);
 	Vector2f point = center_position;
 	srand(time(NULL));
-	surface.append(Vertex(point, Color::White));
 	float slope_direction;
-	for (int i = 1; i < vertex_count; ++i) {
+	for (int i = 0; i < 2*vertex_count; ++i) {
 		slope_direction = ((float)(rand() % 100)) / 100 - 0.5f;
 		point.x += x_spacing;
 		point.y += (float)(rand() % 30) * slope_direction;
 		switch (rand() % 4) 
 		{
 		case 0 :
-			surface.append(Vertex(point, Color::White));
+			surface.append(Vertex(point, Color::Yellow));
 			break;
 		case 1:
 			surface.append(Vertex(point, Color::Red));
@@ -28,6 +27,8 @@ Surface::Surface() {
 			surface.append(Vertex(point, Color::Green));
 			break;
 		}
+		surface.append(Vertex(Vector2f(point.x, 700), Color::Transparent));
+		++i;
 	}
 }
 
