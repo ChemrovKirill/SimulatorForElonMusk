@@ -13,7 +13,21 @@ Surface::Surface() {
 		slope_direction = ((float)(rand() % 100)) / 100 - 0.5f;
 		point.x += x_spacing;
 		point.y += (float)(rand() % 30) * slope_direction;
-		surface.append(Vertex(point, Color::White));
+		switch (rand() % 4) 
+		{
+		case 0 :
+			surface.append(Vertex(point, Color::White));
+			break;
+		case 1:
+			surface.append(Vertex(point, Color::Red));
+			break;
+		case 2:
+			surface.append(Vertex(point, Color::Blue));
+			break;
+		case 3:
+			surface.append(Vertex(point, Color::Green));
+			break;
+		}
 	}
 }
 
