@@ -7,38 +7,33 @@ using namespace sf;
 class Object {
 private:
 	Vector2f position;
-	float height, width;
+	float height, width, angle;
 	bool exist = true;
+
 	String file;
 	Image image;
 	Texture texture;
 	Sprite sprite;
+
 	SoundBuffer buffer;
 	Sound sound;
 public:
-	
-	Object(const String& f, const double& start_x,
-		const double& start_y, const double& w, const double& h)
-		: file(f), height(h), width(w), position(start_x, start_y) {
-		//buffer.loadFromFile("sounds/" + f_sound);
-		//sound.setBuffer(buffer);
-		image.loadFromFile("images/" + f);
-		image.createMaskFromColor(Color(0, 255, 0));
-		texture.loadFromImage(image);
-		sprite.setTexture(texture);
-		sprite.setTextureRect(IntRect(0, 0, w, h));
-		sprite.setPosition(position.x, position.y);
-	}
+	Object(const String& f, const Vector2f new_position,
+		const float& w, const float& h, const float& start_angle);
 
-	bool Exist() const { return exist; }
-	double GetX() const { return position.x; }
-	double GetY() const { return position.y; }
-	double GetHeight() const { return height; }
-	double GetWidth() const { return width; }
-	void SetX(const double& new_x) { position.x = new_x; }
-	void SetY(const double& new_y) { position.y = new_y; }
-	void SetHeight(const double& new_height) { height = new_height; }
-	void SetWidth(const double& new_width) { width = new_width; }
-	void Draw(RenderWindow& window) const { window.draw(sprite); }
-	void Rotate(const double& angle) { sprite.rotate(angle); }
+
+bool Exist() const;
+	Vector2f GetPosition() const;
+	float GetHeight() const;
+	float GetWidth() const;
+	float GetAngle() const;
+
+	void SetPosition(const Vector2f& new_position);
+	void SetHeight(const float& new_height);
+	void SetWidth(const float& new_width);
+	void SetAngle(const float& new_angle);
+
+	void SetObjectPosition(const Vector2f& new_position, const float& new_angle);
+	void Draw(RenderWindow& window) const;
+	void Rotate(const float& new_angle);
 };
