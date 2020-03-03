@@ -19,10 +19,9 @@ private:
 	Sound sound;
 public:
 	Object(const String& f, const Vector2f new_position,
-		const float& w, const float& h, const float& start_angle);
+		const float& w, const float& h, const float& start_angle); //косяк с углом!!!
 
-
-bool Exist() const;
+	bool Exist() const;
 	Vector2f GetPosition() const;
 	float GetHeight() const;
 	float GetWidth() const;
