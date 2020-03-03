@@ -5,18 +5,15 @@
 using namespace sf;
 
 int main() {
-    RenderWindow window(sf::VideoMode(2400, 1200), "SFML works!");
-    //sf::CircleShape shape(200.f);
-    //shape.setFillColor(sf::Color::Red);
+    RenderWindow window(VideoMode(2400, 1200), "SimulatorForElonMask");
 
-    Object test_object_1("test.png", Vector2f(100, 100), 100, 50, 0);
-    Object test_object_2("test.png", Vector2f(100, 100), 100, 50, 45);
-    test_object_2.Rotate(45);
+    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
+        Vector2f(2, 1), Vector2f(0, 0), 20, 0));
+    RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 1000) , 1000, 50, 0, 1, 2000, Vector2f(0.5, 0.5), 
+        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
 
-    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 1, Vector2f(0.5, 0.5), 
-        Vector2f(2, 1), Vector2f(0.2, 0.1), 10, 0.1));
-    RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 100) , 100, 50, 0, 1, 1, Vector2f(0.5, 0.5), 
-        Vector2f(2, 1), Vector2f(0, 0), 10, 0));
+    Body2.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(0, 0)), 0);
+    //Body2.AddForce(Force(false, 1, Vector2f(1, 0), Vector2f(0, 1)), 1);
 
     while (window.isOpen())
     {
@@ -31,15 +28,11 @@ int main() {
         }
 
         window.clear();
-        //window.draw(shape);
-
-        test_object_1.Draw(window);
-        test_object_2.Draw(window);
 
         Body1.UpdatePosition(dt);
-        Body1.Draw(window);
-
         Body2.UpdatePosition(dt);
+
+        Body1.Draw(window);
         Body2.Draw(window);
 
         window.display();
