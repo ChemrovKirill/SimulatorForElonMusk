@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "Object.h"
 #include "RigidBody.h"
+#include "Surface.h"
 
 using namespace sf;
 
 int main() {
-    RenderWindow window(VideoMode(2400, 1200), "SimulatorForElonMask");
+
+    RenderWindow window(VideoMode(1400, 700), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
         Vector2f(2, 1), Vector2f(0, 0), 20, 0));
@@ -14,6 +16,8 @@ int main() {
 
     Body2.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(0, 0)), 0);
     //Body2.AddForce(Force(false, 1, Vector2f(1, 0), Vector2f(0, 1)), 1);
+
+    Surface s;
 
     while (window.isOpen())
     {
@@ -34,6 +38,8 @@ int main() {
 
         Body1.Draw(window);
         Body2.Draw(window);
+
+        s.Draw(window);
 
         window.display();
 
