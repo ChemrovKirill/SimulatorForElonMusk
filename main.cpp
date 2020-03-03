@@ -3,11 +3,15 @@
 #include "RigidBody.h"
 #include "Surface.h"
 
+extern size_t screen_x;
+extern size_t screen_y;
+extern size_t window_x;
+extern size_t window_y;
+
 using namespace sf;
 
 int main() {
-
-    RenderWindow window(VideoMode(2400, 1200), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
