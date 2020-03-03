@@ -2,7 +2,14 @@
 
 using namespace sf;
 
+size_t screen_x = VideoMode::getDesktopMode().width;
+size_t screen_y = VideoMode::getDesktopMode().height;
+size_t window_x = screen_x - 200;
+size_t window_y = screen_y - 200;
+
 Surface::Surface() {
+	pixel_size = window_x;
+	center_position = Vector2f(0, window_y-100);
 	vertex_count = size_t(pixel_size / x_spacing);
 	surface.setPrimitiveType(TriangleStrip);
 	image.loadFromFile("images/" + file);
@@ -27,13 +34,13 @@ Surface::Surface() {
 			break;
 		}*/
 		surface.append(Vertex(point, Color::White));
-		surface[i].texCoords = Vector2f(x_spacing * ((i / 2) % 2), 700 - point.y);
-		surface.append(Vertex(Vector2f(point.x, 700), Color::Red));
+		surface[i].texCoords = Vector2f(x_spacing * ((i / 2) % 2), window_y - point.y);
+		surface.append(Vertex(Vector2f(point.x, window_y), Color::Red));
 		++i;
 		surface[i].texCoords = Vector2f(x_spacing * ((i / 2) % 2), 0);
 		slope_direction = ((float)(rand() % 100)) / 100 - 0.5f;
 		point.x += x_spacing;
-		point.y += (float)(rand() % 30) * slope_direction;
+		point.y += (float)(rand() % 40) * slope_direction;
 	}
 }
 

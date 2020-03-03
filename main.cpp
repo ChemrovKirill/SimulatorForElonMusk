@@ -3,36 +3,38 @@
 #include "RigidBody.h"
 #include "Surface.h"
 
+extern size_t screen_x;
+extern size_t screen_y;
+extern size_t window_x;
+extern size_t window_y;
+
 using namespace sf;
 
 int main() {
-
-    RenderWindow window(VideoMode(2400, 1200), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
     RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 1000) , 1000, 50, 0, 1, 2000, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
 
-    Body2.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(0, 0)), 0);
+    Body2.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0, 0)), 0);
     //Body2.AddForce(Force(false, 1, Vector2f(1, 0), Vector2f(0, 1)), 1);
 
-    Body1.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(0.5, 0.5)), 0);
-    Body1.AddForce(Force(false, 10, Vector2f(0, 1), Vector2f(0.5, 0.5)), 1);
-    Body1.AddForce(Force(false, 10, Vector2f(1, 0), Vector2f(0.5, 0.5)), 2);
-    Body1.AddForce(Force(false, 10, Vector2f(-1, 0), Vector2f(0.5, 0.5)), 3);
-    Body1.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(0, 0)), 4);
-    Body1.AddForce(Force(false, 10, Vector2f(0, 1), Vector2f(1, 1)), 5);
-    Body1.AddForce(Force(false, 10, Vector2f(0, 1), Vector2f(0, 1)), 6);
-    Body1.AddForce(Force(false, 10, Vector2f(0, -1), Vector2f(1, 0)), 7);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0.5, 0.5)), 0);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, 1), Vector2f(0.5, 0.5)), 1);
+    Body1.AddForce(Force(false, 1000, Vector2f(1, 0), Vector2f(0.5, 0.5)), 2);
+    Body1.AddForce(Force(false, 1000, Vector2f(-1, 0), Vector2f(0.5, 0.5)), 3);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0, 0)), 4);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, 1), Vector2f(1, 1)), 5);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, 1), Vector2f(0, 1)), 6);
+    Body1.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(1, 0)), 7);
 
     Surface s;
-
+    float dt = 0.01f;
+    Clock deltaTime;
     while (window.isOpen())
     {
-
-        Clock deltaTime; float dt = 0.01f;
-
         Event event;
         while (window.pollEvent(event))
         {
