@@ -13,7 +13,7 @@ Object::Object(const String& f, const Vector2f new_position,
 	sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, w, h));
 	sprite.setPosition(position.x, position.y);
-	sprite.rotate(angle);
+	sprite.rotate(angle); 
 }
 
 bool Object::Exist() const { return exist; }

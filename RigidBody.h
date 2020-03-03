@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Object.h"
+#include <cmath>
 
 #define PI 3.1415f
 #define RAD (PI / 180.f)
@@ -36,17 +37,33 @@ struct RigidBodyParameters {
 		const float& start_angle_acceleration);
 };
 
+struct Force {
+	bool exist;
+	bool is_force_field;
+
+	float force;
+	Vector2f force_vector; //если сила создает поле, то вектор - напряженность поля, иначе
+						   //единичный вектор, направленный относительно ориентации коробля: 
+						   //(0,-1) - вверх относительно носа, (0,1) - вниз, (1,0) - вправо, (-1,0) - влево
+	Vector2f force_point;  //точка приложения силы, принимает значения от 0 до 1
+
+	Force();
+	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
+};
+
 class RigidBody : public Object {
 private:
 	float mass;
 	Vector2f mass_position; //принимает значения от 0 до 1
-	float moment_of_inertia;
+	float moment_of_inertia; //Добавить авторассчет момента инерции и запихать в класс арктангенс и diag!!!
 
 	Vector2f velocity;
 	Vector2f acceleration;
 
 	float angle_velocity;
 	float angle_acceleration;
+
+	Force forces[8]; //Переделать в set!!!
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -67,4 +84,8 @@ public:
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
 	void UpdatePosition(const float& dt);
+	void AddForce(const Force& new_force, int num);
+	void ForceOn(int num);
+	void ForceOff(int num);
+	void UpdateForces();
 };

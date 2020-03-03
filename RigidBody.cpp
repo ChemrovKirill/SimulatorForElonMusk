@@ -1,5 +1,4 @@
 #include "RigidBody.h"
-#include <cmath>
 
 RigidBodyParameters::RigidBodyParameters()
 	: position(Vector2f(0, 0)), width(0), height(0), angle(0), mass(0),
@@ -27,6 +26,13 @@ RigidBodyParameters::RigidBodyParameters(const Vector2f new_position,
 	velocity(start_velocity), acceleration(start_acceleration), angle_velocity(start_angle_velocity),
 	angle_acceleration(start_angle_acceleration) {}
 
+
+
+Force::Force() : is_force_field(false), force(0), force_vector(Vector2f(0, 0)),
+	force_point(Vector2f(0, 0)), exist(false) {};
+Force::Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point)
+	: is_force_field(field), force(new_force), force_vector(start_vector), 
+	force_point(start_force_point), exist(false) {}
 
 
 
@@ -60,9 +66,9 @@ void RigidBody::UpdatePosition(const float& dt) {
 	float b = atan(GetHeight() / GetWidth());
 
 	new_position.x = GetPosition().x + velocity.x * dt -
-		RAD * angle_velocity * diag * dt * cos(RAD * GetAngle() + b + RAD * 90);
+		RAD * angle_velocity * diag * dt * cos(RAD * GetAngle() + b + PI / 2);
 	new_position.y = GetPosition().y + velocity.y * dt -
-		RAD * angle_velocity * diag * dt * sin(RAD * GetAngle() + b + RAD * 90);
+		RAD * angle_velocity * diag * dt * sin(RAD * GetAngle() + b + PI / 2);
 
 	new_angle = GetAngle() + angle_velocity * dt;
 
@@ -70,4 +76,42 @@ void RigidBody::UpdatePosition(const float& dt) {
 	SetAngleVelocity(angle_velocity + angle_acceleration * dt);
 
 	SetObjectPosition(new_position, new_angle);
+	UpdateForces();
+}
+
+void RigidBody::AddForce(const Force& new_force, int num) { 
+	forces[num] = new_force; 
+}
+void RigidBody::ForceOn(int num) {
+	forces[num].exist = true; 
+}
+void RigidBody::ForceOff(int num) {
+	forces[num].exist = false; 
+}
+
+void RigidBody::UpdateForces() {
+	Vector2f new_acceleration(0,0);
+	float new_angle_accelaration = 0;
+
+	for (auto i : forces) {
+		if (i.exist == true) {
+			if (i.is_force_field == true) {
+				new_acceleration.x += i.force_vector.x;
+				new_acceleration.y += i.force_vector.y;
+			}
+			else {
+				float Fx = i.force * i.force_vector.x;
+				float Fy = i.force * i.force_vector.y;
+
+				new_acceleration.x += (Fx * cos(RAD * GetAngle()) - Fy * sin(RAD * GetAngle())) / mass;
+				new_acceleration.y += (Fx * sin(RAD * GetAngle()) + Fy * cos(RAD * GetAngle())) / mass;
+
+				new_angle_accelaration -= (Fx * GetHeight() * (mass_position.y - i.force_point.y)) / moment_of_inertia;
+				new_angle_accelaration -= (Fy * GetWidth() * (mass_position.x - i.force_point.x)) / moment_of_inertia;
+			}
+		}
+	}
+
+	SetAcceleration(new_acceleration);
+	SetAngleAcceleration(new_angle_accelaration);
 }
