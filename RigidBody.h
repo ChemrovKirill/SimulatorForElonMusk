@@ -2,6 +2,8 @@
 
 #include "Object.h"
 #include <cmath>
+#include <set>
+#include <string>
 
 #define PI 3.1415f
 #define RAD (PI / 180.f)
@@ -13,7 +15,7 @@ struct RigidBodyParameters {
 	float height;
 	float width;
 	float angle;
-
+	
 	float mass;
 	Vector2f mass_position; //принимает значени€ от 0 до 1
 	float moment_of_inertia;
@@ -52,7 +54,7 @@ struct Force {
 };
 
 class RigidBody : public Object {
-private:
+protected:
 	float mass;
 	Vector2f mass_position; //принимает значени€ от 0 до 1
 	float moment_of_inertia; //ƒобавить авторассчет момента инерции и запихать в класс арктангенс и diag!!!
@@ -63,7 +65,7 @@ private:
 	float angle_velocity;
 	float angle_acceleration;
 
-	Force forces[8]; //ѕеределать в set!!!
+	std::map<String,Force> forces; //ѕеределать в set!!!
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -84,8 +86,8 @@ public:
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
 	void UpdatePosition(const float& dt);
-	void AddForce(const Force& new_force, int num);
-	void ForceOn(int num);
-	void ForceOff(int num);
+	void AddForce(const Force& new_force, const std::string& name);
+	void ForceOn(const std::string& name);
+	void ForceOff(const std::string& name);
 	void UpdateForces();
 };

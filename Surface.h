@@ -5,7 +5,7 @@
 using namespace sf;
 
 class Surface {
-private:
+protected:
 	VertexArray surface;
 	Vector2f center_position = { 0, 600 };
 	float x_spacing = 10;

@@ -5,7 +5,7 @@
 using namespace sf;
 
 class Object {
-private:
+protected:
 	Vector2f position;
 	float height, width, angle;
 	bool exist = true;
