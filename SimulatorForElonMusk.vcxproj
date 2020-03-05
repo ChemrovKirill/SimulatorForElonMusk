@@ -147,6 +147,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Surface.h" />
   </ItemGroup>

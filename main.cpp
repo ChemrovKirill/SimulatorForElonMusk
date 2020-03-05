@@ -38,7 +38,7 @@ int main() {
         window.clear();
 
         s.Draw(window);
-        ship1.DrawAll(window);
+        ship1.Draw(window);
 
         window.display();
 

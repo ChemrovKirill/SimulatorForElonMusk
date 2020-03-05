@@ -32,6 +32,6 @@ public:
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
-	void Draw(RenderWindow& window) const;
+	virtual void Draw(RenderWindow& window) const;
 	void Rotate(const float& new_angle);
 };

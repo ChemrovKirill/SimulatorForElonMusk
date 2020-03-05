@@ -25,19 +25,6 @@ class Ship : public RigidBody {
 private:
 	std::map<std::string, Engine> engines;
 public:
-	Ship(const RigidBody& rb, std::map<std::string, Engine>& _engines)
-		: RigidBody(rb) {
-		for (auto& e : _engines) {
-			AddForce(e.second.GetForce(), e.first);
-			e.second.SetPosition(Vector2f(position.x + width * e.second.GetRelPos().x - e.second.GetWidth() / 2,
-				position.y + height * e.second.GetRelPos().y - e.second.GetHeight() / 2), 0);
-			engines[e.first] = e.second;
-		}
-	}
-	void DrawAll(RenderWindow& window) const {
-		Draw(window);
-		for (const auto& e : engines) {
-			e.second.Draw(window);
-		}
-	}
+	Ship(const RigidBody& rb, std::map<std::string, Engine>& _engines);
+	void Draw(RenderWindow& window) const;
 };
