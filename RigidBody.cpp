@@ -75,7 +75,7 @@ void RigidBody::UpdatePosition(const float& dt) {
 	SetVelocuty(Vector2f(velocity.x + acceleration.x * dt, velocity.y + acceleration.y * dt));
 	SetAngleVelocity(angle_velocity + angle_acceleration * dt);
 
-	SetObjectPosition(new_position, new_angle);
+	SetPosition(new_position, new_angle);
 	UpdateForces();
 }
 

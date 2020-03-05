@@ -29,7 +29,7 @@ public:
 		: RigidBody(rb) {
 		for (auto& e : _engines) {
 			AddForce(e.second.GetForce(), e.first);
-			e.second.SetObjectPosition(Vector2f(position.x + width * e.second.GetRelPos().x - e.second.GetWidth() / 2,
+			e.second.SetPosition(Vector2f(position.x + width * e.second.GetRelPos().x - e.second.GetWidth() / 2,
 				position.y + height * e.second.GetRelPos().y - e.second.GetHeight() / 2), 0);
 			engines[e.first] = e.second;
 		}
