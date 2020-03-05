@@ -18,6 +18,7 @@ protected:
 	SoundBuffer buffer;
 	Sound sound;
 public:
+	Object() {}
 	Object(const String& f, const Vector2f new_position,
 		const float& w, const float& h, const float& start_angle); //косяк с углом!!!
 

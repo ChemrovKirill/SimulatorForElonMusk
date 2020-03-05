@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "RigidBody.h"
 #include "Surface.h"
+#include "Ship.h"
 
 extern size_t screen_x;
 extern size_t screen_y;
@@ -11,6 +12,43 @@ extern size_t window_y;
 using namespace sf;
 
 int main() {
+    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
+
+    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 200), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
+        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
+    Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
+    std::map<std::string, Engine> engines;
+    engines["left"] = Engine(engine_object, Vector2f(0, 1), 500);
+    engines["right"] = Engine(engine_object, Vector2f(1, 1), 500);
+
+    Ship ship1(ShipBody, engines);
+
+    Surface s;
+    float dt = 0.01f;
+    Clock deltaTime;
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+
+        s.Draw(window);
+        ship1.DrawAll(window);
+
+        window.display();
+
+        dt = deltaTime.restart().asSeconds();
+    }
+
+    return 0;
+}
+
+int main1() {
     RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
