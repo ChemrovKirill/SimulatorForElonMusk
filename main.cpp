@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "RigidBody.h"
 #include "Surface.h"
+#include "iostream"
 
 extern size_t screen_x;
 extern size_t screen_y;
@@ -13,12 +14,13 @@ using namespace sf;
 int main() {
     RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
-    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
+    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 50, 200, 0, 1, 100, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-    RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 1000) , 1000, 50, 0, 1, 2000, Vector2f(0.5, 0.5), 
+    RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 1000) , 1000, 50, 0, 10, 2000, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
 
-    Body2.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0, 0)), 0);
+    Body2.AddForce(Force(false, 1000, Vector2f(1, 0), Vector2f(0, 0)), 0);
+    Body2.ForceOn(0);
     //Body2.AddForce(Force(false, 1, Vector2f(1, 0), Vector2f(0, 1)), 1);
 
     Body1.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0.5, 0.5)), 0);
@@ -29,9 +31,11 @@ int main() {
     Body1.AddForce(Force(false, 1000, Vector2f(0, 1), Vector2f(1, 1)), 5);
     Body1.AddForce(Force(false, 1000, Vector2f(0, 1), Vector2f(0, 1)), 6);
     Body1.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(1, 0)), 7);
+    Body1.AddForce(Force(true, 1000, Vector2f(0, 400), Vector2f(0, 0)), 8);
+    Body1.ForceOn(8);
 
     Surface s;
-    float dt = 0.01f;
+    float dt = 0, time = 0;
     Clock deltaTime;
     while (window.isOpen())
     {
@@ -91,12 +95,18 @@ int main() {
         Body2.UpdatePosition(dt);
 
         Body1.Draw(window);
+        Body1.DrawMassPosition(window);
+        Body1.DrawBodyWay(window);
+        
         //Body2.Draw(window);
+
+        std::cout << dt << " " << time << std::endl;
 
         s.Draw(window);
 
         window.display();
 
+        time += dt;
         dt = deltaTime.restart().asSeconds();
     }
 

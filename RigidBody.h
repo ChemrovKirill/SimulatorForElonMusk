@@ -63,7 +63,14 @@ private:
 	float angle_velocity;
 	float angle_acceleration;
 
-	Force forces[8]; //ѕеределать в set!!!
+	float diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
+	//–ассто€ние от центра масс до левого верхнего угла
+	float b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
+	//угол между горизонтом и отрезком, соедин€ющим левый верхний угол и центр масс
+
+	VertexArray way;
+
+	Force forces[16]; //ѕеределать в set!!!
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -88,4 +95,10 @@ public:
 	void ForceOn(int num);
 	void ForceOff(int num);
 	void UpdateForces();
+
+	void DrawMassPosition(RenderWindow& window) const;
+	void DrawBodyWay(RenderWindow& window);
+	void DeleteBodyWay(RenderWindow& window);
+	void DrawForce(RenderWindow& window, const Force& force);
+
 };
