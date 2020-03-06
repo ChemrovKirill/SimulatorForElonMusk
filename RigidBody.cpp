@@ -40,7 +40,10 @@ RigidBody::RigidBody(const String& f, const RigidBodyParameters& parameters)
 	: Object(f, parameters.position, parameters.width, parameters.height, parameters.angle),
 	mass(parameters.mass), moment_of_inertia(parameters.moment_of_inertia), mass_position(parameters.mass_position),
 	velocity(parameters.velocity), acceleration(parameters.acceleration), angle_velocity(parameters.angle_velocity),
-	angle_acceleration(parameters.angle_acceleration) {}
+	angle_acceleration(parameters.angle_acceleration) {
+	diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
+	b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
+	}
 
 float RigidBody::GetMass() const { return mass; }
 float RigidBody::GetMomentOfInertia() const { return moment_of_inertia; }
@@ -61,9 +64,6 @@ void RigidBody::SetAngleAcceleration(const float& new_angle_acceleration) { angl
 void RigidBody::UpdatePosition(const float& dt) {
 	Vector2f new_position;
 	float new_angle;
-	float diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
-	//–ассто€ние от центра масс до левого верхнего угла
-	float b = atan(GetHeight() / GetWidth());
 
 	new_position.x = GetPosition().x + velocity.x * dt -
 		RAD * angle_velocity * diag * dt * cos(RAD * GetAngle() + b + PI / 2);
@@ -114,6 +114,42 @@ void RigidBody::UpdateForces() {
 
 	SetAcceleration(new_acceleration);
 	SetAngleAcceleration(new_angle_accelaration);
+}
+
+
+void RigidBody::DrawMassPosition(RenderWindow& window) const {
+	CircleShape shape(10.f);
+	shape.setFillColor(Color::Red);
+	shape.setPosition(
+		GetPosition().x + diag * cos(RAD * GetAngle() + b) - 10,
+		GetPosition().y + diag * sin(RAD * GetAngle() + b) - 10
+	);
+	window.draw(shape);
+}
+
+void RigidBody::DrawBodyWay(RenderWindow& window) {
+	way.setPrimitiveType(LinesStrip);
+	way.append(Vertex(Vector2f(GetPosition().x + diag * cos(RAD * GetAngle() + b),
+							   GetPosition().y + diag * sin(RAD * GetAngle() + b)),
+							   Color::Red
+	));
+	window.draw(way);
+}
+
+void RigidBody::DeleteBodyWay(RenderWindow& window) {
+	way.clear();
+}
+
+void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
+	VertexArray force_line;
+	force_line.setPrimitiveType(Lines);
+	force_line.append(Vertex(Vector2f(
+
+		
+		GetPosition().x + cos(RAD * GetAngle() + b) * GetWidth() * force.force_point.x,
+		GetPosition().y + sin(RAD * GetAngle() + b)) * GetHeight()* force.force_point.y,
+		Color::Green
+	));
 }
 
 Force Force::operator = (const Force& f) {
