@@ -2,6 +2,8 @@
 
 #include "Object.h"
 #include <cmath>
+#include <set>
+#include <string>
 
 #define PI 3.1415f
 #define RAD (PI / 180.f)
@@ -13,9 +15,9 @@ struct RigidBodyParameters {
 	float height;
 	float width;
 	float angle;
-
+	
 	float mass;
-	Vector2f mass_position; //принимает значения от 0 до 1
+	Vector2f mass_position; //ГЇГ°ГЁГ­ГЁГ¬Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГї Г®ГІ 0 Г¤Г® 1
 	float moment_of_inertia;
 
 	Vector2f velocity;
@@ -42,20 +44,20 @@ struct Force {
 	bool is_force_field;
 
 	float force;
-	Vector2f force_vector; //если сила создает поле, то вектор - напряженность поля, иначе
-						   //единичный вектор, направленный относительно ориентации коробля: 
-						   //(0,-1) - вверх относительно носа, (0,1) - вниз, (1,0) - вправо, (-1,0) - влево
-	Vector2f force_point;  //точка приложения силы, принимает значения от 0 до 1
+	Vector2f force_vector; //ГҐГ±Г«ГЁ Г±ГЁГ«Г  Г±Г®Г§Г¤Г ГҐГІ ГЇГ®Г«ГҐ, ГІГ® ГўГҐГЄГІГ®Г° - Г­Г ГЇГ°ГїГ¦ГҐГ­Г­Г®Г±ГІГј ГЇГ®Г«Гї, ГЁГ­Г Г·ГҐ
+						   //ГҐГ¤ГЁГ­ГЁГ·Г­Г»Г© ГўГҐГЄГІГ®Г°, Г­Г ГЇГ°Г ГўГ«ГҐГ­Г­Г»Г© Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г®Г°ГЁГҐГ­ГІГ Г¶ГЁГЁ ГЄГ®Г°Г®ГЎГ«Гї: 
+						   //(0,-1) - ГўГўГҐГ°Гµ Г®ГІГ­Г®Г±ГЁГІГҐГ«ГјГ­Г® Г­Г®Г±Г , (0,1) - ГўГ­ГЁГ§, (1,0) - ГўГЇГ°Г ГўГ®, (-1,0) - ГўГ«ГҐГўГ®
+	Vector2f force_point;  //ГІГ®Г·ГЄГ  ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї Г±ГЁГ«Г», ГЇГ°ГЁГ­ГЁГ¬Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГї Г®ГІ 0 Г¤Г® 1
 
 	Force();
 	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
 };
 
 class RigidBody : public Object {
-private:
+protected:
 	float mass;
-	Vector2f mass_position; //принимает значения от 0 до 1
-	float moment_of_inertia; //Добавить авторассчет момента инерции и запихать в класс арктангенс и diag!!!
+	Vector2f mass_position; //ГЇГ°ГЁГ­ГЁГ¬Г ГҐГІ Г§Г­Г Г·ГҐГ­ГЁГї Г®ГІ 0 Г¤Г® 1
+	float moment_of_inertia; //Г„Г®ГЎГ ГўГЁГІГј Г ГўГІГ®Г°Г Г±Г±Г·ГҐГІ Г¬Г®Г¬ГҐГ­ГІГ  ГЁГ­ГҐГ°Г¶ГЁГЁ ГЁ Г§Г ГЇГЁГµГ ГІГј Гў ГЄГ«Г Г±Г± Г Г°ГЄГІГ Г­ГЈГҐГ­Г± ГЁ diag!!!
 
 	Vector2f velocity;
 	Vector2f acceleration;
@@ -64,13 +66,13 @@ private:
 	float angle_acceleration;
 
 	float diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
-	//Расстояние от центра масс до левого верхнего угла
+	//ГђГ Г±Г±ГІГ®ГїГ­ГЁГҐ Г®ГІ Г¶ГҐГ­ГІГ°Г  Г¬Г Г±Г± Г¤Г® Г«ГҐГўГ®ГЈГ® ГўГҐГ°ГµГ­ГҐГЈГ® ГіГЈГ«Г 
 	float b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
-	//угол между горизонтом и отрезком, соединяющим левый верхний угол и центр масс
+	//ГіГЈГ®Г« Г¬ГҐГ¦Г¤Гі ГЈГ®Г°ГЁГ§Г®Г­ГІГ®Г¬ ГЁ Г®ГІГ°ГҐГ§ГЄГ®Г¬, Г±Г®ГҐГ¤ГЁГ­ГїГѕГ№ГЁГ¬ Г«ГҐГўГ»Г© ГўГҐГ°ГµГ­ГЁГ© ГіГЈГ®Г« ГЁ Г¶ГҐГ­ГІГ° Г¬Г Г±Г±
 
 	VertexArray way;
 
-	Force forces[16]; //Переделать в set!!!
+	std::map<String,Force> forces;
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -91,9 +93,9 @@ public:
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
 	void UpdatePosition(const float& dt);
-	void AddForce(const Force& new_force, int num);
-	void ForceOn(int num);
-	void ForceOff(int num);
+	void AddForce(const Force& new_force, const std::string& name);
+	void ForceOn(const std::string& name);
+	void ForceOff(const std::string& name);
 	void UpdateForces();
 
 	void DrawMassPosition(RenderWindow& window) const;

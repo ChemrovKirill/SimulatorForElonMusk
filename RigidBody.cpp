@@ -75,18 +75,18 @@ void RigidBody::UpdatePosition(const float& dt) {
 	SetVelocuty(Vector2f(velocity.x + acceleration.x * dt, velocity.y + acceleration.y * dt));
 	SetAngleVelocity(angle_velocity + angle_acceleration * dt);
 
-	SetObjectPosition(new_position, new_angle);
+	SetPosition(new_position, new_angle);
 	UpdateForces();
 }
 
-void RigidBody::AddForce(const Force& new_force, int num) { 
-	forces[num] = new_force; 
+void RigidBody::AddForce(const Force& new_force, const std::string& name) { 
+	forces[name] = new_force;
 }
-void RigidBody::ForceOn(int num) {
-	forces[num].exist = true; 
+void RigidBody::ForceOn(const std::string& name) {
+	forces[name].exist = true; 
 }
-void RigidBody::ForceOff(int num) {
-	forces[num].exist = false; 
+void RigidBody::ForceOff(const std::string& name) {
+	forces[name].exist = false; 
 }
 
 void RigidBody::UpdateForces() {
@@ -94,20 +94,20 @@ void RigidBody::UpdateForces() {
 	float new_angle_accelaration = 0;
 
 	for (auto i : forces) {
-		if (i.exist == true) {
-			if (i.is_force_field == true) {
-				new_acceleration.x += i.force_vector.x;
-				new_acceleration.y += i.force_vector.y;
+		if (i.second.exist == true) {
+			if (i.second.is_force_field == true) {
+				new_acceleration.x += i.second.force_vector.x;
+				new_acceleration.y += i.second.force_vector.y;
 			}
 			else {
-				float Fx = i.force * i.force_vector.x;
-				float Fy = i.force * i.force_vector.y;
+				float Fx = i.second.force * i.second.force_vector.x;
+				float Fy = i.second.force * i.second.force_vector.y;
 
 				new_acceleration.x += (Fx * cos(RAD * GetAngle()) - Fy * sin(RAD * GetAngle())) / mass;
 				new_acceleration.y += (Fx * sin(RAD * GetAngle()) + Fy * cos(RAD * GetAngle())) / mass;
 
-				new_angle_accelaration -= (Fx * GetHeight() * (mass_position.y - i.force_point.y)) / moment_of_inertia;
-				new_angle_accelaration -= (Fy * GetWidth() * (mass_position.x - i.force_point.x)) / moment_of_inertia;
+				new_angle_accelaration -= (Fx * GetHeight() * (mass_position.y - i.second.force_point.y)) / moment_of_inertia;
+				new_angle_accelaration -= (Fy * GetWidth() * (mass_position.x - i.second.force_point.x)) / moment_of_inertia;
 			}
 		}
 	}
