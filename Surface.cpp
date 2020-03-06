@@ -5,6 +5,7 @@ size_t screen_y = VideoMode::getDesktopMode().height;
 size_t window_x = screen_x - 200;
 size_t window_y = screen_y - 200;
 
+
 Surface::Surface() {
     pixel_size = window_x;
     center_position = Vector2f(0, window_y - 100);
@@ -42,6 +43,4 @@ Surface::Surface() {
     }
 }
 
-void Surface::Draw(RenderWindow& window) const {
-    window.draw(surface, &texture);
-}
+

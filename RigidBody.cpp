@@ -117,7 +117,6 @@ void RigidBody::UpdateForces() {
 }
 
 
-
 void RigidBody::DrawMassPosition(RenderWindow& window) const {
 	CircleShape shape(10.f);
 	shape.setFillColor(Color::Red);
@@ -153,3 +152,11 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
 	));
 }
 
+Force Force::operator = (const Force& f) {
+	exist = f.exist;
+	is_force_field = f.is_force_field;
+	force = f.force;
+	force_vector = f.force_vector;
+	force_point = f.force_point;
+	return f;
+}

@@ -51,6 +51,7 @@ struct Force {
 
 	Force();
 	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
+	Force operator = (const Force&);
 };
 
 class RigidBody : public Object {
@@ -92,7 +93,7 @@ public:
 	void SetAngleVelocity(const float& new_angle_velocity);
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
-	void UpdatePosition(const float& dt);
+	virtual void UpdatePosition(const float& dt);
 	void AddForce(const Force& new_force, const std::string& name);
 	void ForceOn(const std::string& name);
 	void ForceOff(const std::string& name);
