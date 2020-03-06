@@ -115,3 +115,12 @@ void RigidBody::UpdateForces() {
 	SetAcceleration(new_acceleration);
 	SetAngleAcceleration(new_angle_accelaration);
 }
+
+Force Force::operator = (const Force& f) {
+	exist = f.exist;
+	is_force_field = f.is_force_field;
+	force = f.force;
+	force_vector = f.force_vector;
+	force_point = f.force_point;
+	return f;
+}

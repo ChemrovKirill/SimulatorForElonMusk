@@ -9,23 +9,29 @@ extern size_t screen_y;
 extern size_t window_x;
 extern size_t window_y;
 
+void Surface::Draw(RenderWindow& window) const {
+    window.draw(surface, &texture);
+}
+
 using namespace sf;
 
 int main() {
     RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
-    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 200), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
+    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
+    ShipBody.AddForce(Force(true, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)), "Gravity");
     Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
     std::map<std::string, Engine> engines;
-    engines["left"] = Engine(engine_object, Vector2f(0, 1), 500);
-    engines["right"] = Engine(engine_object, Vector2f(1, 1), 500);
+    engines["left"] = Engine(engine_object, Vector2f(0, 1), 1000);
+    engines["right"] = Engine(engine_object, Vector2f(1, 1), 1000);
 
     Ship ship1(ShipBody, engines);
 
     Surface s;
     float dt = 0.01f;
     Clock deltaTime;
+
     while (window.isOpen())
     {
         Event event;
@@ -36,6 +42,9 @@ int main() {
         }
 
         window.clear();
+
+        ship1.Control();
+        ship1.UpdatePosition(dt);
 
         s.Draw(window);
         ship1.Draw(window);
