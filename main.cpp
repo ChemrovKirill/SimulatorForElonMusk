@@ -13,7 +13,7 @@ extern size_t window_y;
 
 using namespace sf;
 
-int main() {
+int main1() {
     RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
     RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
@@ -55,10 +55,10 @@ int main() {
     return 0;
 }
 
-int main1() {
+int main() {
     RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
 
-    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 100, 50, 0, 1, 100, Vector2f(0.5, 0.5), 
+    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200) , 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
     RigidBody Body2("test2.png", RigidBodyParameters(Vector2f(100, 1000) , 1000, 50, 0, 10, 2000, Vector2f(0.5, 0.5), 
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
@@ -66,15 +66,15 @@ int main1() {
     Body2.AddForce(Force(false, 1000, Vector2f(0, -1), Vector2f(0, 0)), "0");
     //Body2.AddForce(Force(false, 1, Vector2f(1, 0), Vector2f(0, 1)), 1);
 
-    Body1.AddForce(Force(false, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)), "0");
-    Body1.AddForce(Force(false, 500, Vector2f(0, 1), Vector2f(0.5, 0.5)), "1");
-    Body1.AddForce(Force(false, 500, Vector2f(1, 0), Vector2f(0.5, 0.5)), "2");
-    Body1.AddForce(Force(false, 500, Vector2f(-1, 0), Vector2f(0.5, 0.5)), "3");
-    Body1.AddForce(Force(false, 500, Vector2f(0, -1), Vector2f(0, 0)), "4");
-    Body1.AddForce(Force(false, 500, Vector2f(0, 1), Vector2f(1, 1)), "5");
-    Body1.AddForce(Force(false, 500, Vector2f(0, 1), Vector2f(0, 1)), "6");
-    Body1.AddForce(Force(false, 500, Vector2f(0, -1), Vector2f(1, 0)), "7");
-    Body1.AddForce(Force(true, 1000, Vector2f(0, 400), Vector2f(0, 0)), "8");
+    Body1.AddForce(Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), "0");
+    Body1.AddForce(Force(false, 400, Vector2f(0, 1), Vector2f(0.5, 0.5)), "1");
+    Body1.AddForce(Force(false, 400, Vector2f(1, 0), Vector2f(0.5, 0.5)), "2");
+    Body1.AddForce(Force(false, 400, Vector2f(-1, 0), Vector2f(0.5, 0.5)), "3");
+    Body1.AddForce(Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)), "4");
+    Body1.AddForce(Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), "5");
+    Body1.AddForce(Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), "6");
+    Body1.AddForce(Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)), "7");
+    Body1.AddForce(Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)), "8");
     Body1.ForceOn("8");
 
     Surface s;
@@ -115,7 +115,7 @@ int main1() {
         else {
             Body1.ForceOff("3");
         }
-        if (Keyboard::isKeyPressed(Keyboard::E)) {
+        if (Keyboard::isKeyPressed(Keyboard::Q)) {
             Body1.ForceOn("4");
             Body1.ForceOn("5");
         }
@@ -123,7 +123,7 @@ int main1() {
             Body1.ForceOff("4");
             Body1.ForceOff("5");
         }
-        if (Keyboard::isKeyPressed(Keyboard::Q)) {
+        if (Keyboard::isKeyPressed(Keyboard::E)) {
             Body1.ForceOn("6");
             Body1.ForceOn("7");
         }
@@ -140,10 +140,17 @@ int main1() {
         Body1.Draw(window);
         Body1.DrawMassPosition(window);
         Body1.DrawBodyWay(window);
-        
+        Body1.DrawSpeed(window);
+        Body1.DrawForce(window, Body1.GetForce("0"));
+        Body1.DrawForce(window, Body1.GetForce("1"));
+        Body1.DrawForce(window, Body1.GetForce("2"));
+        Body1.DrawForce(window, Body1.GetForce("3"));
+        Body1.DrawForce(window, Body1.GetForce("4"));
+        Body1.DrawForce(window, Body1.GetForce("5"));
+        Body1.DrawForce(window, Body1.GetForce("6"));
+        Body1.DrawForce(window, Body1.GetForce("7"));
+        Body1.DrawForce(window, Body1.GetForce("8"));
         //Body2.Draw(window);
-
-        std::cout << dt << " " << time << std::endl;
 
         s.Draw(window);
 
