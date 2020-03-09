@@ -36,14 +36,17 @@ Force::Force(bool field, float new_force, Vector2f start_vector, Vector2f start_
 
 
 
-RigidBody::RigidBody(const String& f, const RigidBodyParameters& parameters) 
+RigidBody::RigidBody(const String& f, const RigidBodyParameters& parameters)
 	: Object(f, parameters.position, parameters.width, parameters.height, parameters.angle),
 	mass(parameters.mass), moment_of_inertia(parameters.moment_of_inertia), mass_position(parameters.mass_position),
 	velocity(parameters.velocity), acceleration(parameters.acceleration), angle_velocity(parameters.angle_velocity),
 	angle_acceleration(parameters.angle_acceleration) {
 	diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
-	b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
+	if (GetWidth() * GetMassPosition().x != 0) {
+		b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
 	}
+	else { b = 0; }
+}
 
 float RigidBody::GetMass() const { return mass; }
 float RigidBody::GetMomentOfInertia() const { return moment_of_inertia; }
@@ -52,6 +55,7 @@ Vector2f RigidBody::GetVelocuty() const { return velocity; }
 Vector2f RigidBody::GetAcceleration() const { return acceleration; }
 float RigidBody::GetAngleVelocity() const { return angle_velocity; }
 float RigidBody::GetAngleAcceleration() const { return angle_acceleration; }
+Force RigidBody::GetForce(const std::string& name) const { return forces.at(name); }
 
 void RigidBody::SetMass(const float& new_mass) { mass = new_mass; }
 void RigidBody::SetMomentOfInertia(const float& new_moment_of_inertia) { moment_of_inertia = new_moment_of_inertia; }
@@ -79,18 +83,18 @@ void RigidBody::UpdatePosition(const float& dt) {
 	UpdateForces();
 }
 
-void RigidBody::AddForce(const Force& new_force, const std::string& name) { 
+void RigidBody::AddForce(const Force& new_force, const std::string& name) {
 	forces[name] = new_force;
 }
 void RigidBody::ForceOn(const std::string& name) {
-	forces[name].exist = true; 
+	forces[name].exist = true;
 }
 void RigidBody::ForceOff(const std::string& name) {
-	forces[name].exist = false; 
+	forces[name].exist = false;
 }
 
 void RigidBody::UpdateForces() {
-	Vector2f new_acceleration(0,0);
+	Vector2f new_acceleration(0, 0);
 	float new_angle_accelaration = 0;
 
 	for (auto i : forces) {
@@ -106,7 +110,7 @@ void RigidBody::UpdateForces() {
 				new_acceleration.x += (Fx * cos(RAD * GetAngle()) - Fy * sin(RAD * GetAngle())) / mass;
 				new_acceleration.y += (Fx * sin(RAD * GetAngle()) + Fy * cos(RAD * GetAngle())) / mass;
 
-				new_angle_accelaration -= (Fx * GetHeight() * (mass_position.y - i.second.force_point.y)) / moment_of_inertia;
+				new_angle_accelaration += (Fx * GetHeight() * (mass_position.y - i.second.force_point.y)) / moment_of_inertia;
 				new_angle_accelaration -= (Fy * GetWidth() * (mass_position.x - i.second.force_point.x)) / moment_of_inertia;
 			}
 		}
@@ -130,8 +134,8 @@ void RigidBody::DrawMassPosition(RenderWindow& window) const {
 void RigidBody::DrawBodyWay(RenderWindow& window) {
 	way.setPrimitiveType(LinesStrip);
 	way.append(Vertex(Vector2f(GetPosition().x + diag * cos(RAD * GetAngle() + b),
-							   GetPosition().y + diag * sin(RAD * GetAngle() + b)),
-							   Color::Red
+		GetPosition().y + diag * sin(RAD * GetAngle() + b)),
+		Color::Red
 	));
 	window.draw(way);
 }
@@ -141,16 +145,77 @@ void RigidBody::DeleteBodyWay(RenderWindow& window) {
 }
 
 void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
-	VertexArray force_line;
-	force_line.setPrimitiveType(Lines);
-	force_line.append(Vertex(Vector2f(
+	if (force.exist == true) {
+		VertexArray force_line;
+		force_line.setPrimitiveType(Lines);
 
-		
-		GetPosition().x + cos(RAD * GetAngle() + b) * GetWidth() * force.force_point.x,
-		GetPosition().y + sin(RAD * GetAngle() + b)) * GetHeight()* force.force_point.y,
-		Color::Green
-	));
+		if (force.is_force_field == false) {
+			float diag_force = sqrt(pow(GetWidth() * force.force_point.x, 2) + pow(GetHeight() * force.force_point.y, 2));
+			float diag_force_end = sqrt(
+				pow(GetWidth() * force.force_point.x + force.force * force.force_vector.x, 2) +
+				pow(GetHeight() * force.force_point.y + force.force * force.force_vector.y, 2)
+			);
+			float x, y;
+
+			float fb;
+			x = GetWidth() * force.force_point.x;
+			y = GetHeight()* force.force_point.y;
+			if (x >= 0 && y != 0) { fb = atan(y / x); }
+			else if (x < 0) { fb = atan(y / x) - PI; }
+			else { fb = 0; }
+
+			float feb;
+			x = GetWidth() * force.force_point.x + force.force * force.force_vector.x;
+			y = GetHeight() * force.force_point.y + force.force * force.force_vector.y;
+
+			if (x >= 0 && y != 0) { feb = atan(y / x); }
+			else if (x < 0) { feb = atan(y / x) - PI; }
+			else { feb = 0; }
+
+			force_line.append(Vertex(Vector2f(
+				GetPosition().x + cos(RAD * GetAngle() + fb) * diag_force,
+				GetPosition().y + sin(RAD * GetAngle() + fb) * diag_force),
+				Color::Green
+			));
+			force_line.append(Vertex(Vector2f(
+				GetPosition().x + cos(RAD * GetAngle() + feb) * diag_force_end,
+				GetPosition().y + sin(RAD * GetAngle() + feb) * diag_force_end),
+				Color::Green
+			));
+		}
+		else {
+			force_line.append(Vertex(Vector2f(
+				GetPosition().x + cos(RAD * GetAngle() + b) * diag,
+				GetPosition().y + sin(RAD * GetAngle() + b) * diag),
+				Color::Green
+			));
+			force_line.append(Vertex(Vector2f(
+				GetPosition().x + cos(RAD * GetAngle() + b) * diag + force.force_vector.x * mass,
+				GetPosition().y + sin(RAD * GetAngle() + b) * diag + force.force_vector.y * mass),
+				Color::Green
+			));
+		}
+		window.draw(force_line);
+	}
 }
+void RigidBody::DrawSpeed(RenderWindow& window) {
+	VertexArray speed_line;
+	speed_line.setPrimitiveType(Lines);
+
+	speed_line.append(Vertex(Vector2f(
+		GetPosition().x + cos(RAD * GetAngle() + b) * diag,
+		GetPosition().y + sin(RAD * GetAngle() + b) * diag),
+		Color::Blue
+	));
+	speed_line.append(Vertex(Vector2f(
+		GetPosition().x + cos(RAD * GetAngle() + b) * diag + velocity.x * mass,
+		GetPosition().y + sin(RAD * GetAngle() + b) * diag + velocity.y * mass),
+		Color::Blue
+	));
+	window.draw(speed_line);
+}
+
+
 
 Force Force::operator = (const Force& f) {
 	exist = f.exist;
