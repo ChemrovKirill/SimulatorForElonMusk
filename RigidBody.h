@@ -84,7 +84,8 @@ public:
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
 	float GetAngleAcceleration() const;
-	
+	Force GetForce(const std::string& name) const;
+
 	void SetMass(const float& new_mass);
 	void SetMomentOfInertia(const float& new_moment_of_inertia);
 	void SetMassPosition(const Vector2f& new_mass_position);
@@ -103,5 +104,6 @@ public:
 	void DrawBodyWay(RenderWindow& window);
 	void DeleteBodyWay(RenderWindow& window);
 	void DrawForce(RenderWindow& window, const Force& force);
+	void DrawSpeed(RenderWindow& window);
 
 };
