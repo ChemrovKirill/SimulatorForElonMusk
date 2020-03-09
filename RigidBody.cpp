@@ -83,7 +83,7 @@ void RigidBody::UpdatePosition(const float& dt) {
 	UpdateForces();
 }
 
-void RigidBody::AddForce(const Force& new_force, const std::string& name) {
+void RigidBody::AddForce(const std::string& name, const Force& new_force) {
 	forces[name] = new_force;
 }
 void RigidBody::ForceOn(const std::string& name) {
@@ -144,7 +144,7 @@ void RigidBody::DeleteBodyWay(RenderWindow& window) {
 	way.clear();
 }
 
-void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
+void RigidBody::DrawForce(RenderWindow& window, const Force& force) const {
 	if (force.exist == true) {
 		VertexArray force_line;
 		force_line.setPrimitiveType(Lines);
@@ -198,7 +198,8 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
 		window.draw(force_line);
 	}
 }
-void RigidBody::DrawSpeed(RenderWindow& window) {
+
+void RigidBody::DrawSpeed(RenderWindow& window) const {
 	VertexArray speed_line;
 	speed_line.setPrimitiveType(Lines);
 

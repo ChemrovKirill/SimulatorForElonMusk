@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <string>
 
 using namespace sf;
 
@@ -19,7 +20,7 @@ protected:
 	Sound sound;
 public:
 	Object() : height(0), width(0), angle(0) {}
-	Object(const String& f, const Vector2f new_position,
+	Object(const String& f, const Vector2f& new_position,
 		const float& w, const float& h, const float& start_angle); //косяк с углом!!!
 
 	bool Exist() const;
@@ -27,11 +28,12 @@ public:
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
+	std::string GetFile() const;
 
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
-	virtual void Draw(RenderWindow& window) const;
+	void Draw(RenderWindow& window) const;
 	void Rotate(const float& new_angle);
 };

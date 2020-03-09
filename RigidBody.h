@@ -17,7 +17,7 @@ struct RigidBodyParameters {
 	float angle;
 	
 	float mass;
-	Vector2f mass_position; //ïðèíèìàåò çíà÷åíèÿ îò 0 äî 1
+	Vector2f mass_position; //accepts values from 0 to 1
 	float moment_of_inertia;
 
 	Vector2f velocity;
@@ -44,10 +44,10 @@ struct Force {
 	bool is_force_field;
 
 	float force;
-	Vector2f force_vector; //åñëè ñèëà ñîçäàåò ïîëå, òî âåêòîð - íàïðÿæåííîñòü ïîëÿ, èíà÷å
-						   //åäèíè÷íûé âåêòîð, íàïðàâëåííûé îòíîñèòåëüíî îðèåíòàöèè êîðîáëÿ: 
-						   //(0,-1) - ââåðõ îòíîñèòåëüíî íîñà, (0,1) - âíèç, (1,0) - âïðàâî, (-1,0) - âëåâî
-	Vector2f force_point;  //òî÷êà ïðèëîæåíèÿ ñèëû, ïðèíèìàåò çíà÷åíèÿ îò 0 äî 1
+	Vector2f force_vector; //if the force creates a field, then the vector is the field strength, otherwise
+						   //unit vector directed relative to the orientation of the box: 
+						   //(0,-1) - up relative to the nose, (0,1) - down, (1,0) - right, (-1,0) - left
+	Vector2f force_point;  //the point of application of force, takes values from 0 to 1
 
 	Force();
 	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
@@ -57,8 +57,8 @@ struct Force {
 class RigidBody : public Object {
 protected:
 	float mass;
-	Vector2f mass_position; //ïðèíèìàåò çíà÷åíèÿ îò 0 äî 1
-	float moment_of_inertia; //Äîáàâèòü àâòîðàññ÷åò ìîìåíòà èíåðöèè è çàïèõàòü â êëàññ àðêòàíãåíñ è diag!!!
+	Vector2f mass_position; //accepts values from 0 to 1
+	float moment_of_inertia; //Add an auto-calculation of the moment of inertia and push it into the arctangent and diag class!!!
 
 	Vector2f velocity;
 	Vector2f acceleration;
@@ -67,9 +67,9 @@ protected:
 	float angle_acceleration;
 
 	float diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
-	//Ðàññòîÿíèå îò öåíòðà ìàññ äî ëåâîãî âåðõíåãî óãëà
+	//Distance from the center of mass to the upper-left corner
 	float b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
-	//óãîë ìåæäó ãîðèçîíòîì è îòðåçêîì, ñîåäèíÿþùèì ëåâûé âåðõíèé óãîë è öåíòð ìàññ
+	//the angle between the horizon and the segment connecting the upper-left corner and the center of mass
 
 	VertexArray way;
 
@@ -94,8 +94,8 @@ public:
 	void SetAngleVelocity(const float& new_angle_velocity);
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
-	virtual void UpdatePosition(const float& dt);
-	void AddForce(const Force& new_force, const std::string& name);
+	void UpdatePosition(const float& dt);
+	void AddForce(const std::string& name, const Force& new_force);
 	void ForceOn(const std::string& name);
 	void ForceOff(const std::string& name);
 	void UpdateForces();
@@ -103,7 +103,6 @@ public:
 	void DrawMassPosition(RenderWindow& window) const;
 	void DrawBodyWay(RenderWindow& window);
 	void DeleteBodyWay(RenderWindow& window);
-	void DrawForce(RenderWindow& window, const Force& force);
-	void DrawSpeed(RenderWindow& window);
-
+	void DrawForce(RenderWindow& window, const Force& force) const;
+	void DrawSpeed(RenderWindow& window) const;
 };

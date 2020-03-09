@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-Object::Object(const String& f, const Vector2f new_position,
+Object::Object(const String& f, const Vector2f& new_position,
 	const float& w, const float& h, const float& start_angle)
 	: file(f), height(h), width(w), position(new_position), angle(start_angle) {
 	//buffer.loadFromFile("sounds/" + f_sound);
@@ -21,6 +21,7 @@ Vector2f Object::GetPosition() const { return position; }
 float Object::GetHeight() const { return height; }
 float Object::GetWidth() const { return width; }
 float Object::GetAngle() const { return angle; }
+std::string Object::GetFile() const { return file; }
 
 void Object::SetHeight(const float& new_height) { height = new_height; }
 void Object::SetWidth(const float& new_width) { width = new_width; }
