@@ -6,7 +6,7 @@ Ship::Ship(const RigidBody& rb, std::map<std::string, Engine>& _engines)
 	for (auto& e : _engines) {
 		AddForce(e.second.GetForce(), e.first);
 		e.second.SetPosition(Vector2f(position.x + width * e.second.GetRelPos().x - e.second.GetWidth() / 2,
-			position.y + height * e.second.GetRelPos().y - e.second.GetHeight() / 2), 0);
+			position.y + height * e.second.GetRelPos().y - e.second.GetHeight() / 2), angle);
 		engines[e.first] = e.second;
 	}
 }
@@ -36,9 +36,9 @@ void Ship::Control() {
 
 void Ship::UpdatePosition(const float& dt) {
 	for (auto& e : engines) {
+		e.second.SetPosition(Vector2f(position.x + width * e.second.GetRelPos().x - e.second.GetWidth() / 2,
+			position.y + height * e.second.GetRelPos().y - e.second.GetHeight() / 2), angle);
 		forces[e.first] = e.second.GetForce();
-	}
-	for (auto& f : forces) {
 	}
 	RigidBody::UpdatePosition(dt);
 }

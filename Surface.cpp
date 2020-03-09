@@ -44,3 +44,6 @@ Surface::Surface() {
 }
 
 
+void Surface::Draw(RenderWindow& window) const {
+    window.draw(surface, &texture);
+}

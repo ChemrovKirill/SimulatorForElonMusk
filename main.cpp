@@ -6,17 +6,10 @@
 #include "Surface.h"
 #include "Ship.h"
 
-
-
-
 extern size_t screen_x;
 extern size_t screen_y;
 extern size_t window_x;
 extern size_t window_y;
-
-void Surface::Draw(RenderWindow& window) const {
-    window.draw(surface, &texture);
-}
 
 using namespace sf;
 
@@ -28,8 +21,8 @@ int main() {
     ShipBody.AddForce(Force(true, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)), "Gravity");
     Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
     std::map<std::string, Engine> engines;
-    engines["left"] = Engine(engine_object, Vector2f(0, 1), 1000);
-    engines["right"] = Engine(engine_object, Vector2f(1, 1), 1000);
+    engines["left"] = Engine(engine_object, Vector2f(0, 1), 0, 1000);
+    engines["right"] = Engine(engine_object, Vector2f(1, 1), 0, 1000);
 
     Ship ship1(ShipBody, engines);
 

@@ -7,10 +7,11 @@ private:
 	Force force;
 	bool on;
 	bool if_controled = false;
+	float angle;
 public:
-	Engine() : on(false), relative_position(0, 0) {}
-	Engine(const Object& object, const Vector2f& rel_pos, const float& force_value)
-		: Object(object), on(false), relative_position(rel_pos), force(Force(0, force_value, Vector2f(0, -1), rel_pos)) {}
+	Engine() : on(false), relative_position(0, 0), angle(0) {}
+	Engine(const Object& object, const Vector2f& rel_pos, float _angle, const float& force_value)
+		: Object(object), on(false), relative_position(rel_pos), angle(_angle), force(Force(0, force_value, Vector2f(0, -1), rel_pos)) {}
 
 	Force GetForce() const { return force; }
 	bool If_on() const { return on; }
