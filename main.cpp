@@ -6,24 +6,92 @@
 #include "Surface.h"
 #include "Ship.h"
 
-extern size_t screen_x;
-extern size_t screen_y;
-extern size_t window_x;
-extern size_t window_y;
-
 using namespace sf;
 
 void Test1();
 void Test2();
+void Test3();
 
 int main() {
     //Test1();
-    Test2();
+    //Test2();
+    Test3();
     return 0;
 }
 
+void Test3() {
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
+
+    Surface s("surface.png", 10);
+    float dt = 0, time = 0;
+    Clock deltaTime;
+
+    sf::View view;
+    view.setCenter(sf::Vector2f(window_x()/2, window_y()/2));
+    view.setSize(sf::Vector2f(window_x(), window_y()));
+
+    while (window.isOpen())
+    {
+        Vector2i prev_mouse_pos;
+        Event event;
+        while (window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+                // window closed
+            case sf::Event::Closed:
+                window.close();
+                break;
+
+                // key pressed
+            case sf::Event::KeyPressed:
+             
+                break;
+                // catch the resize events
+            case sf::Event::Resized:
+            {
+                // update the view to the new size of the window
+                //sf::FloatRect ResizedArea(0.f, 0.f, event.size.width, event.size.height);
+                view.setSize(event.size.width, event.size.height);
+                //window.setView(View(ResizedArea));
+                break;
+            }
+            default:
+                break;
+            }
+        }
+
+        window.clear();
+
+        if (Keyboard::isKeyPressed(Keyboard::Up)) {
+            view.move({ 0,-2 });
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Down)) {
+            view.move({0 ,2 });
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+            view.move({ 2, 0 });
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Left)) {
+            view.move({ -2, 0 });
+        }
+        window.setView(view);
+
+        if (Keyboard::isKeyPressed(Keyboard::R)) {
+            s.Generate(30);
+        }
+     
+        s.Draw(window);
+
+        window.display();
+
+        time += dt;
+        dt = deltaTime.restart().asSeconds();
+    }
+}
+
 void Test2() {
-    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
@@ -44,7 +112,7 @@ void Test2() {
     Body1.AddForce(Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)), "8");
     Body1.ForceOff("8");
 
-    Surface s;
+    Surface s("surface.png", 10);
     float dt = 0, time = 0;
     Clock deltaTime;
     while (window.isOpen())
@@ -129,7 +197,7 @@ void Test2() {
 }
 
 void Test1() {
-    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
     RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
@@ -141,7 +209,7 @@ void Test1() {
 
     Ship ship1(ShipBody, engines);
 
-    Surface s;
+    Surface s("surface.png", 10);
     float dt = 0.01f;
     Clock deltaTime;
 
