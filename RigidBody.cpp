@@ -226,7 +226,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 		end = s.Get_VertexCount();
 	}
 	for (int i = start; i < end; ++i) {
-
+		
 	}
 }
 

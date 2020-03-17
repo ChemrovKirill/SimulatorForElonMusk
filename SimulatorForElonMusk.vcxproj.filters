@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\GeomShapesLib">
+      <UniqueIdentifier>{84d01c58-fd95-4508-b021-5d478dfc0ff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +36,30 @@
     <ClCompile Include="Ship.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeomShapesLib\Circle.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Ellipse.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Line.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Point.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Polygon.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Rectangle.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Square.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomShapesLib\Triangle.cpp">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -43,6 +70,36 @@
     </ClInclude>
     <ClInclude Include="Ship.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Circle.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Ellipse.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\GeomShapes.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Line.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Point.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Polygon.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Rectangle.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Shape.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Square.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Triangle.h">
+      <Filter>Resource Files\GeomShapesLib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

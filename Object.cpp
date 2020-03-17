@@ -16,14 +16,25 @@ Object::Object(const String& f, const Vector2f new_position,
 	sprite.rotate(angle);
 }
 
-std::vector<Vector2f> Object::GetVertexes() {
+void Object::VertexesUpdate() {
 	Vector2f p_1 = { width * cos(RAD * angle), width * sin(RAD * angle) };
 	Vector2f p_2 = p_1 + Vector2f(-height * sin(RAD * angle), height * cos(RAD * angle));
 	Vector2f p_3 = { height * cos(RAD * angle), height * sin(RAD * angle) };
-	vertexes.push_back(position);
-	vertexes.push_back(position + p_1);
-	vertexes.push_back(position + p_2);
-	vertexes.push_back(position + p_3);
+	if (vertexes.size >= 4) {
+		vertexes[0] = position;
+		vertexes[1] = position + p_1;
+		vertexes[2] = position + p_2;
+		vertexes[3] = position + p_3;
+	}
+	else {
+		vertexes.push_back(position);
+		vertexes.push_back(position + p_1);
+		vertexes.push_back(position + p_2);
+		vertexes.push_back(position + p_3);
+	}
+}
+
+std::vector<Vector2f> Object::GetVertexes() const {
 	return vertexes;
 }
 
@@ -42,5 +53,6 @@ void Object::SetPosition(const Vector2f& new_position, const float& new_angle) {
 
 	position = new_position;
 	angle = new_angle;
+	VertexesUpdate();
 }
 void Object::Draw(RenderWindow& window) const { window.draw(sprite); }

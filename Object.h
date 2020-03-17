@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "GeomShapesLib/GeomShapes.h"
 #include <vector>
 
 #define PI 3.1415f
@@ -14,7 +15,6 @@ protected:
 	float height, width, angle;
 	std::vector<Vector2f> vertexes;
 	bool exist = true;
-
 	String file;
 	Image image;
 	Texture texture;
@@ -32,10 +32,12 @@ public:
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
-	std::vector<Vector2f> GetVertexes();
+	void VertexesUpdate();
+	std::vector<Vector2f> GetVertexes() const ;
 
-	bool PointInside(const Vector2f& point) {
-
+	bool PointInside(const Vector2f& point) const {
+		gs::Point p1(GetVertexes()[0].x, GetVertexes()[0].y);
+		gs::Rectangle obj();
 	}
 
 	void SetHeight(const float& new_height);

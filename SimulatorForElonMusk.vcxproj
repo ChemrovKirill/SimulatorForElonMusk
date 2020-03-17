@@ -144,6 +144,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GeomShapesLib\Circle.cpp" />
+    <ClCompile Include="GeomShapesLib\Ellipse.cpp" />
+    <ClCompile Include="GeomShapesLib\Line.cpp" />
+    <ClCompile Include="GeomShapesLib\Point.cpp" />
+    <ClCompile Include="GeomShapesLib\Polygon.cpp" />
+    <ClCompile Include="GeomShapesLib\Rectangle.cpp" />
+    <ClCompile Include="GeomShapesLib\Square.cpp" />
+    <ClCompile Include="GeomShapesLib\Triangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -152,6 +160,16 @@
     <ClCompile Include="Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeomShapesLib\Circle.h" />
+    <ClInclude Include="GeomShapesLib\Ellipse.h" />
+    <ClInclude Include="GeomShapesLib\GeomShapes.h" />
+    <ClInclude Include="GeomShapesLib\Line.h" />
+    <ClInclude Include="GeomShapesLib\Point.h" />
+    <ClInclude Include="GeomShapesLib\Polygon.h" />
+    <ClInclude Include="GeomShapesLib\Rectangle.h" />
+    <ClInclude Include="GeomShapesLib\Shape.h" />
+    <ClInclude Include="GeomShapesLib\Square.h" />
+    <ClInclude Include="GeomShapesLib\Triangle.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
