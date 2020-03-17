@@ -1,5 +1,7 @@
 #include "Surface.h"
 
+#define MAX_ANGLE 70
+
 size_t screen_x() {
     return VideoMode::getDesktopMode().width;
 }
@@ -21,25 +23,32 @@ Surface::Surface(const String& f, const float& spacing)
     surface.setPrimitiveType(TriangleStrip);
     image.loadFromFile("images/" + file);
     texture.loadFromImage(image);
+    texture.setRepeated(true);
     Generate(10);
 }
 
-void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, int& i, const float& angle) {
+void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle) {
     while (point.x < x_boarder) {
         float slope_direction = 0;
-        surface.append(Vertex(point, Color::Red));
-        surface[i].texCoords = Vector2f(x_spacing * ((i / 2) % 2), down_board - point.y);
-        surface.append(Vertex(Vector2f(point.x, down_board), Color::Red));
-        ++i;
-        surface[i].texCoords = Vector2f(x_spacing * ((i / 2) % 2), 0);
-        ++i;
+        surface.append(Vertex(point, Color::White));
+        surface.append(Vertex(Vector2f(point.x, down_board), Color::White));
         if (rand() % 100 < 50) {
-            slope_direction = ((float)(rand() % 100)) / 100 - 0.5f;
-            std::cout << "1 ";
+            slope_direction = ((float)(rand() % 100)) / 100.0 - 0.5f;
         }
         point.x += x_spacing;
         point.y += (float)(rough)*slope_direction;
         point.y += -tan(RAD * angle) * x_spacing;
+    }
+}
+
+void Surface::SetTexture() {
+    for (int i = 0; i < surface.getVertexCount(); ++i) {
+        surface[i].texCoords = Vector2f(surface[i].position.x, surface[i].position.y);
+        surface[i].color = Color::Red;
+        //surface[i].texCoords = Vector2f(surface[i].position.x + x_spacing, surface[i].position.y);
+        if (surface[i].position.x == 0) {
+            iter_0 = i;
+        }
     }
 }
 
@@ -51,23 +60,31 @@ void Surface::Generate(const size_t& rough) {
     std::cout << vertex_count << std::endl;
     float angle;
     float prev_angle = 0;
-    for (int i = 0; i <= 2* vertex_count;) {
-        if (point.y > down_board * 2.0 / 3) {
+    int step = pixel_size / 30;
+    while(point.x < left_position.x + pixel_size) {
+        int down_turn_board = down_board - tan(MAX_ANGLE) * 2 * step;
+        int up_turn_board = up_board + tan(MAX_ANGLE) * 2 * step;
+        if (point.y > down_turn_board) {
             angle = rand() % 50 + 10;
         }
-        else if (point.y < up_board * 2.0 / 3) {
+        else if (point.y < up_turn_board) {
             angle = rand() % 50 - 60;
         }
         else {
-            angle = rand() % 140 - 70;
+            angle = rand() % (MAX_ANGLE*2) - MAX_ANGLE;
         }
-        if (abs(angle - prev_angle) > 60) {
-            GenerateSlope(point, point.x + pixel_size / 180, 20, i, (prev_angle + (angle - prev_angle)/3));
-            GenerateSlope(point, point.x + pixel_size / 180, 20, i, (prev_angle + 2*(angle - prev_angle) / 3));
+        if (abs(angle - prev_angle) > 70) {
+            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + (angle - prev_angle)/3));
+            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + 2*(angle - prev_angle) / 3));
         }
         prev_angle = angle;
-        GenerateSlope(point, point.x + pixel_size/30, 20, i, angle);
+        int rand_rough = ((rand() % 3) + 1) * rough;
+        GenerateSlope(point, point.x + step, rand_rough, angle);
+        if (rand() % 10 < 3) {
+            GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+        }
     }
+    SetTexture();
 }
 
 //else {

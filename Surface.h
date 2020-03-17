@@ -21,12 +21,14 @@ protected:
 	int vertex_count;
 	int down_board = 5 * window_y();
 	int up_board = -3 * window_y();
+	int iter_0;
 	Texture texture;
 	String file = "surface.png";
 	Image image;
 public:
 	Surface(const String& file, const float& spacing);
-	void GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, int& i, const float& angle);
+	void SetTexture();
+	void GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle);
 	void Generate(const size_t& rough);
 	void Draw(RenderWindow&) const;
 };
