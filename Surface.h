@@ -1,13 +1,15 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <time.h>
 #include <iostream>
 #include <cmath>
-#include "RigidBody.h"
+#include "Object.h"
 
 using namespace sf;
 
 size_t screen_x();
 size_t screen_y();
+
 size_t window_x();
 size_t window_y();
 
@@ -31,4 +33,14 @@ public:
 	void GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle);
 	void Generate(const size_t& rough);
 	void Draw(RenderWindow&) const;
+	int Get_iter_0() const { return iter_0; }
+	float Get_spacing() const { return x_spacing; }
+	size_t Get_VertexCount() const {
+		return surface.getVertexCount();
+	}
+	Vertex GetVertex(const int& i) const {
+		if (i >= 0 && i < surface.getVertexCount()) {
+			return surface[i];
+		}
+	}
 };

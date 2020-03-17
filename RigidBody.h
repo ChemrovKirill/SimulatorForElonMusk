@@ -1,12 +1,10 @@
 #pragma once
 
 #include "Object.h"
+#include "Surface.h"
 #include <cmath>
 #include <set>
 #include <string>
-
-#define PI 3.1415f
-#define RAD (PI / 180.f)
 
 using namespace sf;
 
@@ -105,5 +103,5 @@ public:
 	void DeleteBodyWay(RenderWindow& window);
 	void DrawForce(RenderWindow& window, const Force& force);
 	void DrawSpeed(RenderWindow& window);
-
+	void CollisionDetection(const Surface&);
 };

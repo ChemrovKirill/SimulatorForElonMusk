@@ -120,7 +120,6 @@ void RigidBody::UpdateForces() {
 	SetAngleAcceleration(new_angle_accelaration);
 }
 
-
 void RigidBody::DrawMassPosition(RenderWindow& window) const {
 	CircleShape shape(10.f);
 	shape.setFillColor(Color::Red);
@@ -198,6 +197,7 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
 		window.draw(force_line);
 	}
 }
+
 void RigidBody::DrawSpeed(RenderWindow& window) {
 	VertexArray speed_line;
 	speed_line.setPrimitiveType(Lines);
@@ -215,7 +215,20 @@ void RigidBody::DrawSpeed(RenderWindow& window) {
 	window.draw(speed_line);
 }
 
+void RigidBody::CollisionDetection(const Surface& s) {
+	int mid_iter = s.Get_iter_0() + position.x/s.Get_spacing();
+	int start = mid_iter - (width + height);
+	if (start < 0) {
+		start = 0;
+	}
+	int end = mid_iter + (width + height);
+	if (end > s.Get_VertexCount()) {
+		end = s.Get_VertexCount();
+	}
+	for (int i = start; i < end; ++i) {
 
+	}
+}
 
 Force Force::operator = (const Force& f) {
 	exist = f.exist;

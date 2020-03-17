@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "iostream"
 
+#include "Surface.h"
 #include "Object.h"
 #include "RigidBody.h"
-#include "Surface.h"
 #include "Ship.h"
 
 using namespace sf;
@@ -45,7 +45,9 @@ void Test3() {
 
                 // key pressed
             case sf::Event::KeyPressed:
-             
+                if (event.key.code == sf::Keyboard::R) {
+                    s.Generate(30);
+                }
                 break;
                 // catch the resize events
             case sf::Event::Resized:
@@ -77,9 +79,6 @@ void Test3() {
         }
         window.setView(view);
 
-        if (Keyboard::isKeyPressed(Keyboard::R)) {
-            s.Generate(30);
-        }
      
         s.Draw(window);
 

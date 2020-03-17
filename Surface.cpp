@@ -42,13 +42,20 @@ void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t&
 }
 
 void Surface::SetTexture() {
-    for (int i = 0; i < surface.getVertexCount(); ++i) {
+    int count = surface.getVertexCount();
+    for (int i = 0; i < count; ++i) {
         surface[i].texCoords = Vector2f(surface[i].position.x, surface[i].position.y);
         surface[i].color = Color::Red;
-        //surface[i].texCoords = Vector2f(surface[i].position.x + x_spacing, surface[i].position.y);
         if (surface[i].position.x == 0) {
             iter_0 = i;
+            std::cout << "iter_0 = " << iter_0 << std::endl;
+            std::cout << surface.getVertexCount() << std::endl;
         }
+    }
+    int start = rand() % count;
+    int end = start + rand() % (count / 10);
+    for (int i = start; i < end && i < count; ++i) {
+        surface[i].color = Color::Magenta;
     }
 }
 
@@ -56,12 +63,11 @@ void Surface::Generate(const size_t& rough) {
     surface.clear();
     Vector2f point = left_position;
     srand(time(NULL));
-    
-    std::cout << vertex_count << std::endl;
+
     float angle;
     float prev_angle = 0;
     int step = pixel_size / 30;
-    while(point.x < left_position.x + pixel_size) {
+    while (point.x < left_position.x + pixel_size) {
         int down_turn_board = down_board - tan(MAX_ANGLE) * 2 * step;
         int up_turn_board = up_board + tan(MAX_ANGLE) * 2 * step;
         if (point.y > down_turn_board) {
@@ -71,11 +77,11 @@ void Surface::Generate(const size_t& rough) {
             angle = rand() % 50 - 60;
         }
         else {
-            angle = rand() % (MAX_ANGLE*2) - MAX_ANGLE;
+            angle = rand() % (MAX_ANGLE * 2) - MAX_ANGLE;
         }
-        if (abs(angle - prev_angle) > 70) {
-            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + (angle - prev_angle)/3));
-            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + 2*(angle - prev_angle) / 3));
+        if (abs(angle - prev_angle) > 0) {
+            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + (angle - prev_angle) / 3));
+            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + 2 * (angle - prev_angle) / 3));
         }
         prev_angle = angle;
         int rand_rough = ((rand() % 3) + 1) * rough;

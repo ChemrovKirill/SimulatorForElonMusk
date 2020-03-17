@@ -13,7 +13,18 @@ Object::Object(const String& f, const Vector2f new_position,
 	sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, w, h));
 	sprite.setPosition(position.x, position.y);
-	sprite.rotate(angle); 
+	sprite.rotate(angle);
+}
+
+std::vector<Vector2f> Object::GetVertexes() {
+	Vector2f p_1 = { width * cos(RAD * angle), width * sin(RAD * angle) };
+	Vector2f p_2 = p_1 + Vector2f(-height * sin(RAD * angle), height * cos(RAD * angle));
+	Vector2f p_3 = { height * cos(RAD * angle), height * sin(RAD * angle) };
+	vertexes.push_back(position);
+	vertexes.push_back(position + p_1);
+	vertexes.push_back(position + p_2);
+	vertexes.push_back(position + p_3);
+	return vertexes;
 }
 
 bool Object::Exist() const { return exist; }
@@ -33,4 +44,3 @@ void Object::SetPosition(const Vector2f& new_position, const float& new_angle) {
 	angle = new_angle;
 }
 void Object::Draw(RenderWindow& window) const { window.draw(sprite); }
-void Object::Rotate(const float& new_angle) { sprite.rotate(new_angle); }

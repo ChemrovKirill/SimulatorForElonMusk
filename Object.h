@@ -1,6 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <vector>
+
+#define PI 3.1415f
+#define RAD (PI / 180.f)
 
 using namespace sf;
 
@@ -8,6 +12,7 @@ class Object {
 protected:
 	Vector2f position;
 	float height, width, angle;
+	std::vector<Vector2f> vertexes;
 	bool exist = true;
 
 	String file;
@@ -27,11 +32,15 @@ public:
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
+	std::vector<Vector2f> GetVertexes();
+
+	bool PointInside(const Vector2f& point) {
+
+	}
 
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
 	virtual void Draw(RenderWindow& window) const;
-	void Rotate(const float& new_angle);
 };
