@@ -19,14 +19,15 @@ Object::Object(const String& f, const Vector2f new_position,
 void Object::VertexesUpdate() {
 	Vector2f p_1 = { width * cos(RAD * angle), width * sin(RAD * angle) };
 	Vector2f p_2 = p_1 + Vector2f(-height * sin(RAD * angle), height * cos(RAD * angle));
-	Vector2f p_3 = { height * cos(RAD * angle), height * sin(RAD * angle) };
-	if (vertexes.size >= 4) {
+	Vector2f p_3 = { height * sin(RAD * angle), height * cos(RAD * angle) };
+	if (vertexes.size() >= 4) {
 		vertexes[0] = position;
 		vertexes[1] = position + p_1;
 		vertexes[2] = position + p_2;
 		vertexes[3] = position + p_3;
 	}
 	else {
+		vertexes.clear();
 		vertexes.push_back(position);
 		vertexes.push_back(position + p_1);
 		vertexes.push_back(position + p_2);
@@ -36,6 +37,18 @@ void Object::VertexesUpdate() {
 
 std::vector<Vector2f> Object::GetVertexes() const {
 	return vertexes;
+}
+
+bool Object::PointInside(const Vector2f& point) const {
+	std::vector<gs::Point> points;
+	for (size_t i = 0; i < 4; ++i) {
+		points.push_back(gs::Point(GetVertexes()[i].x, GetVertexes()[i].y));
+	}
+	gs::Polygon obj(points);
+	gs::Point p(gs::Point(point.x, point.y));
+	//std::cout << p << "  " << points[0] << ";" << points[2] << std::endl;
+
+	return obj.containsPoint(p);
 }
 
 bool Object::Exist() const { return exist; }

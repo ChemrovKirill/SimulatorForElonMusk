@@ -93,6 +93,10 @@ void Surface::Generate(const size_t& rough) {
     SetTexture();
 }
 
+void Surface::Draw(RenderWindow& window) const {
+    window.draw(surface, &texture);
+}
+
 //else {
         //    std::cout << "2 ";
         //    if (slope_direction < 0.5 && slope_direction > 0) {
@@ -106,6 +110,4 @@ void Surface::Generate(const size_t& rough) {
         //}
         //point.y += (float)(rand() % rough) * slope_direction;
 
-void Surface::Draw(RenderWindow& window) const {
-    window.draw(surface, &texture);
-}
+

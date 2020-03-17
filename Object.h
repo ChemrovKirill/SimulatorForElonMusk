@@ -35,10 +35,7 @@ public:
 	void VertexesUpdate();
 	std::vector<Vector2f> GetVertexes() const ;
 
-	bool PointInside(const Vector2f& point) const {
-		gs::Point p1(GetVertexes()[0].x, GetVertexes()[0].y);
-		gs::Rectangle obj();
-	}
+	bool PointInside(const Vector2f& point) const;
 
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
