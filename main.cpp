@@ -76,16 +76,17 @@ void Test4() {
         window.clear();
 
         if (Keyboard::isKeyPressed(Keyboard::Up)) {
-            view.move({ 0,-2 });
+            view.move({ 0,-5 });
         }
         if (Keyboard::isKeyPressed(Keyboard::Down)) {
-            view.move({ 0 ,2 });
+            view.move({ 0 ,5 });
         }
         if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            view.move({ 2, 0 });
+            view.move({ 5, 0 });
         }
+
         if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            view.move({ -2, 0 });
+            view.move({ -5, 0 });
         }
         window.setView(view);
 
@@ -123,6 +124,7 @@ void Test4() {
         Body1.DrawBodyWay(window);
         Body1.DrawSpeed(window);
 
+        s.Update(dt);
         s.Draw(window);
 
         window.display();

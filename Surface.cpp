@@ -17,7 +17,7 @@ size_t window_y() {
 
 Surface::Surface(const String& f, const float& spacing)
 : x_spacing(spacing), file(f) {
-    pixel_size = 20 * window_x();
+    pixel_size = 10 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
     surface.setPrimitiveType(TriangleStrip);
@@ -25,6 +25,52 @@ Surface::Surface(const String& f, const float& spacing)
     texture.loadFromImage(image);
     texture.setRepeated(true);
     Generate(10);
+}
+
+int Surface::Get_iter_0() const { return iter_0; }
+float Surface::Get_spacing() const { return x_spacing; }
+size_t Surface::Get_VertexCount() const {
+    return surface.getVertexCount();
+}
+Vertex Surface::GetVertex(const int& i) const {
+    if (i >= 0 && i < surface.getVertexCount()) {
+        return surface[i];
+    }
+}
+
+void Surface::GenerateLake(Vector2f& point, const int& x_boarder, const size_t& rough) {
+    int level = point.y;
+    int iter = surface.getVertexCount();
+    float length = x_boarder - point.x;
+    int angles[10];
+    for (int i = 0; i < 10; ++i) {
+        angles[i] = rand() % (MAX_ANGLE-10)+10;
+        std::cout << i << ": " << angles[i] << std::endl;
+        GenerateSlope(point, point.x + length / 20, rough, -angles[i]);
+    }
+    for (int i = 0; i < 10; ++i) {
+        int j = rand() % 10;
+        int temp = angles[i];
+        angles[i] = angles[j];
+        angles[j] = temp;
+    }
+    for (int i = 0; i < 10; ++i) {
+        GenerateSlope(point, point.x + length / 20, rough, angles[i]);
+    }
+    VertexArray lake;
+    lake.setPrimitiveType(TrianglesStrip);
+    Vector2f v1, v2;
+    while (iter < surface.getVertexCount()) {
+        v2 = Vector2f(surface[iter].position.x, level+rand()%3+10);
+        lake.append(Vertex(v2, Color::Blue));
+        ++iter;
+        v1 = Vector2f(surface[iter].position.x, surface[iter].position.y);
+        lake.append(Vertex(v1, Color::Blue));
+        ++iter;
+    }
+   // lake.append(Vertex(Vector2f(v2.x+x_spacing,v2.y), Color::Blue));
+
+    lakes.push_back(lake);
 }
 
 void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle) {
@@ -48,8 +94,6 @@ void Surface::SetTexture() {
         surface[i].color = Color::Red;
         if (surface[i].position.x == 0) {
             iter_0 = i;
-            std::cout << "iter_0 = " << iter_0 << std::endl;
-            std::cout << surface.getVertexCount() << std::endl;
         }
     }
     int start = rand() % count;
@@ -61,6 +105,7 @@ void Surface::SetTexture() {
 
 void Surface::Generate(const size_t& rough) {
     surface.clear();
+    lakes.clear();
     Vector2f point = left_position;
     srand(time(NULL));
 
@@ -68,8 +113,8 @@ void Surface::Generate(const size_t& rough) {
     float prev_angle = 0;
     int step = pixel_size / 30;
     while (point.x < left_position.x + pixel_size) {
-        int down_turn_board = down_board - tan(MAX_ANGLE) * 2 * step;
-        int up_turn_board = up_board + tan(MAX_ANGLE) * 2 * step;
+        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;
+        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;
         if (point.y > down_turn_board) {
             angle = rand() % 50 + 10;
         }
@@ -86,14 +131,42 @@ void Surface::Generate(const size_t& rough) {
         prev_angle = angle;
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
-        if (rand() % 10 < 3) {
-            GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+        if (rand() % 10 < 5) {
+            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+            if (rand() % 10 < 10) {
+              GenerateLake(point, point.x + step, rand_rough);
+            }
+            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
         }
     }
     SetTexture();
 }
 
+void Surface::Update(const float& dt) {
+    static float timer = 0.5;
+    timer += dt;
+    if (timer > 1) {
+        timer = -1;
+    }
+    float shift;
+    for (auto& lake : lakes) {
+        for (int i = 0; i < lake.getVertexCount(); i += 2) {
+            if((i/2)%3 == 0) {
+                shift = timer / abs(timer) * 3 * dt;
+            }
+            else if((i / 2) % 3 == 2) {
+                shift = -timer / abs(timer) * 3 * dt;
+            }
+            lake[i].position.y += shift;
+
+        }
+    }
+}
+
 void Surface::Draw(RenderWindow& window) const {
+    for (const auto& lake : lakes) {
+        window.draw(lake);
+    }
     window.draw(surface, &texture);
 }
 
