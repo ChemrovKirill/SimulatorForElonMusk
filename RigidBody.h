@@ -51,6 +51,7 @@ struct Force {
 
 	Force();
 	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
+	Force(const Force& f);
 	Force operator = (const Force&);
 };
 

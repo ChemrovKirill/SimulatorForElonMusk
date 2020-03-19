@@ -33,6 +33,13 @@ Force::Force() : is_force_field(false), force(0), force_vector(Vector2f(0, 0)),
 Force::Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point)
 	: is_force_field(field), force(new_force), force_vector(start_vector), 
 	force_point(start_force_point), exist(false) {}
+Force::Force(const Force& f) {
+	exist = f.exist;
+	is_force_field = f.is_force_field;
+	force = f.force;
+	force_point = f.force_point;
+	force_vector = f.force_vector;
+}
 
 
 
@@ -160,13 +167,14 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) const {
 			float fb;
 			x = GetWidth() * force.force_point.x;
 			y = GetHeight()* force.force_point.y;
+
 			if (x >= 0 && y != 0) { fb = atan(y / x); }
 			else if (x < 0) { fb = atan(y / x) - PI; }
 			else { fb = 0; }
 
 			float feb;
 			x = GetWidth() * force.force_point.x + force.force * force.force_vector.x;
-			y = GetHeight() * force.force_point.y + force.force * force.force_vector.y;
+			y = GetHeight()* force.force_point.y + force.force * force.force_vector.y;
 
 			if (x >= 0 && y != 0) { feb = atan(y / x); }
 			else if (x < 0) { feb = atan(y / x) - PI; }

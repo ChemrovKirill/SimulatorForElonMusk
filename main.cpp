@@ -175,10 +175,18 @@ void test2() {
     Ship lander("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
     
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 10, 0), Vector2f(0.5, 0), 400, 10) , "1");
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 20, 10, 180), Vector2f(0.5, 1), 400, 10) , "2");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1), 
+                     Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)),      10) , "1");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0), 
+                     Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)),     10) , "3");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 0), 
+                     Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)),     10) , "4");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 1), 
+                     Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)),     10) , "5");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1), 
+                     Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)),     10) , "6");
     lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-    //lander.ForceOn("0");
+    lander.ForceOn("0");
 
 
     Surface s;
@@ -201,11 +209,21 @@ void test2() {
         else {
             lander.ForceOff("1");
         }
-        if (Keyboard::isKeyPressed(Keyboard::S)) {
-            lander.ForceOn("2");
+        if (Keyboard::isKeyPressed(Keyboard::Q)) {
+            lander.ForceOn("3");
+            lander.ForceOn("5");
         }
         else {
-            lander.ForceOff("2");
+            lander.ForceOff("3");
+            lander.ForceOff("5");
+        }        
+        if (Keyboard::isKeyPressed(Keyboard::E)) {
+            lander.ForceOn("4");
+            lander.ForceOn("6");
+        }
+        else {
+            lander.ForceOff("4");
+            lander.ForceOff("6");
         }
 
         lander.UpdateShipPosition(dt);
@@ -216,7 +234,10 @@ void test2() {
         lander.DrawBodyWay(window);
         lander.DrawSpeed(window);
         lander.DrawForce(window, lander.GetForce("1"));
-        lander.DrawForce(window, lander.GetForce("2"));
+        lander.DrawForce(window, lander.GetForce("3"));
+        lander.DrawForce(window, lander.GetForce("4"));
+        lander.DrawForce(window, lander.GetForce("5"));
+        lander.DrawForce(window, lander.GetForce("6"));
         lander.DrawForce(window, lander.GetForce("0"));
 
         s.Draw(window);
@@ -230,7 +251,7 @@ void test2() {
 }
 
 int main() {
-    test1();
+    test2();
 
     return 0;
 }

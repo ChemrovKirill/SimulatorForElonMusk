@@ -15,6 +15,15 @@ Object::Object(const String& f, const Vector2f& new_position,
 	sprite.setPosition(position.x, position.y);
 	sprite.rotate(angle); 
 }
+Object::Object(const Object& o) : position(o.position), height(o.height), width(o.width), angle(o.angle), exist(o.exist), file(o.file) {
+	image.loadFromFile("images/" + file);
+	image.createMaskFromColor(Color(0, 0, 0));
+	texture.loadFromImage(image);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(IntRect(0, 0, width, height));
+	sprite.setPosition(position.x, position.y);
+	sprite.rotate(angle);
+}
 
 bool Object::Exist() const { return exist; }
 Vector2f Object::GetPosition() const { return position; }

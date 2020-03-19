@@ -13,7 +13,8 @@ private:
 	float max_thrust_angle; //the angle at which the engine can deviate
 public:
 	Engine();
-	Engine(const Object& object,  const Vector2f& start_rel_pos, const float& start_force, const float& start_max_thrust_angle);
+	Engine(const Object& object,  const Vector2f& start_rel_pos, const Force& start_force, const float& start_max_thrust_angle);
+	Engine(const Engine& e);
 
 	Force GetForce() const;
 	Vector2f GetRelPos() const;
