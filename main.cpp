@@ -8,65 +8,24 @@
 
 using namespace sf;
 
-void Test1();
-void Test2();
+//void Test1();
+//void Test2();
 void Test3();
 void Test4();
+void test_B2();
+void test_B1();
 
 int main() {
     //Test1();
     //Test2();
     //Test3();
-    Test4();
+    test_B2();
+    //Test4();
     return 0;
 }
 
 void Test4() {
     RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
-
-
-//int main1() {
-//    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
-//
-//    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
-//        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-//    ShipBody.AddForce(Force(true, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)), "Gravity");
-//    Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
-//    std::map<std::string, Engine> engines;
-//    engines["left"] = Engine(engine_object, Vector2f(0, 1), 1000);
-//    engines["right"] = Engine(engine_object, Vector2f(1, 1), 1000);
-//
-//    Ship ship1(ShipBody, engines);
-//
-//    Surface s;
-//    float dt = 0.01f;
-//    Clock deltaTime;
-//
-//    while (window.isOpen())
-//    {
-//        Event event;
-//        while (window.pollEvent(event))
-//        {
-//            if (event.type == sf::Event::Closed)
-//                window.close();
-//        }
-//
-//        window.clear();
-//
-//        ship1.Control();
-//        ship1.UpdatePosition(dt);
-//
-//        s.Draw(window);
-//        ship1.Draw(window);
-//
-//        window.display();
-//
-//        dt = deltaTime.restart().asSeconds();
-//    }
-//
-//    return 0;
-//}
-
 
     Surface s("surface.png", 10);
     float dt = 0, time = 0;
@@ -74,10 +33,10 @@ void Test4() {
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-    Body1.AddForce(Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), "0");
-    Body1.AddForce(Force(false, 400, Vector2f(0, 1), Vector2f(0.5, 0.5)), "1");
-    Body1.AddForce(Force(false, 400, Vector2f(1, 0), Vector2f(0.5, 0.5)), "2");
-    Body1.AddForce(Force(false, 400, Vector2f(-1, 0), Vector2f(0.5, 0.5)), "3");
+    Body1.AddForce("0", Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)));
+    Body1.AddForce("1", Force(false, 400, Vector2f(0, 1), Vector2f(0.5, 0.5)));
+    Body1.AddForce("2", Force(false, 400, Vector2f(1, 0), Vector2f(0.5, 0.5)));
+    Body1.AddForce("3", Force(false, 400, Vector2f(-1, 0), Vector2f(0.5, 0.5)));
 
 
     View view;
@@ -248,15 +207,15 @@ void Test3() {
     }
 }
 
-void Test2() {
-    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
-
-    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
-        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-
+//void Test2() {
+//    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
+//
+//    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
+//        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
+//
   
 void test_B1() {
-    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
     RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
@@ -366,7 +325,7 @@ void test_B1() {
 
 
 void test_B2() {
-    RenderWindow window(VideoMode(window_x, window_y), "SimulatorForElonMask");
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
     Ship lander("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
@@ -385,7 +344,7 @@ void test_B2() {
     lander.ForceOn("0");
 
 
-    Surface s;
+    Surface s("surface.png", 10);
     float dt = 0, time = 0;
     Clock deltaTime;
     while (window.isOpen())
@@ -446,46 +405,42 @@ void test_B2() {
 
 }
 
-int main() {
-    test_B2();
-
-}
-void Test1() {
-    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
-
-    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
-        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-    ShipBody.AddForce(Force(true, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)), "Gravity");
-    Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
-    std::map<std::string, Engine> engines;
-    engines["left"] = Engine(engine_object, Vector2f(0, 1), 0, 1000);
-    engines["right"] = Engine(engine_object, Vector2f(1, 1), 0, 1000);
-
-    Ship ship1(ShipBody, engines);
-
-    Surface s("surface.png", 10);
-    float dt = 0.01f;
-    Clock deltaTime;
-
-    while (window.isOpen())
-    {
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-
-        ship1.Control();
-        ship1.UpdatePosition(dt);
-
-        s.Draw(window);
-        ship1.Draw(window);
-
-        window.display();
-
-        dt = deltaTime.restart().asSeconds();
-    }
-}
+//void Test1() {
+//    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
+//
+//    RigidBody ShipBody("test2.png", RigidBodyParameters(Vector2f(200, 700), 100, 50, 0, 1, 100, Vector2f(0.5, 0.5),
+//        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
+//    ShipBody.AddForce("Gravity", Force(true, 500, Vector2f(0, -1), Vector2f(0.5, 0.5)));
+//    Object engine_object("test2.png", Vector2f(100, 100), 20, 40, 0);
+//    std::map<std::string, Engine> engines;
+//    engines["left"] = Engine(engine_object, Vector2f(0, 1), 0, 1000);
+//    engines["right"] = Engine(engine_object, Vector2f(1, 1), 0, 1000);
+//
+//    Ship ship1(ShipBody, engines);
+//
+//    Surface s("surface.png", 10);
+//    float dt = 0.01f;
+//    Clock deltaTime;
+//
+//    while (window.isOpen())
+//    {
+//        Event event;
+//        while (window.pollEvent(event))
+//        {
+//            if (event.type == sf::Event::Closed)
+//                window.close();
+//        }
+//
+//        window.clear();
+//
+//        ship1.Control();
+//        ship1.UpdatePosition(dt);
+//
+//        s.Draw(window);
+//        ship1.Draw(window);
+//
+//        window.display();
+//
+//        dt = deltaTime.restart().asSeconds();
+//    }
+//}
