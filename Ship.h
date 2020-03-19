@@ -8,6 +8,7 @@ private:
 	Vector2f relative_position;
 	Force force;
 	bool on;
+
 	float thrust; //from 0 (0%) to 1 (100%) of force.force
 	float thrust_angle; //from -1 (-100%) to 1 (100%) of max_thrust_angle
 	float max_thrust_angle; //the angle at which the engine can deviate

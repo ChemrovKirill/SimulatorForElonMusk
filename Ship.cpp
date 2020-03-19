@@ -71,6 +71,7 @@ void Ship::AddEngine(const Engine& new_engine, const std::string& name) {
 }
 void Ship::EngineOn(const std::string& name) {
 	engines[name].SetOn(); 
+
 }
 void Ship::EngineOff(const std::string& name) { 
 	engines[name].SetOff();
@@ -120,7 +121,6 @@ void Ship::UpdateEnginesPosition(const std::string& name, const Vector2f& new_po
 		angle
 	);
 }
-
 
 void Ship::DrawShip(RenderWindow& window) const {
 	Draw(window);

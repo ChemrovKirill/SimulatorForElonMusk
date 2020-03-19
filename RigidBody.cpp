@@ -127,7 +127,6 @@ void RigidBody::UpdateForces() {
 	SetAngleAcceleration(new_angle_accelaration);
 }
 
-
 void RigidBody::DrawMassPosition(RenderWindow& window) const {
 	CircleShape shape(10.f);
 	shape.setFillColor(Color::Red);
@@ -207,6 +206,7 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) const {
 	}
 }
 
+
 void RigidBody::DrawSpeed(RenderWindow& window) const {
 	VertexArray speed_line;
 	speed_line.setPrimitiveType(Lines);
@@ -224,7 +224,27 @@ void RigidBody::DrawSpeed(RenderWindow& window) const {
 	window.draw(speed_line);
 }
 
-
+void RigidBody::CollisionDetection(const Surface& s) {
+	int mid_iter = s.Get_iter_0() + 2*position.x/s.Get_spacing();
+	//std::cout << s.Get_iter_0() << " " << s.GetVertex(mid_iter).position.x << std::endl;
+	int start = mid_iter - (width + height) / s.Get_spacing();
+	if (start < 0) {
+		start = 0;
+	}
+	int end = mid_iter + (width + height) / s.Get_spacing();
+	if (end > s.Get_VertexCount()) {
+		end = s.Get_VertexCount();
+	}
+	//std::cout << start <<" " << mid_iter << " " << end << std::endl;
+	for (int i = start; i < end; ++i) {
+		//std::cout << s.GetVertex(i).position.x << std::endl;
+		if (PointInside(s.GetVertex(i).position)) {
+			
+			std::cout << "Collision" << std::endl;
+			break;
+		}
+	}
+}
 
 Force Force::operator = (const Force& f) {
 	exist = f.exist;
