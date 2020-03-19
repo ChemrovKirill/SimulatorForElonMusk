@@ -93,6 +93,7 @@ void RigidBody::UpdatePosition(const float& dt) {
 void RigidBody::AddForce(const std::string& name, const Force& new_force) {
 	forces[name] = new_force;
 }
+
 void RigidBody::ForceOn(const std::string& name) {
 	forces[name].exist = true;
 }
