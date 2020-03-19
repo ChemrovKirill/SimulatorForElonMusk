@@ -323,7 +323,6 @@ void test_B1() {
     }
 }
 
-
 void test_B2() {
     RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
@@ -380,6 +379,30 @@ void test_B2() {
             lander.ForceOff("4");
             lander.ForceOff("6");
         }
+        if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+            lander.SetEngineThrust("1", 1);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+            lander.SetEngineThrust("1", 0.5);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Num3)) {
+            lander.SetEngineThrust("1", 0.25);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::D) && Keyboard::isKeyPressed(Keyboard::A)) {
+            lander.SetEngineThrustAngle("1", 0);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::A)) {
+            lander.SetEngineThrustAngle("1", 1);
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::D)) {
+            lander.SetEngineThrustAngle("1", -1);
+        } 
+        else {
+            lander.SetEngineThrustAngle("1", 0);
+        }
+
+
+
 
         lander.UpdateShipPosition(dt);
 
