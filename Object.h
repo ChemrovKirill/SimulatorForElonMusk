@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <string>
 #include "GeomShapesLib/GeomShapes.h"
 #include <vector>
 
@@ -24,22 +25,29 @@ protected:
 	Sound sound;
 public:
 	Object() : height(0), width(0), angle(0) {}
-	Object(const String& f, const Vector2f new_position,
-		const float& w, const float& h, const float& start_angle); //косяк с углом!!!
-
+	Object(const String& f, const Vector2f& new_position,
+		const float& w, const float& h, const float& start_angle); //ГЄГ®Г±ГїГЄ Г± ГіГЈГ«Г®Г¬!!!
+	Object(const Object& o);
+		
 	bool Exist() const;
 	Vector2f GetPosition() const;
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
+
+	std::string GetFile() const;
+  
 	void VertexesUpdate();
 	std::vector<Vector2f> GetVertexes() const ;
 
 	bool PointInside(const Vector2f& point) const;
 
+
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
+
+	void Rotate(const float& new_angle);
 	virtual void Draw(RenderWindow& window) const;
 };

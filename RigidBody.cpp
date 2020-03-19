@@ -33,6 +33,13 @@ Force::Force() : is_force_field(false), force(0), force_vector(Vector2f(0, 0)),
 Force::Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point)
 	: is_force_field(field), force(new_force), force_vector(start_vector), 
 	force_point(start_force_point), exist(false) {}
+Force::Force(const Force& f) {
+	exist = f.exist;
+	is_force_field = f.is_force_field;
+	force = f.force;
+	force_point = f.force_point;
+	force_vector = f.force_vector;
+}
 
 
 
@@ -83,7 +90,7 @@ void RigidBody::UpdatePosition(const float& dt) {
 	UpdateForces();
 }
 
-void RigidBody::AddForce(const Force& new_force, const std::string& name) {
+void RigidBody::AddForce(const std::string& name, const Force& new_force) {
 	forces[name] = new_force;
 }
 void RigidBody::ForceOn(const std::string& name) {
@@ -143,7 +150,7 @@ void RigidBody::DeleteBodyWay(RenderWindow& window) {
 	way.clear();
 }
 
-void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
+void RigidBody::DrawForce(RenderWindow& window, const Force& force) const {
 	if (force.exist == true) {
 		VertexArray force_line;
 		force_line.setPrimitiveType(Lines);
@@ -159,13 +166,14 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
 			float fb;
 			x = GetWidth() * force.force_point.x;
 			y = GetHeight()* force.force_point.y;
+
 			if (x >= 0 && y != 0) { fb = atan(y / x); }
 			else if (x < 0) { fb = atan(y / x) - PI; }
 			else { fb = 0; }
 
 			float feb;
 			x = GetWidth() * force.force_point.x + force.force * force.force_vector.x;
-			y = GetHeight() * force.force_point.y + force.force * force.force_vector.y;
+			y = GetHeight()* force.force_point.y + force.force * force.force_vector.y;
 
 			if (x >= 0 && y != 0) { feb = atan(y / x); }
 			else if (x < 0) { feb = atan(y / x) - PI; }
@@ -198,7 +206,8 @@ void RigidBody::DrawForce(RenderWindow& window, const Force& force) {
 	}
 }
 
-void RigidBody::DrawSpeed(RenderWindow& window) {
+
+void RigidBody::DrawSpeed(RenderWindow& window) const {
 	VertexArray speed_line;
 	speed_line.setPrimitiveType(Lines);
 
