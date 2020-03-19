@@ -2,24 +2,27 @@
 #include "iostream"
 
 
-Engine::Engine() : on(false), relative_position(0, 0), max_thrust_angle(0), thrust_angle(0), thrust(0) {}
+Engine::Engine() : on(false), relative_position(0, 0), max_thrust_angle(0), thrust_angle(0), thrust(0), engine_vector(0, 0) {}
 Engine::Engine(const Object& object, const Vector2f& start_rel_pos, const Force& start_force, const float& start_max_thrust_angle)
 	: Object(object.GetFile(), object.GetPosition(), object.GetWidth(), object.GetHeight(), object.GetAngle()),
 	  on(false), relative_position(start_rel_pos), force(Force(start_force)),
-	  max_thrust_angle(start_max_thrust_angle), thrust_angle(0), thrust(1) {}
+	  max_thrust_angle(start_max_thrust_angle), thrust_angle(0), thrust(1), engine_vector(start_force.force_vector) {}
 Engine::Engine(const Engine& e) : Object(e.GetFile(), e.GetPosition(), e.GetWidth(), e.GetHeight(), e.GetAngle()),
-	  on(e.on), relative_position(e.relative_position), force(e.force), max_thrust_angle(e.max_thrust_angle), thrust_angle(e.thrust_angle), thrust(e.thrust) {}
+	  on(e.on), relative_position(e.relative_position), force(e.force), max_thrust_angle(e.max_thrust_angle), thrust_angle(e.thrust_angle),
+	  thrust(e.thrust), engine_vector(e.force.force_vector) {}
 
 Force Engine::GetForce() const { return force; }
 Vector2f Engine::GetRelPos() const { return relative_position; }
 float Engine::GetThrust() const { return thrust; }	
 float Engine::GetThrustAngle() const { return thrust_angle; }
 float Engine::GetMaxThrustAngle() const { return max_thrust_angle; }
+Vector2f Engine::GetEngineVector() const { return engine_vector; }
 
 void Engine::SetRelPos(const Vector2f& new_relative_position) { relative_position = new_relative_position; }
 void Engine::SetThrust(const float& new_thrust) { thrust = new_thrust; }
 void Engine::SetThrustAngle(const float& new_thrust_angle) { thrust_angle = new_thrust_angle; }
 void Engine::SetMaxThrustAngle(const float& new_max_thrust_angle) { max_thrust_angle = new_max_thrust_angle; }
+void Engine::SetEngineVector(const Vector2f& new_engine_vector) { engine_vector = new_engine_vector; }
 
 bool Engine::If_on() const { return on; }
 void Engine::SetOn() { on = true; force.exist = true; }
@@ -44,7 +47,7 @@ Engine Engine::operator = (const Engine& e) {
 	angle = e.angle;
 	exist = e.exist;
 	position = e.position;
-
+	engine_vector = e.engine_vector;
 	//buffer.loadFromFile("sounds/" + f_sound);
 //sound.setBuffer(buffer);
 	image.loadFromFile("images/" + file);
@@ -63,7 +66,6 @@ Engine Engine::operator = (const Engine& e) {
 Ship::Ship(const String& f, const RigidBodyParameters& parameters)
 	: RigidBody(f, parameters) {}
 
-
 void Ship::AddEngine(const Engine& new_engine, const std::string& name) { 
 	engines[name] = new_engine; 
 	AddForce(name, engines[name].GetForce());
@@ -81,15 +83,15 @@ void Ship::SetEngineThrust(const std::string& name, float new_thrust) {
 	UpdateEngines(name);
 }
 void Ship::SetEngineThrustAngle(const std::string& name, float new_thrust_angle) { 
-	engines[name].SetThrust(new_thrust_angle);
+	engines[name].SetThrustAngle(new_thrust_angle);
 	UpdateEngines(name);
 }
 
 void Ship::UpdateEngines(const std::string& name) {
 	forces[name].force = engines[name].GetForce().force * engines[name].GetThrust();
-	//Add Thrust Angle update!!!
-
-
+	
+	forces[name].force_vector.x = cos(acos(engines[name].GetEngineVector().x) - RAD * engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle());
+	forces[name].force_vector.y = sin(asin(engines[name].GetEngineVector().y) - RAD * engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle());
 }
 
 void Ship::UpdateShipPosition(const float& dt) {
@@ -106,10 +108,6 @@ void Ship::UpdateEnginesPosition(const std::string& name, const Vector2f& new_po
 	y = GetHeight() * engines[name].GetRelPos().y - engines[name].GetHeight() * 0.5;
 
 	float diag_engine = sqrt(pow(x, 2) + pow(y, 2));
-	//float diag_engine_small = sqrt(
-	//	pow(engines[name].GetWidth() * force.force_point.x + force.force * force.force_vector.x, 2) +
-	//	pow(GetHeight() * force.force_point.y + force.force * force.force_vector.y, 2)
-	//);
 
 	if (x >= 0 && y != 0) { fb = atan(y / x); }
 	else if (x < 0) { fb = atan(y / x) - PI; }
@@ -118,7 +116,7 @@ void Ship::UpdateEnginesPosition(const std::string& name, const Vector2f& new_po
 	engines[name].SetPosition(Vector2f(
 		new_position.x + cos(RAD * GetAngle() + fb) * diag_engine,
 		new_position.y + sin(RAD * GetAngle() + fb) * diag_engine),
-		angle
+		angle + engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle()
 	);
 }
 

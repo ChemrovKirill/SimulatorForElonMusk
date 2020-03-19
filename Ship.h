@@ -6,6 +6,7 @@
 class Engine : public Object { //force_vector calculated from the original angle: ---- | ---- - 0 grad, ---- -> ---- - 90 grad
 private:
 	Vector2f relative_position;
+	Vector2f engine_vector;
 	Force force;
 	bool on;
 
@@ -22,11 +23,13 @@ public:
 	float GetThrust() const;
 	float GetThrustAngle() const;
 	float GetMaxThrustAngle() const;
+	Vector2f GetEngineVector() const;
 
 	void SetRelPos(const Vector2f& new_relative_position);
 	void SetThrust(const float& new_thrust);
 	void SetThrustAngle(const float& new_thrust_angle);
 	void SetMaxThrustAngle(const float& new_max_thrust_angle);
+	void SetEngineVector(const Vector2f& new_engine_vector);
 
 	bool If_on() const;
 	void SetOn();

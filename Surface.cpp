@@ -183,4 +183,3 @@ void Surface::Draw(RenderWindow& window) const {
         //}
         //point.y += (float)(rand() % rough) * slope_direction;
 
-
