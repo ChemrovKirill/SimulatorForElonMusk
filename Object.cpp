@@ -8,7 +8,7 @@ Object::Object(const String& f, const Vector2f& new_position,
 	//buffer.loadFromFile("sounds/" + f_sound);
 	//sound.setBuffer(buffer);
 	image.loadFromFile("images/" + f);
-	image.createMaskFromColor(Color(0, 0, 0));
+	image.createMaskFromColor(Color(255, 255, 255));
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, w, h));
@@ -52,7 +52,7 @@ bool Object::PointInside(const Vector2f& point) const {
 }
 Object::Object(const Object& o) : position(o.position), height(o.height), width(o.width), angle(o.angle), exist(o.exist), file(o.file) {
 	image.loadFromFile("images/" + file);
-	image.createMaskFromColor(Color(0, 0, 0));
+	image.createMaskFromColor(Color(0,0,0));
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, width, height));
