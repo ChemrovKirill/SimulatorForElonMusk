@@ -106,5 +106,5 @@ public:
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;
 
-	void CollisionDetection(const Surface&);
+	bool CollisionDetection(const Surface&);
 };

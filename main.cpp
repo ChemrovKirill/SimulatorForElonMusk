@@ -55,8 +55,9 @@ void Test5() {
         Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 window.close();
+            }
         }
 
         window.clear();
@@ -92,6 +93,9 @@ void Test5() {
 
                
         lander.UpdateShipPosition(dt);
+        if (lander.CollisionDetection(s)) {
+            lander.Destroy();
+        }
 
         lander.DrawShip(window);
 

@@ -5,6 +5,7 @@
 
 class Ship : public RigidBody {
 private:
+	bool isDestroyed;
 	std::map<std::string, Engine> engines;
 public:
 	Ship(const String& f, const RigidBodyParameters& parameters);
@@ -20,4 +21,5 @@ public:
 	void UpdateEnginesPosition(const std::string& name, const Vector2f& new_position);
 
 	void DrawShip(RenderWindow& window) const;
+	void Destroy();
 };

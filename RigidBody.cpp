@@ -229,7 +229,7 @@ void RigidBody::DrawSpeed(RenderWindow& window) const {
 	window.draw(speed_line);
 }
 
-void RigidBody::CollisionDetection(const Surface& s) {
+bool RigidBody::CollisionDetection(const Surface& s) {
 	int mid_iter = s.Get_iter_0() + 2*position.x/s.Get_spacing();
 	//std::cout << s.Get_iter_0() << " " << s.GetVertex(mid_iter).position.x << std::endl;
 	int start = mid_iter - (width + height) / s.Get_spacing();
@@ -244,11 +244,11 @@ void RigidBody::CollisionDetection(const Surface& s) {
 	for (int i = start; i < end; ++i) {
 		//std::cout << s.GetVertex(i).position.x << std::endl;
 		if (PointInside(s.GetVertex(i).position)) {
-			
-			std::cout << "Collision" << std::endl;
-			break;
+			//std::cout << "Collision" << std::endl;
+			return true;
 		}
 	}
+	return false;
 }
 
 Force Force::operator = (const Force& f) {

@@ -33,6 +33,9 @@ void Ship::UpdateEngines(const std::string& name) {
 }
 
 void Ship::UpdateShipPosition(const float& dt) {
+	if (isDestroyed) {
+		return;
+	}
 	UpdatePosition(dt);
 	for (const auto& e : engines) {
 		UpdateEnginesPosition(e.first, GetPosition());
@@ -63,4 +66,9 @@ void Ship::DrawShip(RenderWindow& window) const {
 	for (const auto& e : engines) {
 		e.second.Draw(window);
 	}
+}
+
+void Ship::Destroy() {
+	isDestroyed = true;
+	sprite.setColor(Color::Red);
 }
