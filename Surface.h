@@ -24,13 +24,14 @@ protected:
 	int vertex_count;
 	int down_board = 5 * window_y();
 	int up_board = -3 * window_y();
-	int iter_0;
+	int iter_0; //surface[iter_0].position.x = 0 (.y = down_board)
 	Texture texture;
 	String file;
 	Image image;
 public:
 	Surface(const String& file, const float& spacing);
 	void SetTexture();
+	float YtoX(const float&);
 	void GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle);
 	void Generate(const size_t& rough);
 	void Update(const float& dt);

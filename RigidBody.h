@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Object.h"
 #include "Surface.h"
 #include <cmath>
@@ -79,6 +78,7 @@ public:
 	float GetMass() const;
 	float GetMomentOfInertia() const;
 	Vector2f GetMassPosition() const;
+	Vector2f GetAbsMassPosition() const;
 	Vector2f GetVelocuty() const;
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;

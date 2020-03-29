@@ -28,6 +28,14 @@ Surface::Surface(const String& f, const float& spacing)
 }
 
 int Surface::Get_iter_0() const { return iter_0; }
+float Surface::YtoX(const float& x) {
+    int iter = iter_0 + 1 + 2*int(x)/ x_spacing;
+    if (x < left_position.x || x > left_position.x + vertex_count*x_spacing) {
+        throw std::out_of_range("Surface::YtoX()");
+    }
+    return surface[iter].position.y;
+}
+
 float Surface::Get_spacing() const { return x_spacing; }
 size_t Surface::Get_VertexCount() const {
     return surface.getVertexCount();
