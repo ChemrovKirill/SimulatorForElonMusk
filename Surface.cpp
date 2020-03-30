@@ -15,9 +15,18 @@ size_t window_y() {
     return screen_y() - 200;
 }
 
+void mix(std::vector<int>& v) {
+    for (int i = 0; i < v.size(); ++i) {
+        int j = rand() % v.size();
+        int temp = v[i];
+        v[i] = v[j];
+        v[j] = temp;
+    }
+}
+
 Surface::Surface(const String& f, const float& spacing)
 : x_spacing(spacing), file(f) {
-    pixel_size = 10 * window_x();
+    pixel_size = 20 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
     surface.setPrimitiveType(TriangleStrip);
@@ -43,36 +52,67 @@ Vertex Surface::GetVertex(const int& i) const {
     }
 }
 
+void Surface::Generate_V(Vector2f& point, const float& step, const int& step_count,  size_t rough) {
+    std::vector<int> angles(step_count);
+    for (auto& angle : angles) {
+        angle = rand() % (MAX_ANGLE - 10) + 10;
+        GenerateSlope(point, point.x + step, rough, -angle);
+    }
+    mix(angles);
+    for (const auto& angle : angles) {
+        GenerateSlope(point, point.x + step, rough, angle);
+    }
+}
+
+void Surface::Generate_U(Vector2f& point, const float& step, const int& step_count, size_t rough) {
+    std::vector<int> angles(step_count);
+    float a_step = 80 / step_count;
+    for (int i = step_count - 1; i >=0; --i) {
+        angles[i] = i*a_step;
+        GenerateSlope(point, point.x + step, rough, -angles[i]);
+    }
+    //mix(angles);
+    for (const auto& angle : angles) {
+        GenerateSlope(point, point.x + step, rough, angle);
+    }
+}
+
 void Surface::GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, Hole h) {
-    if (h == Hole::LAKE) {
-        rough = 0;
-    }
     int level = point.y;
-    int iter = surface.getVertexCount();
+    int step_count = 10; //only descent
     float length = x_boarder - point.x;
-    int angles[10];
-    for (int i = 0; i < 10; ++i) {
-        angles[i] = rand() % (MAX_ANGLE-10)+10;
-        std::cout << i << ": " << angles[i] << std::endl;
-        GenerateSlope(point, point.x + length / 20, rough, -angles[i]);
-    }
-    for (int i = 0; i < 10; ++i) {
-        int j = rand() % 10;
-        int temp = angles[i];
-        angles[i] = angles[j];
-        angles[j] = temp;
-    }
-    for (int i = 0; i < 10; ++i) {
-        GenerateSlope(point, point.x + length / 20, rough, angles[i]);
-    }
+    float step = length / (2 * step_count + 2);
+    GenerateSlope(point, point.x + step, rough, 40);    //ascent before hole
+    int iter = surface.getVertexCount();
+
     switch (h) {
-    case Hole::EMPTY:
+    case Hole::EMPTY_V:
+        Generate_V(point, step, step_count, 2*rough);
+    case Hole::LAKE:
+        Generate_V(point, step, step_count, 0);
         break;
-    case Hole::LAKE: {
+    case Hole::ICE:
+        Generate_V(point, step, step_count, 5*rough);
+        break;
+    case Hole::METEORITE:
+    case Hole::EMPTY_U:
+        Generate_U(point, step, step_count, 3*rough);
+        break;
+    }
+
+    int hole_board = surface.getVertexCount();
+    GenerateSlope(point, point.x + step, rough, -40);   //descent before hole
+
+    switch (h) {
+    case Hole::EMPTY_V:
+    case Hole::EMPTY_U:
+        break;
+    case Hole::LAKE:
+    {
         VertexArray lake;
         lake.setPrimitiveType(TrianglesStrip);
         Vector2f v1, v2;
-        while (iter < surface.getVertexCount()) {
+        while (iter < hole_board) {
             v2 = Vector2f(surface[iter].position.x, level + rand() % 3 + 20);
             lake.append(Vertex(v2, Color::Blue));
             ++iter;
@@ -84,13 +124,14 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, 
         break;
     }
     case Hole::ICE:
+    {
         VertexArray glacier;
         glacier.setPrimitiveType(TrianglesStrip);
         Vector2f v1;
         Vector2f v2 = Vector2f(surface[iter].position.x, level);
-        int mid_iter = (surface.getVertexCount() + iter)/2;
+        int mid_iter = (hole_board + iter) / 2;
         int slope = rand() % 20 + 20;
-        while (iter < surface.getVertexCount()) {
+        while (iter < hole_board) {
             int dy = rand() % slope / 10.0 * x_spacing;
             if (iter < mid_iter) {
                 v2.y -= dy;
@@ -107,6 +148,27 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, 
         }
         glaciers.push_back(glacier);
         break;
+    }
+    case Hole::METEORITE:
+    {
+        VertexArray meteorite;
+        meteorite.setPrimitiveType(TrianglesStrip);
+        Vector2f v = surface[iter].position;
+        float mid_level = v.y;
+        meteorite.append(Vertex({ v.x + x_spacing/2, mid_level }, Color::Cyan));
+        iter += 2;
+        while (iter < hole_board-2) {
+            v = surface[iter].position;
+            meteorite.append(Vertex(v, Color::Cyan));
+            ++iter;
+            v.y = -v.y + 2*mid_level + rand()%20 - 10;
+            meteorite.append(Vertex(v, Color::Cyan));
+            ++iter;
+        }
+        meteorite.append(Vertex({ v.x + x_spacing / 2, mid_level }, Color::Cyan));
+        meteorites.push_back(meteorite);
+        break;
+    }
     }
 }
 
@@ -148,8 +210,7 @@ void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t&
 }
 
 void Surface::SetTexture() {
-    image.loadFromFile("images/" + file);
-    texture.loadFromImage(image);
+    texture.loadFromFile("images/" + file);
     texture.setRepeated(true);
     int count = surface.getVertexCount();
     for (int i = 0; i < count; ++i) {
@@ -168,6 +229,15 @@ void Surface::SetTexture() {
             glacier[i].color = Color::White;
         }
     }
+    meteorite_texture.loadFromFile("images/meteorite.png");
+    meteorite_texture.setRepeated(true);
+    for (auto& meteorite : meteorites) {
+        count = meteorite.getVertexCount();
+        for (int i = 0; i < count; ++i) {
+            meteorite[i].texCoords = meteorite[i].position;
+            meteorite[i].color = Color::Red;
+        }
+    }
     /*int start = rand() % count;
     int end = start + rand() % (count / 10);
     for (int i = start; i < end && i < count; ++i) {
@@ -178,16 +248,17 @@ void Surface::SetTexture() {
 void Surface::Generate(const size_t& rough) {
     surface.clear();
     lakes.clear();
+    glaciers.clear();
     Vector2f point = left_position;
     srand(time(NULL));
     //srand(1234567890);
 
-    float angle;
+    float angle = 0;
     float prev_angle = 0;
-    int step = pixel_size / 30;
+    int step = pixel_size / 60;
     while (point.x < left_position.x + pixel_size) {
-        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;
-        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;
+        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;   //down y from which U-turn starts
+        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;       //up y from which U-turn starts
         if (point.y > down_turn_board) {
             angle = rand() % 50 + 10;
         }
@@ -206,15 +277,21 @@ void Surface::Generate(const size_t& rough) {
         GenerateSlope(point, point.x + step, rand_rough, angle);
         if (rand() % 10 < 5) {
             //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
-            switch(rand() % 3) {
+            switch(rand() % 5) {
             case 0:
-                GenerateHole(point, point.x + step, rough, Hole::ICE);
-                break;
-            case 1:
                 GenerateHole(point, point.x + step, rough, Hole::LAKE);
                 break;
+            case 1:
+                GenerateHole(point, point.x + step, rough, Hole::ICE);
+                break;
             case 2:
-                GenerateHole(point, point.x + step, rough, Hole::EMPTY);
+                GenerateHole(point, point.x + step/2, rough, Hole::METEORITE);
+                break;
+            case 3:
+                GenerateHole(point, point.x + step, rough, Hole::EMPTY_U);
+                break;
+            case 4:
+                GenerateHole(point, point.x + step, rough, Hole::EMPTY_V);
                 break;
             }
             //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
@@ -224,7 +301,7 @@ void Surface::Generate(const size_t& rough) {
     SetTexture();
 }
 
-void Surface::Update(const float& dt) {
+void Surface::Update(const float& dt) { //water animation
     static float timer = 0.5;
     timer += dt;
     if (timer > 1) {
@@ -249,10 +326,17 @@ void Surface::Draw(RenderWindow& window) const {
     for (const auto& lake : lakes) {
         window.draw(lake);
     }
+
     for (const auto& glacier : glaciers) {
         window.draw(glacier, &ice_texture);
     }
+
+    for (const auto& meteorite : meteorites) {
+        window.draw(meteorite, &meteorite_texture);
+    }
+
     window.draw(surface, &texture);
+
     for (const auto& snow_piece : snow) {
         window.draw(snow_piece);
     }
