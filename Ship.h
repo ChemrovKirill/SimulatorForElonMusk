@@ -5,7 +5,7 @@
 
 class Ship : public RigidBody {
 private:
-	bool isDestroyed;
+	bool isDestroyed = false;
 	std::map<std::string, Engine> engines;
 public:
 	Ship(const String& f, const RigidBodyParameters& parameters);

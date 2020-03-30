@@ -13,11 +13,18 @@ size_t screen_y();
 size_t window_x();
 size_t window_y();
 
+enum class Hole {
+	EMPTY,
+	LAKE,
+	ICE,
+};
+
 class Surface {
 protected:
 	VertexArray surface;
 	std::vector<VertexArray> lakes;
-	Vector2f center_position;
+	std::vector<VertexArray> snow;
+	std::vector<VertexArray> glaciers;
 	Vector2f left_position;
 	float x_spacing;
 	int pixel_size;
@@ -26,6 +33,7 @@ protected:
 	int up_board = -3 * window_y();
 	int iter_0; //surface[iter_0].position.x = 0 (.y = down_board)
 	Texture texture;
+	Texture ice_texture;
 	String file;
 	Image image;
 public:
@@ -38,7 +46,8 @@ public:
 	void Draw(RenderWindow&) const;
 	int Get_iter_0() const;
 	float Get_spacing() const;
-	void GenerateLake(Vector2f& point, const int& x_boarder, const size_t& rough);
+	void GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, Hole);
+	void GenerateSnow(const int& coverage);
 	size_t Get_VertexCount() const;
 	Vertex GetVertex(const int& i) const;
 };

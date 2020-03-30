@@ -57,6 +57,7 @@ void Test5() {
         {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return;
             }
         }
 
@@ -93,9 +94,9 @@ void Test5() {
 
                
         lander.UpdateShipPosition(dt);
-        if (lander.CollisionDetection(s)) {
+       /* if (lander.CollisionDetection(s)) {
             lander.Destroy();
-        }
+        }*/
 
         lander.DrawShip(window);
 
@@ -109,6 +110,7 @@ void Test5() {
         view.setCenter(lander.GetAbsMassPosition());
         window.setView(view);
 
+        s.Update(dt);
         s.Draw(window);
 
         window.display();
