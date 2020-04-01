@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Object.h"
 #include "Surface.h"
 #include <cmath>
@@ -84,6 +83,8 @@ public:
 	float GetMomentOfInertia() const;
 	Vector2f GetMassPosition() const;
 	Vector2f GetCenterPosition() const;
+	Vector2f GetAbsMassPosition() const;
+
 	Vector2f GetVelocuty() const;
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
@@ -117,4 +118,5 @@ public:
 	void CollisionDetection(const Surface& s, RenderWindow& window);
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
 	void CollisionReaction();
+
 };

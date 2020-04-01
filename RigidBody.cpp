@@ -83,6 +83,10 @@ void RigidBody::SetAcceleration(const Vector2f& new_acceleration) { acceleration
 void RigidBody::SetAngleVelocity(const float& new_angle_velocity) { angle_velocity = new_angle_velocity; }
 void RigidBody::SetAngleAcceleration(const float& new_angle_acceleration) { angle_acceleration = new_angle_acceleration; }
 
+Vector2f RigidBody::GetAbsMassPosition() const {
+	return { position.x + mass_position.x * width, position.y - mass_position.y * height };
+}
+
 void RigidBody::UpdatePosition(const float& dt) {
 	Vector2f new_position;
 	float new_angle;

@@ -144,7 +144,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GeomShapesLib\Circle.cpp" />
     <ClCompile Include="GeomShapesLib\Ellipse.cpp" />
     <ClCompile Include="GeomShapesLib\Line.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="GeomShapesLib\Circle.h" />
     <ClInclude Include="GeomShapesLib\Ellipse.h" />
     <ClInclude Include="GeomShapesLib\GeomShapes.h" />

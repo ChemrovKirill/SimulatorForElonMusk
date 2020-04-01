@@ -13,17 +13,113 @@ using namespace sf;
 //void Test2();
 void Test3();
 void Test4();
+void Test5();
 void test_B2();
 void test_B1();
 
 int main() {
-    //Test1();
-    //Test2();
-    //Test3();
-    //test_B1();
-    test_B2();
-    //Test4();
+    try {
+        Test5();
+    }
+    catch (std::out_of_range & e) {
+        std::cerr << "out_of_range in " << e.what() << '\n';
+    }
     return 0;
+}
+
+void Test5() {
+    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
+
+    Surface s("surface.png", 10);
+
+    Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(200, s.YtoX(200) -  500), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
+        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
+
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
+        Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "down");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0, 0.5),
+        Force(false, 400, Vector2f(-1, 0), Vector2f(0, 0.5)), 10), "left");
+    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(1, 0.5),
+        Force(false, 400, Vector2f(1, 0), Vector2f(1, 0.5)), 10), "right");
+    lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
+    lander.ForceOn("0");
+    
+    float dt = 0, time = 0;
+    Clock deltaTime;
+
+    View view;
+    view.setCenter(Vector2f(window_x() / 2, window_y() / 2));
+    view.setSize(Vector2f(window_x(), window_y()));
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return;
+            }
+        }
+
+        window.clear();
+
+        if (Keyboard::isKeyPressed(Keyboard::W)) {
+            lander.ForceOn("down");
+        }
+        else {
+            lander.ForceOff("down");
+        }
+        if (Keyboard::isKeyPressed(Keyboard::A)) {
+            lander.ForceOn("left");
+        }
+        else {
+            lander.ForceOff("left");
+        }
+        if (Keyboard::isKeyPressed(Keyboard::D)) {
+            lander.ForceOn("right");
+        }
+        else {
+            lander.ForceOff("right");
+        }
+        
+        if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+            lander.SetEngineThrust("down", 1);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+            lander.SetEngineThrust("down", 0.5);
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Num3)) {
+            lander.SetEngineThrust("down", 0.25);
+        }
+
+               
+        lander.UpdateShipPosition(dt);
+       /* if (lander.CollisionDetection(s)) {
+            lander.Destroy();
+        }*/
+
+        lander.DrawShip(window);
+
+        lander.DrawMassPosition(window);
+        lander.DrawBodyWay(window);
+        lander.DrawSpeed(window);
+        lander.DrawForce(window, lander.GetForce("left"));
+        lander.DrawForce(window, lander.GetForce("right"));
+        lander.DrawForce(window, lander.GetForce("down"));
+
+        view.setCenter(lander.GetAbsMassPosition());
+        window.setView(view);
+
+        s.Update(dt);
+        s.Draw(window);
+
+        window.display();
+
+        time += dt;
+        dt = deltaTime.restart().asSeconds();
+    }
+
 }
 
 void Test4() {
@@ -365,8 +461,8 @@ void test_B2() {
     lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
     lander.ForceOn("0");
 
+    View view;
 
-    sf::View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
 

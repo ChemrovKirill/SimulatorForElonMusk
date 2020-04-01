@@ -63,7 +63,10 @@
     <ClCompile Include="GeomShapesLib\Triangle.cpp">
       <Filter>Resource Files\GeomShapesLib</Filter>
     </ClCompile>
+
     <ClCompile Include="Collision.cpp">
+    <ClCompile Include="Engine.cpp">
+
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,6 +110,7 @@
     <ClInclude Include="GeomShapesLib\Triangle.h">
       <Filter>Resource Files\GeomShapesLib</Filter>
     </ClInclude>
+
     <ClInclude Include="Geom\Circle.h">
       <Filter>Header Files\Geom</Filter>
     </ClInclude>
@@ -136,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Geom\Triangle.h">
       <Filter>Header Files\Geom</Filter>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
 </Project>
