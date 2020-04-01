@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\GeomShapesLib">
       <UniqueIdentifier>{84d01c58-fd95-4508-b021-5d478dfc0ff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Geom">
+      <UniqueIdentifier>{c67d6113-8949-4a67-9963-685949014860}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,7 +63,10 @@
     <ClCompile Include="GeomShapesLib\Triangle.cpp">
       <Filter>Resource Files\GeomShapesLib</Filter>
     </ClCompile>
+
+    <ClCompile Include="Collision.cpp">
     <ClCompile Include="Engine.cpp">
+
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,8 +110,39 @@
     <ClInclude Include="GeomShapesLib\Triangle.h">
       <Filter>Resource Files\GeomShapesLib</Filter>
     </ClInclude>
+
+    <ClInclude Include="Geom\Circle.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Ellipse.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Geometric.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Line.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Point.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Polygon.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Rectangle.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Shape.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Square.h">
+      <Filter>Header Files\Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Triangle.h">
+      <Filter>Header Files\Geom</Filter>
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
 </Project>

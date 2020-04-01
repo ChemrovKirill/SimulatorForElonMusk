@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "RigidBody.h"
 #include "Ship.h"
+#include "Geom/Geometric.h"
 
 using namespace sf;
 
@@ -217,7 +218,7 @@ void Test4() {
         }
 
         Body1.UpdatePosition(dt);
-        Body1.CollisionDetection(s);
+        //Body1.CollisionDetection(s);
 
         Body1.Draw(window);
         Body1.DrawMassPosition(window);
@@ -439,9 +440,14 @@ void test_B1() {
 void test_B2() {
     RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
-    Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(200, 200), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
+
+    Surface s("surface.png", 10);
+    float dt = 0, time = 0;
+    Clock deltaTime;
+
+    Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(0, -200), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-    
+
     lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1), 
                      Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)),      10) , "1");
     lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0), 
@@ -455,12 +461,8 @@ void test_B2() {
     lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
     lander.ForceOn("0");
 
-
-    Surface s("surface.png", 10);
-    float dt = 0, time = 0;
-    Clock deltaTime;
-
     View view;
+
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
 
@@ -537,26 +539,19 @@ void test_B2() {
         lander.DrawForce(window, lander.GetForce("6"));
         lander.DrawForce(window, lander.GetForce("0"));
 
-
-        if (Keyboard::isKeyPressed(Keyboard::Up)) {
-            view.move({ 0,-2 });
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Down)) {
-            view.move({ 0 ,2 });
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Right)) {
-            view.move({ 2, 0 });
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Left)) {
-            view.move({ -2, 0 });
-        }
+        view.setCenter(lander.GetCenterPosition());
         window.setView(view);
 
+
         s.Draw(window);
+
+        lander.CollisionDetection(s, window);
+        lander.CollisionModelDrow(window);
 
         window.display();
 
         time += dt;
+        std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
     }
 

@@ -47,9 +47,9 @@ size_t Surface::Get_VertexCount() const {
     return surface.getVertexCount();
 }
 Vertex Surface::GetVertex(const int& i) const {
-    if (i >= 0 && i < surface.getVertexCount()) {
-        return surface[i];
-    }
+    if (i >= 0 && i < surface.getVertexCount()) { return surface[i]; }
+    else if (i < 0) { return surface[0]; }
+    else { return surface[surface.getVertexCount() - 1]; }
 }
 
 void Surface::Generate_V(Vector2f& point, const float& step, const int& step_count,  size_t rough) {
@@ -354,4 +354,3 @@ void Surface::Draw(RenderWindow& window) const {
         //    }
         //}
         //point.y += (float)(rand() % rough) * slope_direction;
-
