@@ -4,7 +4,8 @@ RigidBodyParameters::RigidBodyParameters()
 	: position(Vector2f(0, 0)), width(0), height(0), angle(0), mass(0),
 	moment_of_inertia(0), mass_position(Vector2f(0, 0)),
 	velocity(Vector2f(0, 0)), acceleration(Vector2f(0, 0)), angle_velocity(0),
-	angle_acceleration(0) {}
+	angle_acceleration(0), 
+	collision_vertex({Point(0, 0), Point(1, 0), Point(1, 1), Point(0, 1)}) {}
 
 RigidBodyParameters::RigidBodyParameters(const Vector2f new_position,
 	const float& w, const float& h, const float& start_angle,
@@ -13,7 +14,8 @@ RigidBodyParameters::RigidBodyParameters(const Vector2f new_position,
 	: position(new_position), width(w), height(h), angle(start_angle), mass(start_mass),
 	moment_of_inertia(start_moment_of_inertia), mass_position(start_mass_position),
 	velocity(Vector2f(0, 0)), acceleration(Vector2f(0, 0)), angle_velocity(0),
-	angle_acceleration(0) {}
+	angle_acceleration(0), 
+	collision_vertex({ Point(0, 0), Point(1, 0), Point(1, 1), Point(0, 1) }) {}
 
 RigidBodyParameters::RigidBodyParameters(const Vector2f new_position,
 	const float& w, const float& h, const float& start_angle,
@@ -24,7 +26,8 @@ RigidBodyParameters::RigidBodyParameters(const Vector2f new_position,
 	: position(new_position), width(w), height(h), angle(start_angle), mass(start_mass),
 	moment_of_inertia(start_moment_of_inertia), mass_position(start_mass_position),
 	velocity(start_velocity), acceleration(start_acceleration), angle_velocity(start_angle_velocity),
-	angle_acceleration(start_angle_acceleration) {}
+	angle_acceleration(start_angle_acceleration), 
+	collision_vertex({ Point(0, 0), Point(1, 0), Point(1, 1), Point(0, 1) }) {}
 
 
 
@@ -40,6 +43,14 @@ Force::Force(const Force& f) {
 	force_point = f.force_point;
 	force_vector = f.force_vector;
 }
+Force Force::operator = (const Force& f) {
+	exist = f.exist;
+	is_force_field = f.is_force_field;
+	force = f.force;
+	force_vector = f.force_vector;
+	force_point = f.force_point;
+	return f;
+}
 
 
 
@@ -47,7 +58,7 @@ RigidBody::RigidBody(const String& f, const RigidBodyParameters& parameters)
 	: Object(f, parameters.position, parameters.width, parameters.height, parameters.angle),
 	mass(parameters.mass), moment_of_inertia(parameters.moment_of_inertia), mass_position(parameters.mass_position),
 	velocity(parameters.velocity), acceleration(parameters.acceleration), angle_velocity(parameters.angle_velocity),
-	angle_acceleration(parameters.angle_acceleration) {
+	angle_acceleration(parameters.angle_acceleration), collision_vertex(parameters.collision_vertex) {
 	diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
 	if (GetWidth() * GetMassPosition().x != 0) {
 		b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
@@ -128,14 +139,18 @@ void RigidBody::UpdateForces() {
 	SetAngleAcceleration(new_angle_accelaration);
 }
 
-void RigidBody::DrawMassPosition(RenderWindow& window) const {
-	CircleShape shape(10.f);
-	shape.setFillColor(Color::Red);
-	shape.setPosition(
+Vector2f RigidBody::GetCenterPosition() const {
+	return Vector2f{
 		GetPosition().x + diag * cos(RAD * GetAngle() + b) - 10,
 		GetPosition().y + diag * sin(RAD * GetAngle() + b) - 10
-	);
-	window.draw(shape);
+	};
+}
+
+void RigidBody::DrawMassPosition(RenderWindow& window) const {
+	CircleShape Cshape(10.f);
+	Cshape.setFillColor(Color::Red);
+	Cshape.setPosition(GetCenterPosition());
+	window.draw(Cshape);
 }
 
 void RigidBody::DrawBodyWay(RenderWindow& window) {
@@ -223,35 +238,4 @@ void RigidBody::DrawSpeed(RenderWindow& window) const {
 		Color::Blue
 	));
 	window.draw(speed_line);
-}
-
-void RigidBody::CollisionDetection(const Surface& s) {
-	int mid_iter = s.Get_iter_0() + 2*position.x/s.Get_spacing();
-	//std::cout << s.Get_iter_0() << " " << s.GetVertex(mid_iter).position.x << std::endl;
-	int start = mid_iter - (width + height) / s.Get_spacing();
-	if (start < 0) {
-		start = 0;
-	}
-	int end = mid_iter + (width + height) / s.Get_spacing();
-	if (end > s.Get_VertexCount()) {
-		end = s.Get_VertexCount();
-	}
-	//std::cout << start <<" " << mid_iter << " " << end << std::endl;
-	for (int i = start; i < end; ++i) {
-		//std::cout << s.GetVertex(i).position.x << std::endl;
-		if (PointInside(s.GetVertex(i).position)) {
-			
-			std::cout << "Collision" << std::endl;
-			break;
-		}
-	}
-}
-
-Force Force::operator = (const Force& f) {
-	exist = f.exist;
-	is_force_field = f.is_force_field;
-	force = f.force;
-	force_vector = f.force_vector;
-	force_point = f.force_point;
-	return f;
 }

@@ -5,6 +5,7 @@
 #include <cmath>
 #include <set>
 #include <string>
+#include "Geom/Geometric.h"
 
 using namespace sf;
 
@@ -23,6 +24,8 @@ struct RigidBodyParameters {
 
 	float angle_velocity;
 	float angle_acceleration;
+
+	std::vector<Point> collision_vertex;
 
 	RigidBodyParameters();
 	RigidBodyParameters(const Vector2f new_position,
@@ -71,6 +74,7 @@ protected:
 	//the angle between the horizon and the segment connecting the upper-left corner and the center of mass
 
 	VertexArray way;
+	std::vector<Point> collision_vertex;
 
 	std::map<String,Force> forces;
 public:
@@ -79,6 +83,7 @@ public:
 	float GetMass() const;
 	float GetMomentOfInertia() const;
 	Vector2f GetMassPosition() const;
+	Vector2f GetCenterPosition() const;
 	Vector2f GetVelocuty() const;
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
@@ -106,5 +111,10 @@ public:
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;
 
-	void CollisionDetection(const Surface&);
+	void CollisionModelDrow(RenderWindow& window);
+	void CollisionDetection(const Surface& s);
+	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
+	void CollisionDetection(const Surface& s, RenderWindow& window);
+	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
+	void CollisionReaction();
 };
