@@ -1,67 +1,5 @@
-  
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{f8078828-885c-4a35-aee5-ec826a1eea16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources">
-      <UniqueIdentifier>{4ddbbe50-0312-4357-8b53-eb9522ab9d61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sources\Geom">
-      <UniqueIdentifier>{8dd9446f-4c96-48f2-8f8c-a9cea385435e}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Force.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Surface.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Circle.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Ellipse.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Geometric.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Line.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Point.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Polygon.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Rectangle.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Shape.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Square.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-    <ClInclude Include="Geom\Triangle.h">
-      <Filter>Sources\Geom</Filter>
-    </ClInclude>
-  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp">
       <Filter>Sources</Filter>
@@ -84,5 +22,66 @@
     <ClCompile Include="Surface.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Geom\Circle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Ellipse.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Point.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Line.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Geometric.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Polygon.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Rectangle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Shape.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Square.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Triangle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{e6b54d43-0df1-420a-bc44-3bedf72216ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geom">
+      <UniqueIdentifier>{f1c6c169-70ec-4392-a4c7-4a0acb8b7c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{ccba70f8-dc8a-485f-8e3f-820a1a82cc54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
