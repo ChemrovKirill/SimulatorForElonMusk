@@ -101,6 +101,7 @@ public:
 
 	void UpdatePosition(const float& dt);
 	void AddForce(const std::string& name, const Force& new_force);
+	void DeleteForce(const std::string& name);
 	void ForceOn(const std::string& name);
 	void ForceOff(const std::string& name);
 	void UpdateForces();
@@ -117,6 +118,6 @@ public:
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
 	void CollisionDetection(const Surface& s, RenderWindow& window);
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
-	void CollisionReaction();
-
+	void CollisionReaction(bool first_collision, Point force_point);
+	void NOCollisionReaction();
 };
