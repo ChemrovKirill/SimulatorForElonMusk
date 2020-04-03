@@ -1,148 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\GeomShapesLib">
-      <UniqueIdentifier>{84d01c58-fd95-4508-b021-5d478dfc0ff8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Geom">
-      <UniqueIdentifier>{c67d6113-8949-4a67-9963-685949014860}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Surface.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Surface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeomShapesLib\Circle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Ellipse.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Line.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Point.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Polygon.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Rectangle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Square.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.h">
+      <Filter>Файлы заголовков</Filter>
     </ClCompile>
     <ClCompile Include="GeomShapesLib\Triangle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-
-    <ClCompile Include="Collision.cpp">
-    <ClCompile Include="Engine.cpp">
-
-      <Filter>Source Files</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ship.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeomShapesLib\Circle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Circle.h">
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
     </ClInclude>
     <ClInclude Include="GeomShapesLib\Ellipse.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\GeomShapes.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Line.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Point.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Polygon.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Rectangle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Shape.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Square.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Triangle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-
-    <ClInclude Include="Geom\Circle.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Ellipse.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
     </ClInclude>
-    <ClInclude Include="Geom\Geometric.h">
-      <Filter>Header Files\Geom</Filter>
+    <ClInclude Include="Engine.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Line.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Line.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Point.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Point.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Polygon.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Polygon.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Rectangle.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Rectangle.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Shape.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Shape.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Square.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Square.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\Triangle.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Triangle.h">
-      <Filter>Header Files\Geom</Filter>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
     </ClInclude>
+    <ClInclude Include="Geom\Geometric.h">
+      <Filter>Файлы ресурсов\Geom_Yarik</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomShapesLib\GeomShapes.h">
+      <Filter>Файлы ресурсов\Geom_Kirill</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{cd950f0e-7797-4960-a81d-b9199350dcea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{2cb795d5-94ef-4aa1-99a2-a66fb536cc2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{0bb6649c-5288-4fdf-bd44-227abad38594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Geom_Kirill">
+      <UniqueIdentifier>{8254e88a-b10c-4e8e-912a-927227f8fe86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы ресурсов\Geom_Yarik">
+      <UniqueIdentifier>{c67a76a6-9be2-4156-ad7a-ae3d737f24eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

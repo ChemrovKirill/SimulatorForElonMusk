@@ -73,7 +73,12 @@ Vector2f RigidBody::GetVelocuty() const { return velocity; }
 Vector2f RigidBody::GetAcceleration() const { return acceleration; }
 float RigidBody::GetAngleVelocity() const { return angle_velocity; }
 float RigidBody::GetAngleAcceleration() const { return angle_acceleration; }
-Force RigidBody::GetForce(const std::string& name) const { return forces.at(name); }
+Force RigidBody::GetForce(const std::string& name) const { 
+	if (forces.count(name) == 1) {
+		return forces.at(name);
+	}
+	else { return Force(true, 0, { 0, 0 }, {0, 0}); }
+}
 
 void RigidBody::SetMass(const float& new_mass) { mass = new_mass; }
 void RigidBody::SetMomentOfInertia(const float& new_moment_of_inertia) { moment_of_inertia = new_moment_of_inertia; }
@@ -107,6 +112,10 @@ void RigidBody::UpdatePosition(const float& dt) {
 
 void RigidBody::AddForce(const std::string& name, const Force& new_force) {
 	forces[name] = new_force;
+}
+
+void RigidBody::DeleteForce(const std::string& name) {
+	forces.erase(name);
 }
 
 void RigidBody::ForceOn(const std::string& name) {

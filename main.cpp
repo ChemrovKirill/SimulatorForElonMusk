@@ -9,8 +9,8 @@
 
 using namespace sf;
 
-//void Test1();
-//void Test2();
+void Test1();
+void Test2();
 void Test3();
 void Test4();
 void Test5();
@@ -19,7 +19,13 @@ void test_B1();
 
 int main() {
     try {
-        Test5();
+        //Test1();
+        //Test2();
+        //Test3();
+        //Test4();
+        //Test5();
+        test_B2();
+        //test_B1();
     }
     catch (std::out_of_range & e) {
         std::cerr << "out_of_range in " << e.what() << '\n';
@@ -538,6 +544,7 @@ void test_B2() {
         lander.DrawForce(window, lander.GetForce("5"));
         lander.DrawForce(window, lander.GetForce("6"));
         lander.DrawForce(window, lander.GetForce("0"));
+        lander.DrawForce(window, lander.GetForce("reaction"));
 
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
@@ -551,7 +558,7 @@ void test_B2() {
         window.display();
 
         time += dt;
-        std::cout << dt << std::endl;
+        //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
     }
 
