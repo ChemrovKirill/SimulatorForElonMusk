@@ -1,148 +1,87 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{f8078828-885c-4a35-aee5-ec826a1eea16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4ddbbe50-0312-4357-8b53-eb9522ab9d61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\GeomShapesLib">
-      <UniqueIdentifier>{84d01c58-fd95-4508-b021-5d478dfc0ff8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Geom">
-      <UniqueIdentifier>{c67d6113-8949-4a67-9963-685949014860}</UniqueIdentifier>
+    <Filter Include="Sources\Geom">
+      <UniqueIdentifier>{8dd9446f-4c96-48f2-8f8c-a9cea385435e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Surface.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Surface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ship.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Circle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Ellipse.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Line.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Point.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Polygon.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Rectangle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Square.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GeomShapesLib\Triangle.cpp">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClCompile>
-
-    <ClCompile Include="Collision.cpp">
-    <ClCompile Include="Engine.cpp">
-
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Engine.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Ship.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="GeomShapesLib\Circle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
+    <ClInclude Include="Surface.h">
+      <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="GeomShapesLib\Ellipse.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\GeomShapes.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Line.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Point.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Polygon.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Rectangle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Shape.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Square.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomShapesLib\Triangle.h">
-      <Filter>Resource Files\GeomShapesLib</Filter>
-    </ClInclude>
-
     <ClInclude Include="Geom\Circle.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Ellipse.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Geometric.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Line.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Point.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Polygon.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Rectangle.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Shape.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Square.h">
-      <Filter>Header Files\Geom</Filter>
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Triangle.h">
-      <Filter>Header Files\Geom</Filter>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
-
+      <Filter>Sources\Geom</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

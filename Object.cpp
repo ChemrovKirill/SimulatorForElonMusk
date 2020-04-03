@@ -39,17 +39,17 @@ std::vector<Vector2f> Object::GetVertexes() const {
 	return vertexes;
 }
 
-bool Object::PointInside(const Vector2f& point) const {
-	std::vector<gs::Point> points;
-	for (size_t i = 0; i < 4; ++i) {
-		points.push_back(gs::Point(GetVertexes()[i].x, GetVertexes()[i].y));
-	}
-	gs::Polygon obj(points);
-	gs::Point p(gs::Point(point.x, point.y));
-	//std::cout << p << "  " << points[0] << ";" << points[2] << std::endl;
-
-	return obj.containsPoint(p);
-}
+//bool Object::PointInside(const Vector2f& point) const {
+//	std::vector<gs::Point> points;
+//	for (size_t i = 0; i < 4; ++i) {
+//		points.push_back(gs::Point(GetVertexes()[i].x, GetVertexes()[i].y));
+//	}
+//	gs::Polygon obj(points);
+//	gs::Point p(gs::Point(point.x, point.y));
+//	//std::cout << p << "  " << points[0] << ";" << points[2] << std::endl;
+//
+//	return obj.containsPoint(p);
+//}
 Object::Object(const Object& o) : position(o.position), height(o.height), width(o.width), angle(o.angle), exist(o.exist), file(o.file) {
 	image.loadFromFile("images/" + file);
 	image.createMaskFromColor(Color(0,0,0));

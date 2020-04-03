@@ -19,7 +19,7 @@ void test_B1();
 
 int main() {
     try {
-        Test5();
+        test_B2();
     }
     catch (std::out_of_range & e) {
         std::cerr << "out_of_range in " << e.what() << '\n';

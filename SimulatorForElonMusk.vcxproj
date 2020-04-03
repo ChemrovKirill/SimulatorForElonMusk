@@ -18,6 +18,33 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Force.h" />
+    <ClInclude Include="Geom\Circle.h" />
+    <ClInclude Include="Geom\Ellipse.h" />
+    <ClInclude Include="Geom\Geometric.h" />
+    <ClInclude Include="Geom\Line.h" />
+    <ClInclude Include="Geom\Point.h" />
+    <ClInclude Include="Geom\Polygon.h" />
+    <ClInclude Include="Geom\Rectangle.h" />
+    <ClInclude Include="Geom\Shape.h" />
+    <ClInclude Include="Geom\Square.h" />
+    <ClInclude Include="Geom\Triangle.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Ship.h" />
+    <ClInclude Include="Surface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Surface.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1C2730D0-BBB3-4ECB-8BBB-446DC8FCB8B2}</ProjectGuid>
@@ -143,51 +170,6 @@
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-
-    <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GeomShapesLib\Circle.cpp" />
-    <ClCompile Include="GeomShapesLib\Ellipse.cpp" />
-    <ClCompile Include="GeomShapesLib\Line.cpp" />
-    <ClCompile Include="GeomShapesLib\Point.cpp" />
-    <ClCompile Include="GeomShapesLib\Polygon.cpp" />
-    <ClCompile Include="GeomShapesLib\Rectangle.cpp" />
-    <ClCompile Include="GeomShapesLib\Square.cpp" />
-    <ClCompile Include="GeomShapesLib\Triangle.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Ship.cpp" />
-    <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="Surface.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="GeomShapesLib\Circle.h" />
-    <ClInclude Include="GeomShapesLib\Ellipse.h" />
-    <ClInclude Include="GeomShapesLib\GeomShapes.h" />
-    <ClInclude Include="GeomShapesLib\Line.h" />
-    <ClInclude Include="GeomShapesLib\Point.h" />
-    <ClInclude Include="GeomShapesLib\Polygon.h" />
-    <ClInclude Include="GeomShapesLib\Rectangle.h" />
-    <ClInclude Include="GeomShapesLib\Shape.h" />
-    <ClInclude Include="GeomShapesLib\Square.h" />
-    <ClInclude Include="GeomShapesLib\Triangle.h" />
-    <ClInclude Include="Geom\Circle.h" />
-    <ClInclude Include="Geom\Ellipse.h" />
-    <ClInclude Include="Geom\Geometric.h" />
-    <ClInclude Include="Geom\Line.h" />
-    <ClInclude Include="Geom\Point.h" />
-    <ClInclude Include="Geom\Polygon.h" />
-    <ClInclude Include="Geom\Rectangle.h" />
-    <ClInclude Include="Geom\Shape.h" />
-    <ClInclude Include="Geom\Square.h" />
-    <ClInclude Include="Geom\Triangle.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Ship.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

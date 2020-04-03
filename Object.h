@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <string>
-#include "GeomShapesLib/GeomShapes.h"
 #include <vector>
 
 #define PI 3.1415f
