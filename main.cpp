@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "iostream"
 
+#include "MathFunction.h"
 #include "Surface.h"
 #include "Object.h"
 #include "RigidBody.h"
@@ -16,6 +17,7 @@ void Test4();
 void Test5();
 void test_B2();
 void test_B1();
+void test_B3();
 
 int main() {
     try {
@@ -27,6 +29,7 @@ int main() {
         //Test5();
         test_B2();
         //test_B1();
+        //test_B3();
     }
     catch (std::out_of_range & e) {
         std::cerr << "out_of_range in " << e.what() << '\n';
@@ -448,7 +451,7 @@ void test_B2() {
     RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 
 
-    Surface s("surface.png", 10);
+    Surface s("surface.png", 20);
     float dt = 0, time = 0;
     Clock deltaTime;
 
@@ -529,15 +532,12 @@ void test_B2() {
             lander.SetEngineThrustAngle("1", 0);
         }
 
-
-
-
         lander.UpdateShipPosition(dt);
 
         lander.DrawShip(window);
 
         lander.DrawMassPosition(window);
-        lander.DrawBodyWay(window);
+        //lander.DrawBodyWay(window);
         lander.DrawSpeed(window);
         lander.DrawForce(window, lander.GetForce("1"));
         lander.DrawForce(window, lander.GetForce("3"));
@@ -561,10 +561,18 @@ void test_B2() {
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
+
+        while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
+
     }
 
 }
-
+void test_B3() {
+    for (float i = -1.5; i <= 1.5; i += 0.1) {
+        std::cout << i <<  " " << acos(i) / RAD << std::endl;
+    }
+    std::cout << 1 << " " << acos(1.f) / RAD << std::endl;
+}
 //void Test1() {
 //    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 //

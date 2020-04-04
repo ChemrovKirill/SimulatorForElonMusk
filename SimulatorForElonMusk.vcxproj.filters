@@ -22,6 +22,12 @@
     <ClCompile Include="Surface.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionReaction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MathFunction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
@@ -63,13 +69,16 @@
     <ClInclude Include="Ship.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Geom\Square.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Surface.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Geom\Triangle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="MathFunction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Square.h">
       <Filter>Geom</Filter>
     </ClInclude>
   </ItemGroup>

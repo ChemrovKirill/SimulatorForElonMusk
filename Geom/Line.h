@@ -3,6 +3,8 @@
 #include"Point.h"
 #include<cmath>
 
+#define EPSILON 20	
+
 class Line {
 private:
 	Point a, b;
@@ -82,7 +84,7 @@ public:
 	}
 
 	bool IsOnLine(const Point& p) {
-		if (p.y == p.x * k + kb) { return true; }
+		if (p.y <= p.x * k + kb + EPSILON && p.y >= p.x * k + kb - EPSILON) { return true; }
 		else { return false; }
 	}
 
@@ -93,13 +95,13 @@ public:
 		else { return false; }
 	}
 
-	void Print(RenderWindow& window) const {
-		VertexArray line;
+	void Print(sf::RenderWindow& window, sf::Color c) const {
+		sf::VertexArray line;
 
-		line.setPrimitiveType(LinesStrip);
-		line.append(Vertex(Vector2f(a.x, a.y), Color::Blue));
+		line.setPrimitiveType(sf::LinesStrip);
+		line.append(sf::Vertex(sf::Vector2f(a.x, a.y), c));
 		
-		line.append(Vertex(Vector2f(b.x, b.y), Color::Blue));
+		line.append(sf::Vertex(sf::Vector2f(b.x, b.y), c));
 		window.draw(line);
 
 	}
