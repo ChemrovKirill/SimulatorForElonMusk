@@ -131,8 +131,8 @@ public:
 		return true;
 	}
 
-	void Print(RenderWindow& window) const {
-		for (Line i : GetLines()) { i.Print(window); }
+	void Print(sf::RenderWindow& window) const {
+		for (Line i : GetLines()) { i.Print(window, sf::Color::Blue); }
 	}
 };
 

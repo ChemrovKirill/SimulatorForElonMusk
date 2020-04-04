@@ -70,7 +70,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s)) {
-					CollisionReaction(first_collision, i);
+					CollisionReactionWithSurface(surface_line, first_collision);
 					first_collision = false;
 					collision_detected = true;
 				}
@@ -84,7 +84,10 @@ void RigidBody::CollisionDetection(const Surface& s) {
 	for (int i = (start / 2) * 2; i < end; i += step) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
-			CollisionReaction(first_collision, p);
+			for (Line ii : collision_polygon.GetLines()) {
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision); }
+			}
+
 			first_collision = false;
 			collision_detected = true;
 		}
@@ -136,24 +139,6 @@ void RigidBody::CollisionReaction(bool first_collision, Point force_point) {
 		//position.y -= 1;
 	}
 	else {
-		//float fb;
-		//int x = GetWidth() * force.force_point.x;
-		//int y = GetHeight() * force.force_point.y;
-
-		//GetPosition().x + cos(RAD * GetAngle() + fb) * diag_force,
-		//	GetPosition().y + sin(RAD * GetAngle() + fb) * diag_force);
-
-		//if (x >= 0 && y != 0) { fb = atan(y / x); }
-		//else if (x < 0) { fb = atan(y / x) - PI; }
-		//else { fb = 0; }
-
-		//Vector2f p(((force_point.x - position.x) * cos(RAD * angle)) / width, ((force_point.y - position.y) * sin(RAD * angle)) / height);
-		//Force reaction(false, 100, Vector2f(0, -1), p);
-		//AddForce("reaction", reaction);
-		//ForceOn("reaction");
-		//position.y -= 1;
-
-
 		if (acceleration.y >= 0) {
 			velocity.x = 0;
 			velocity.y = 0;
@@ -165,12 +150,6 @@ void RigidBody::CollisionReaction(bool first_collision, Point force_point) {
 	static int i = 0;
 	++i;
 	std::cout << "Collision! " << i << std::endl;
-	//position.y -= 1;
-	//if (velocity.x > 0) { position.x -= 1; }
-	//else { position.x += 1; }
-	//angle_velocity = 0;
-	//velocity.x = -velocity.x * 0.5;
-	//velocity.y = -velocity.y * 0.5;
 }
 
 void RigidBody::NOCollisionReaction() {
@@ -227,13 +206,13 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s, window)) {
-					CollisionReaction(first_collision, i);
+					CollisionReactionWithSurface(surface_line, first_collision);
 
 					CircleShape Cshape(10.f);
 					Cshape.setFillColor(Color::Red);
 					Cshape.setPosition({ static_cast<float>(i.x) - 5, static_cast<float>(i.y) - 5 });
 					window.draw(Cshape);
-
+					 
 					first_collision = false;
 					collision_detected = true;
 				}
@@ -247,7 +226,9 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 	for (int i = (start / 2) * 2; i < end; i+=step) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
-			CollisionReaction(first_collision, p);
+			for (Line ii : collision_polygon.GetLines()) {
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision); }
+			}
 
 			CircleShape Cshape(10.f);
 			Cshape.setFillColor(Color::Red);
@@ -284,8 +265,8 @@ bool RigidBody::IntercectionWithSurface(const Point& p, const Line& surface_line
 
 	Line ray(p, an, -1000);
 
-	surface_line.Print(window);
-	ray.Print(window);
+	surface_line.Print(window, Color::Red);
+	ray.Print(window, Color::Blue);
 
 	Point int_p(ray.intersectionPoint(surface_line));
 	if (((int_p.x >= surface_line.GetFirstPoint().x && int_p.x >= surface_line.GetSecondPoint().x) ||

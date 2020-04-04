@@ -1,4 +1,6 @@
 #pragma once
+
+#include "MathFunction.h"
 #include "Object.h"
 #include "Surface.h"
 #include <cmath>
@@ -115,9 +117,13 @@ public:
 
 	void CollisionModelDrow(RenderWindow& window);
 	void CollisionDetection(const Surface& s);
-	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
 	void CollisionDetection(const Surface& s, RenderWindow& window);
+private:
+	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
+	
+	void CollisionReactionWithSurface(const Line& l, bool first_collision);
+
 	void CollisionReaction(bool first_collision, Point force_point);
 	void NOCollisionReaction();
 };
