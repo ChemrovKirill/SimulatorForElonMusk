@@ -74,7 +74,15 @@ void Menu(RenderWindow & window) {
 }
 
 Surface SurfaceSelection(RenderWindow& window) {
-	return Surface("surface.png", 10, 50);
+    std::map<Hole, int> p = {   { Hole::EMPTY_U, 0 },
+                                { Hole::EMPTY_V, 0 },
+                                { Hole::ICE, 50 },
+                                { Hole::LAKE, 0 },
+                                { Hole::METEORITE, 100 }
+                            };
+    int rough = 10;
+    int snow_coverage = 50;
+	return Surface("surface.png", rough, snow_coverage, p);
 }
 
 void StartGame(RenderWindow& window) {

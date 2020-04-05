@@ -1,7 +1,5 @@
 #include "Surface.h"
 
-#define MAX_ANGLE 70
-
 size_t screen_x() {
     return VideoMode::getDesktopMode().width;
 }
@@ -24,13 +22,88 @@ void mix(std::vector<int>& v) {
     }
 }
 
-Surface::Surface(const String& f, const int& _rough, const int& snow_cov)
-: rough(_rough), file(f), snow_coverage(snow_cov) {
-    pixel_size = 4 * window_x();
+Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::map<Hole, int> prob)
+: rough(_rough), file(f), snow_coverage(snow_cov), probability(prob) {
+    pixel_size = 10 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
     surface.setPrimitiveType(TriangleStrip);
     Generate();
+}
+
+void Surface::ColorGenerate() {
+    //***SURFACE__COLOR***//
+    switch (rand() % 17) {
+    case 0:
+        surface_color = Color(0xb00000ff); //dark red
+        break;
+    case 1:
+        surface_color = Color(0x600000ff); //darker red
+        break;
+    case 2:
+        surface_color = Color(0x0000b0ff); //dark blue
+        break;
+    case 3:
+        surface_color = Color(0x000060ff); //darker blue
+        break;
+    case 4:
+        surface_color = Color(0x00b000ff); //dark green
+        break;
+    case 5:
+        surface_color = Color(0x006000ff); //darker green
+        break;
+    case 6:
+        surface_color = Color(0x800080ff); //purple
+        break;
+    case 7:
+        surface_color = Color(0x4b0082ff); //indigo
+        break;
+    case 8:
+        surface_color = Color(0xff00ffff); //pink
+        break;
+    case 9:
+        surface_color = Color(0x808080ff); //grey
+        break;
+    case 10:
+        surface_color = Color(0x708090ff); //slate gray
+        break;
+    case 11:
+        surface_color = Color(0x2f4f4fff); //dark slate grey
+        break;
+    case 12:
+        surface_color = Color(0xfcdd76ff); //sand
+        break;
+    case 13:
+        surface_color = Color(0xcccc00ff); //dark yellow
+        break;
+    case 14:
+        surface_color = Color(0x808000ff); //olive
+        break;
+    case 15:
+        surface_color = Color(0xd18800ff); //dark orange
+        break;
+    case 16:
+        surface_color = Color(0x452d01ff); //brown
+        break;
+    }
+    //***METEORITES__COLOR***//
+    switch (rand() % 5) {
+    case 0:
+        meteorites_color = Color(0xb00000ff); //dark red
+        break;
+    case 1:
+        meteorites_color = Color(0x708090ff); //slate gray
+        break;
+    case 2:
+        meteorites_color = Color(0xcccc00ff); //dark yellow
+        break;
+    case 3:
+        meteorites_color = Color(0x4b0082ff); //indigo
+        break;
+    case 4:
+        meteorites_color = Color(0xd18800ff); //dark orange
+        break;
+    }
 }
 
 void Surface::Generate() {
@@ -44,8 +117,8 @@ void Surface::Generate() {
     float angle = 0;
     float prev_angle = 0;
     while (point.x < left_position.x + pixel_size) {
-        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;   //down y from which U-turn starts
-        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;       //up y from which U-turn starts
+        int down_turn_board = down_board - tan(max_angle) * 4 * step;   //down y from which U-turn starts
+        int up_turn_board = up_board + tan(max_angle) * 4 * step;       //up y from which U-turn starts
         if (point.y > down_turn_board) {
             angle = rand() % 50 + 10;
         }
@@ -53,7 +126,7 @@ void Surface::Generate() {
             angle = rand() % 50 - 60;
         }
         else {
-            angle = rand() % (MAX_ANGLE * 2) - MAX_ANGLE;
+            angle = rand() % (max_angle * 2+1) - max_angle;
         }
         if (abs(angle - prev_angle) > 0) {
             GenerateSlope(point, point.x + step / 6, 2*rough, (prev_angle + (angle - prev_angle) / 3));
@@ -62,29 +135,41 @@ void Surface::Generate() {
         prev_angle = angle;
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
-        if (rand() % 10 < 5) {
-            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+        if (rand() % 10 < 10) {
             switch (rand() % 5) {
             case 0:
-                GenerateHole(point, point.x + step, Hole::LAKE);
+                if (rand() % 100 < probability[Hole::LAKE]) {
+                    GenerateHole(point, point.x + step, Hole::LAKE);
+                }
                 break;
             case 1:
-                GenerateHole(point, point.x + step, Hole::ICE);
+                if (rand() % 100 < probability[Hole::ICE]) {
+                    GenerateHole(point, point.x + step, Hole::ICE);
+                }
                 break;
             case 2:
-                GenerateHole(point, point.x + step / 2, Hole::METEORITE);
+                if (rand() % 100 < probability[Hole::METEORITE]) {
+                    GenerateHole(point, point.x + step / 2, Hole::METEORITE);
+                }
                 break;
             case 3:
-                GenerateHole(point, point.x + step, Hole::EMPTY_U);
+                if (rand() % 100 < probability[Hole::EMPTY_U]) {
+                    GenerateHole(point, point.x + step, Hole::EMPTY_U);
+                }
                 break;
             case 4:
-                GenerateHole(point, point.x + step, Hole::EMPTY_V);
+                if (rand() % 100 < probability[Hole::EMPTY_V]) {
+                    GenerateHole(point, point.x + step, Hole::EMPTY_V);
+                }
+                break;
+            default:
                 break;
             }
             //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
         }
     }
     GenerateSnow();
+    ColorGenerate();
     SetTexture();
 }
 
@@ -110,7 +195,7 @@ Vertex Surface::GetVertex(const int& i) const {
 void Surface::Generate_V(Vector2f& point, const float& step, const int& step_count, const int& loc_rough) {
     std::vector<int> angles(step_count);
     for (auto& angle : angles) {
-        angle = rand() % (MAX_ANGLE - 10) + 10;
+        angle = rand() % (60) + 10;
         GenerateSlope(point, point.x + step, loc_rough, -angle);
     }
     mix(angles);
@@ -270,7 +355,7 @@ void Surface::SetTexture() {
     int count = surface.getVertexCount();
     for (int i = 0; i < count; ++i) {
         surface[i].texCoords = surface[i].position;
-        surface[i].color = Color::White;
+        surface[i].color = surface_color;
         if (surface[i].position.x == 0) {
             iter_0 = i;
         }
@@ -290,7 +375,7 @@ void Surface::SetTexture() {
         count = meteorite.getVertexCount();
         for (int i = 0; i < count; ++i) {
             meteorite[i].texCoords = meteorite[i].position;
-            meteorite[i].color = Color::Red;
+            meteorite[i].color = meteorites_color;
         }
     }
     /*int start = rand() % count;
