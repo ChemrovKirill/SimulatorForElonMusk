@@ -20,3 +20,4 @@ void Test5();
 void test_B2();
 void test_B1();
 void test_B3();
+void test_menu();

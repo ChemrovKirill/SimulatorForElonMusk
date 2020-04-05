@@ -24,13 +24,68 @@ void mix(std::vector<int>& v) {
     }
 }
 
-Surface::Surface(const String& f, const float& spacing)
-: x_spacing(spacing), file(f) {
-    pixel_size = 20 * window_x();
+Surface::Surface(const String& f, const int& _rough, const int& snow_cov)
+: rough(_rough), file(f), snow_coverage(snow_cov) {
+    pixel_size = 4 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
     surface.setPrimitiveType(TriangleStrip);
-    Generate(10);
+    Generate();
+}
+
+void Surface::Generate() {
+    surface.clear();
+    lakes.clear();
+    glaciers.clear();
+    Vector2f point = left_position;
+    srand(time(NULL));
+    //srand(1234567890);
+
+    float angle = 0;
+    float prev_angle = 0;
+    while (point.x < left_position.x + pixel_size) {
+        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;   //down y from which U-turn starts
+        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;       //up y from which U-turn starts
+        if (point.y > down_turn_board) {
+            angle = rand() % 50 + 10;
+        }
+        else if (point.y < up_turn_board) {
+            angle = rand() % 50 - 60;
+        }
+        else {
+            angle = rand() % (MAX_ANGLE * 2) - MAX_ANGLE;
+        }
+        if (abs(angle - prev_angle) > 0) {
+            GenerateSlope(point, point.x + step / 6, 2*rough, (prev_angle + (angle - prev_angle) / 3));
+            GenerateSlope(point, point.x + step / 6, 2*rough, (prev_angle + 2 * (angle - prev_angle) / 3));
+        }
+        prev_angle = angle;
+        int rand_rough = ((rand() % 3) + 1) * rough;
+        GenerateSlope(point, point.x + step, rand_rough, angle);
+        if (rand() % 10 < 5) {
+            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+            switch (rand() % 5) {
+            case 0:
+                GenerateHole(point, point.x + step, Hole::LAKE);
+                break;
+            case 1:
+                GenerateHole(point, point.x + step, Hole::ICE);
+                break;
+            case 2:
+                GenerateHole(point, point.x + step / 2, Hole::METEORITE);
+                break;
+            case 3:
+                GenerateHole(point, point.x + step, Hole::EMPTY_U);
+                break;
+            case 4:
+                GenerateHole(point, point.x + step, Hole::EMPTY_V);
+                break;
+            }
+            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
+        }
+    }
+    GenerateSnow();
+    SetTexture();
 }
 
 int Surface::Get_iter_0() const { return iter_0; }
@@ -52,32 +107,32 @@ Vertex Surface::GetVertex(const int& i) const {
     else { return surface[surface.getVertexCount() - 1]; }
 }
 
-void Surface::Generate_V(Vector2f& point, const float& step, const int& step_count,  size_t rough) {
+void Surface::Generate_V(Vector2f& point, const float& step, const int& step_count, const int& loc_rough) {
     std::vector<int> angles(step_count);
     for (auto& angle : angles) {
         angle = rand() % (MAX_ANGLE - 10) + 10;
-        GenerateSlope(point, point.x + step, rough, -angle);
+        GenerateSlope(point, point.x + step, loc_rough, -angle);
     }
     mix(angles);
     for (const auto& angle : angles) {
-        GenerateSlope(point, point.x + step, rough, angle);
+        GenerateSlope(point, point.x + step, loc_rough, angle);
     }
 }
 
-void Surface::Generate_U(Vector2f& point, const float& step, const int& step_count, size_t rough) {
+void Surface::Generate_U(Vector2f& point, const float& step, const int& step_count, const int& loc_rough) {
     std::vector<int> angles(step_count);
     float a_step = 80 / step_count;
     for (int i = step_count - 1; i >=0; --i) {
         angles[i] = i*a_step;
-        GenerateSlope(point, point.x + step, rough, -angles[i]);
+        GenerateSlope(point, point.x + step, loc_rough, -angles[i]);
     }
     //mix(angles);
     for (const auto& angle : angles) {
-        GenerateSlope(point, point.x + step, rough, angle);
+        GenerateSlope(point, point.x + step, loc_rough, angle);
     }
 }
 
-void Surface::GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, Hole h) {
+void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
     int level = point.y;
     int step_count = 10; //only descent
     float length = x_boarder - point.x;
@@ -172,11 +227,11 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, 
     }
 }
 
-void Surface::GenerateSnow(const int& coverage) {
+void Surface::GenerateSnow() {
     int i = 0;
     int piece_lengh = 50;
     while (i+2 < surface.getVertexCount()) {
-        if (rand() % 100 < coverage) {
+        if (rand() % 100 < snow_coverage) {
             VertexArray snow_piece;
             snow_piece.setPrimitiveType(TrianglesStrip);
             for (int j = 0; i < surface.getVertexCount() && j < piece_lengh; ++j) {
@@ -195,7 +250,7 @@ void Surface::GenerateSnow(const int& coverage) {
     }
 }
 
-void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle) {
+void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const int& loc_rough, const float& angle) {
     while (point.x < x_boarder) {
         float slope_direction = 0;
         surface.append(Vertex(point, Color::White));
@@ -204,7 +259,7 @@ void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const size_t&
             slope_direction = ((float)(rand() % 100)) / 100.0 - 0.5f;
         }
         point.x += x_spacing;
-        point.y += (float)(rough)*slope_direction;
+        point.y += (float)(loc_rough)*slope_direction;
         point.y += -tan(RAD * angle) * x_spacing;
     }
 }
@@ -243,62 +298,6 @@ void Surface::SetTexture() {
     for (int i = start; i < end && i < count; ++i) {
         surface[i].color = Color::Magenta;
     }*/
-}
-
-void Surface::Generate(const size_t& rough) {
-    surface.clear();
-    lakes.clear();
-    glaciers.clear();
-    Vector2f point = left_position;
-    srand(time(NULL));
-    //srand(1234567890);
-
-    float angle = 0;
-    float prev_angle = 0;
-    int step = pixel_size / 60;
-    while (point.x < left_position.x + pixel_size) {
-        int down_turn_board = down_board - tan(MAX_ANGLE) * 4 * step;   //down y from which U-turn starts
-        int up_turn_board = up_board + tan(MAX_ANGLE) * 4 * step;       //up y from which U-turn starts
-        if (point.y > down_turn_board) {
-            angle = rand() % 50 + 10;
-        }
-        else if (point.y < up_turn_board) {
-            angle = rand() % 50 - 60;
-        }
-        else {
-            angle = rand() % (MAX_ANGLE * 2) - MAX_ANGLE;
-        }
-        if (abs(angle - prev_angle) > 0) {
-            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + (angle - prev_angle) / 3));
-            GenerateSlope(point, point.x + step / 6, 20, (prev_angle + 2 * (angle - prev_angle) / 3));
-        }
-        prev_angle = angle;
-        int rand_rough = ((rand() % 3) + 1) * rough;
-        GenerateSlope(point, point.x + step, rand_rough, angle);
-        if (rand() % 10 < 5) {
-            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
-            switch(rand() % 5) {
-            case 0:
-                GenerateHole(point, point.x + step, rough, Hole::LAKE);
-                break;
-            case 1:
-                GenerateHole(point, point.x + step, rough, Hole::ICE);
-                break;
-            case 2:
-                GenerateHole(point, point.x + step/2, rough, Hole::METEORITE);
-                break;
-            case 3:
-                GenerateHole(point, point.x + step, rough, Hole::EMPTY_U);
-                break;
-            case 4:
-                GenerateHole(point, point.x + step, rough, Hole::EMPTY_V);
-                break;
-            }
-            //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
-        }
-    }
-    GenerateSnow(50);
-    SetTexture();
 }
 
 void Surface::Update(const float& dt) { //water animation
