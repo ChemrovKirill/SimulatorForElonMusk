@@ -28,6 +28,9 @@
     <ClCompile Include="MathFunction.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="Geom\Square.h">
       <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
