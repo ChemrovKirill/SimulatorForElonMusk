@@ -31,6 +31,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
@@ -85,6 +88,9 @@
       <Filter>Geom</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

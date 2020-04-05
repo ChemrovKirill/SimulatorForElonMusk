@@ -37,6 +37,7 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
@@ -49,6 +50,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
