@@ -34,6 +34,9 @@
     <ClCompile Include="Tests.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Force.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">

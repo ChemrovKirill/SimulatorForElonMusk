@@ -24,7 +24,7 @@ void mix(std::vector<int>& v) {
 
 Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::map<Hole, int> prob)
 : rough(_rough), file(f), snow_coverage(snow_cov), probability(prob) {
-    pixel_size = 10 * window_x();
+    pixel_size = 20 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
     surface.setPrimitiveType(TriangleStrip);

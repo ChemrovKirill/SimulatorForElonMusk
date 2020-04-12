@@ -43,6 +43,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionReaction.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Force.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />
