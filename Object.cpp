@@ -39,6 +39,8 @@ std::vector<Vector2f> Object::GetVertexes() const {
 	return vertexes;
 }
 
+Sprite& Object::Sprite() {return sprite;}
+
 //bool Object::PointInside(const Vector2f& point) const {
 //	std::vector<gs::Point> points;
 //	for (size_t i = 0; i < 4; ++i) {

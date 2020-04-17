@@ -4,7 +4,7 @@
 #include <cmath>
 #include "Geom/Geometric.h"
 
-#define PI 3.1415f
+//#define PI 3.1415f
 #define RAD (PI / 180.f)
 
 sf::Vector2f operator + (const sf::Vector2f& vl, const sf::Vector2f& vr);

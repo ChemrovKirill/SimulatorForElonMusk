@@ -1,8 +1,8 @@
 #pragma once
-
 #include "MathFunction.h"
 #include "Object.h"
 #include "Surface.h"
+#include "Force.h"
 #include <cmath>
 #include <set>
 #include <string>
@@ -39,22 +39,6 @@ struct RigidBodyParameters {
 		const Vector2f& start_mass_position, const Vector2f& start_velocity,
 		const Vector2f& start_acceleration, const float& start_angle_velocity,
 		const float& start_angle_acceleration);
-};
-
-struct Force {
-	bool exist;
-	bool is_force_field;
-
-	float force;
-	Vector2f force_vector; //if the force creates a field, then the vector is the field strength, otherwise
-						   //unit vector directed relative to the orientation of the box: 
-						   //(0,-1) - up relative to the nose, (0,1) - down, (1,0) - right, (-1,0) - left
-	Vector2f force_point;  //the point of application of force, takes values from 0 to 1
-
-	Force();
-	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
-	Force(const Force& f);
-	Force operator = (const Force&);
 };
 
 class RigidBody : public Object {

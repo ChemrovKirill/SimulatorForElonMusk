@@ -34,6 +34,8 @@ public:
 	float GetWidth() const;
 	float GetAngle() const;
 
+	Sprite& Sprite();
+
 	std::string GetFile() const;
   
 	void VertexesUpdate();

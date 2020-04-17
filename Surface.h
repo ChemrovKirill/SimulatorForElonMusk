@@ -30,19 +30,31 @@ protected:
 	std::vector<VertexArray> meteorites;
 
 	Vector2f left_position;
-	float x_spacing;
 	int pixel_size;
 	int vertex_count;
-	int down_board = 5 * window_y();
-	int up_board = -3 * window_y();
 	int iter_0; //surface[iter_0].position.x = 0 (.y = down_board)
+
+	float x_spacing = 20; //space between vertexes
+	int step = 500; //generation step
+	int down_board = 5 * window_y();
+	int up_board = -5 * window_y();
+	int max_angle = 70; //0-70
+	int rough; //0-10...
+	int snow_coverage; //0-100 %
+	std::map<Hole, int> probability;
+	int air_density;
+
+	Color surface_color;
+	Color meteorites_color;
+	Color lakes_color;
+
 	Texture texture;
 	Texture ice_texture;
 	Texture meteorite_texture;
 	String file;
 	Image image;
 public:
-	Surface(const String& file, const float& spacing);
+	Surface(const String& file, const int& rough, const int& snow_coverage, std::map<Hole, int> prob);
 	void SetTexture();
 	
 	size_t Get_VertexCount() const;
@@ -51,12 +63,13 @@ public:
 	float Get_spacing() const;
 	float YtoX(const float&);
 
-	void Generate(const size_t& rough);
-	void GenerateSlope(Vector2f& point, const int& x_boarder, const size_t& rough, const float& angle);
-	void GenerateHole(Vector2f& point, const int& x_boarder, size_t rough, Hole);
-	void Generate_V(Vector2f& point, const float& step, const int& step_count, size_t rough);
-	void Generate_U(Vector2f& point, const float& step, const int& step_count, size_t rough);
-	void GenerateSnow(const int& coverage);
+	void Generate();
+	void ColorGenerate();
+	void GenerateSlope(Vector2f& point, const int& x_boarder, const int& loc_rough, const float& angle);
+	void GenerateHole(Vector2f& point, const int& x_boarder, Hole);
+	void Generate_V(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
+	void Generate_U(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
+	void GenerateSnow();
 
 	void Update(const float& dt);
 	void Draw(RenderWindow&) const;
