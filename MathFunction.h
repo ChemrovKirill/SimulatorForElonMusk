@@ -18,6 +18,7 @@ float sqal_mult(const sf::Vector2f& vl , const sf::Vector2f& v2);
 float vect_mult(const sf::Vector2f& vl , const sf::Vector2f& v2);
 
 float sqal(const sf::Vector2f& v);
+float mod(float x);
 
 const sf::Vector2f rotate_to_angle(const sf::Vector2f& v, float a);
 float angle_between_2_vectors(const sf::Vector2f& vl, const sf::Vector2f& v2);

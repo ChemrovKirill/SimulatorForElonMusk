@@ -29,6 +29,10 @@ float vect_mult(const sf::Vector2f& vl, const sf::Vector2f& vr) {
 float sqal(const sf::Vector2f& v) {
 	return sqrt(sqal_mult(v, v));
 }
+float mod(float x) {
+	if (x >= 0) { return x; }
+	else { return -x; }
+}
 
 const sf::Vector2f rotate_to_angle(const sf::Vector2f& v, float a) {
 	return sf::Vector2f(v.x * cos(a) - v.y * sin(a), v.x * sin(a) + v.y * cos(a));
