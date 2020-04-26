@@ -129,15 +129,15 @@ void RigidBody::UpdateForces() {
 
 Vector2f RigidBody::GetCenterPosition() const {
 	return Vector2f{
-		GetPosition().x + diag * cos(RAD * GetAngle() + b) - 10,
-		GetPosition().y + diag * sin(RAD * GetAngle() + b) - 10
+		GetPosition().x + diag * cos(RAD * GetAngle() + b),
+		GetPosition().y + diag * sin(RAD * GetAngle() + b)
 	};
 }
 
 void RigidBody::DrawMassPosition(RenderWindow& window) const {
 	CircleShape Cshape(10.f);
 	Cshape.setFillColor(Color::Red);
-	Cshape.setPosition(GetCenterPosition());
+	Cshape.setPosition(GetCenterPosition() - Vector2f(10, 10));
 	window.draw(Cshape);
 }
 

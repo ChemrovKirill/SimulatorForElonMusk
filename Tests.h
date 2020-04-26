@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "iostream"
 
+
 #include "MathFunction.h"
 #include "Surface.h"
 #include "Object.h"
@@ -11,6 +12,7 @@
 #include "Menu.h"
 
 using namespace sf;
+
 
 void Test1();
 void Test2();

@@ -3,7 +3,7 @@
 #include"Point.h"
 #include<cmath>
 
-#define EPSILON 20	
+#define EPSILON 40	
 
 class Line {
 private:

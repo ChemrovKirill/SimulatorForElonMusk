@@ -18,7 +18,8 @@ void test_B2() {
     };
 
     Surface s("surface.png", 20, 50, p);
-    float dt = 0, time = 0;
+    float time = 0;
+    float dt = 0;
     Clock deltaTime;
 
     Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(0, s.YtoX(200) - 500), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
@@ -98,6 +99,8 @@ void test_B2() {
             lander.SetEngineThrustAngle("1", 0);
         }
 
+        lander.CollisionDetection(s, window);
+
         lander.UpdateShipPosition(dt);
 
         lander.DrawShip(window);
@@ -111,16 +114,16 @@ void test_B2() {
         lander.DrawForce(window, lander.GetForce("5"));
         lander.DrawForce(window, lander.GetForce("6"));
         lander.DrawForce(window, lander.GetForce("0"));
-        lander.DrawForce(window, lander.GetForce("reaction"));
+
+        lander.DrawForce(window, lander.GetForce("CollisionReactionWithSurface"));
 
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
 
-
         s.Draw(window);
-
-        lander.CollisionDetection(s, window);
+    
         lander.CollisionModelDrow(window);
+
 
         window.display();
 
@@ -545,12 +548,6 @@ void test_B2() {
 //
 //}
 
-void test_B3() {
-    for (float i = -1.5; i <= 1.5; i += 0.1) {
-        std::cout << i << " " << acos(i) / RAD << std::endl;
-    }
-    std::cout << 1 << " " << acos(1.f) / RAD << std::endl;
-}
 //void Test1() {
 //    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
 //

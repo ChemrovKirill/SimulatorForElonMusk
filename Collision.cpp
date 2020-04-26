@@ -70,7 +70,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s)) {
-					CollisionReactionWithSurface(surface_line, first_collision);
+					CollisionReactionWithSurface(surface_line, first_collision, i);
 					first_collision = false;
 					collision_detected = true;
 				}
@@ -85,7 +85,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
 			for (Line ii : collision_polygon.GetLines()) {
-				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision); }
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p); }
 			}
 
 			first_collision = false;
@@ -129,36 +129,6 @@ bool RigidBody::IntercectionWithSurface(const Point& p, const Line& surface_line
 	if (intersection % 2 == 1) { return	true; }
 	else { return false; }
 }
-
-void RigidBody::CollisionReaction(bool first_collision, Point force_point) {
-	if (first_collision == true) {
-		velocity.x = 0;
-		velocity.y = 0;
-		angle_velocity = 0;
-
-		//position.y -= 1;
-	}
-	else {
-		if (acceleration.y >= 0) {
-			velocity.x = 0;
-			velocity.y = 0;
-			angle_velocity = 0;
-		}
-
-
-	}
-	static int i = 0;
-	++i;
-	std::cout << "Collision! " << i << std::endl;
-}
-
-void RigidBody::NOCollisionReaction() {
-
-}
-
-
-
-
 
 
 
@@ -206,7 +176,7 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s, window)) {
-					CollisionReactionWithSurface(surface_line, first_collision);
+					CollisionReactionWithSurface(surface_line, first_collision, i);
 
 					CircleShape Cshape(10.f);
 					Cshape.setFillColor(Color::Red);
@@ -227,7 +197,7 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
 			for (Line ii : collision_polygon.GetLines()) {
-				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision); }
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p); }
 			}
 
 			CircleShape Cshape(10.f);
