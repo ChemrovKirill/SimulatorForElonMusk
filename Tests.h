@@ -11,6 +11,8 @@
 #include "Geom/Geometric.h"
 #include "Menu.h"
 #include "Lunar_Lander_Mark1.h"
+#include "RickAndMorty.h"
+
 
 using namespace sf;
 

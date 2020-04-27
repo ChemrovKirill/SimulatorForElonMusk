@@ -7,6 +7,7 @@
 #include "SettingsItem.h"
 #include <map>
 #include "Button.h"
+#include "Tests.h"
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);

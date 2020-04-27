@@ -22,7 +22,7 @@ void test_B2() {
     float dt = 0;
     Clock deltaTime;
 
-    Lunar_Lander_Mark1 lander(Vector2f(0, s.YtoX(200) - 500));
+    RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
 
     View view;
 
@@ -41,13 +41,23 @@ void test_B2() {
 
         window.clear();
 
+
+
         lander.control();
+
+
+
 
         lander.CollisionDetection(s, window);
 
         lander.UpdateShipPosition(dt);
 
         lander.DrawShip(window);
+
+
+
+
+
 
         lander.drow_all(window, true, true, false, true, true);
 
