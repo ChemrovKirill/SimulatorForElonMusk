@@ -33,9 +33,24 @@ void Lunar_Lander_Mark1::assembly() {
         Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), 10), "5");
     AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1),
         Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), 10), "6");
-    AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-    ForceOn("0");
+    AddForce("G", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
+    ForceOn("G");
+
+    AddForce("Air", Force(false, sqal(velocity), Vector2f(0, 0), Vector2f(0.5, 0.5)));
+    ForceOn("Air");
+
 }
+
+void Lunar_Lander_Mark1::updateAirForce(float k) {
+    forces["Air"].force = k * sqal(velocity) / 10;
+    if (sqal(velocity) > 1) {
+        forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD)/sqal(velocity);
+    }
+    else {
+        forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD);
+    }
+}
+
 
 void Lunar_Lander_Mark1::control() {
     if (Keyboard::isKeyPressed(Keyboard::W)) {
@@ -99,7 +114,8 @@ void Lunar_Lander_Mark1::draw_all(RenderWindow& window, bool position, bool spee
         DrawForce(window, GetForce("4"));
         DrawForce(window, GetForce("5"));
         DrawForce(window, GetForce("6"));
-        DrawForce(window, GetForce("0"));
+        DrawForce(window, GetForce("G"));
+        DrawForce(window, GetForce("Air"));
     }
     if (collision == true) {
         CollisionModelDrow(window);
