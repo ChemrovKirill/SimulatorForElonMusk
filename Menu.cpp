@@ -1,13 +1,14 @@
 #include "Menu.h"
-#include "Surface.h"
+
 
 using namespace sf;
 
 void Menu(RenderWindow & window) {
 	bool isMenu = true;
-	std::vector<Object> buttons;
-	buttons.push_back(Object("Button_Start.png", { 500, 200 }, 489, 139, 0));
-	buttons.push_back(Object("Button_Exit.png", { 500, 400 }, 489, 139, 0));
+	std::vector<Button> buttons;
+    float x_pos = window_x() / 2 - 175;
+    buttons.push_back(Button( "Start", { x_pos, 200 } ));
+    buttons.push_back(Button( "Exit", { x_pos, 400 } ));
 	Texture bg_texture;
 	bg_texture.loadFromFile("images/background.png");
 	bg_texture.setRepeated(true);
@@ -39,17 +40,15 @@ void Menu(RenderWindow & window) {
 		window.clear();
 		window.draw(bg_sprite);
 
-
 		for (int i = 0; i < buttons.size(); ++i) {
-			IntRect b_rect(buttons[i].GetPosition().x, buttons[i].GetPosition().y,
-							buttons[i].GetWidth(), buttons[i].GetHeight());
+            IntRect b_rect = buttons[i].GetIntRect();
 			if (b_rect.contains(Mouse::getPosition(window))) {
 				selected_button = i;
 			}
-			buttons[i].Sprite().setColor(Color(0x0000f0ff));
+			buttons[i].SetSelected(0);
 		}
 
-		buttons[selected_button].Sprite().setColor(Color(0xf00000ff));
+		buttons[selected_button].SetSelected(1);
 		for (int i = 0; i < buttons.size(); ++i) {
 			buttons[i].Draw(window);
 		}
@@ -73,25 +72,24 @@ void Menu(RenderWindow & window) {
 	}
 }
 
-Surface SurfaceSelection(RenderWindow& window) {
-    std::map<Hole, int> p = {   { Hole::EMPTY_U, 30 },
-                                { Hole::EMPTY_V, 30 },
-                                { Hole::ICE, 30 },
-                                { Hole::LAKE, 30 },
-                                { Hole::METEORITE, 30 }
-                            };
-    int rough = 10;
-    int snow_coverage = 50;
-	return Surface("surface.png", rough, snow_coverage, p);
-}
-
 void StartGame(RenderWindow& window) {
-	Surface s = SurfaceSelection(window);
+    //5ea71d5d
+    //5ea71d85
+    //5ea71d8f
+    unsigned int seed = time(NULL);
+    std::cout << "seed: " << seed << std::endl;
+    srand(seed);
+
+    bool if_back = 0;
+    Surface s = PlanetSelection(window, if_back);
+    if(if_back) {
+        return;
+    }
 
     float dt = 0, time = 0;
     Clock deltaTime;
 
-    Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(0, s.YtoX(200) - 500), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
+    Ship lander("Rick&Morty.png", RigidBodyParameters(Vector2f(0, s.YtoX(200) - 500), 200, 118, 0, 0.4, 100, Vector2f(0.5, 0.5),
         Vector2f(0, 0), Vector2f(0, 0), 0, 0));
 
     lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
@@ -128,6 +126,12 @@ void StartGame(RenderWindow& window) {
                 }
             }
         }
+
+       if (dt > 0.5){
+            dt = 0;
+            //deltaTime.restart().asSeconds();
+            continue;
+       }
 
         window.clear();
 
@@ -193,7 +197,7 @@ void StartGame(RenderWindow& window) {
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
 
-
+        s.Update(dt);
         s.Draw(window);
 
         lander.CollisionDetection(s, window);
@@ -204,8 +208,6 @@ void StartGame(RenderWindow& window) {
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
-
         while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
-
     }
 }

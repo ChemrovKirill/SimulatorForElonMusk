@@ -3,8 +3,9 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <vector>
+#include "Geom/Geometric.h"
 
-#define PI 3.1415f
+//#define PI 3.1415f
 #define RAD (PI / 180.f)
 
 using namespace sf;
@@ -33,6 +34,8 @@ public:
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
+	FloatRect GetFloatRect() const;
+	IntRect GetIntRect() const;
 
 	Sprite& Sprite();
 
@@ -41,14 +44,14 @@ public:
 	void VertexesUpdate();
 	std::vector<Vector2f> GetVertexes() const ;
 
-	bool PointInside(const Vector2f& point) const;
-
+	//bool PointInside(const Vector2f& point) const;
 
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
+	virtual void SetColor(const Color&);
 
-	void Rotate(const float& new_angle);
+	//void Rotate(const float& new_angle);
 	virtual void Draw(RenderWindow& window) const;
 };

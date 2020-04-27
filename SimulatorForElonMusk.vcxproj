@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Force.h" />
     <ClInclude Include="Geom\Circle.h" />
@@ -34,12 +35,14 @@
     <ClInclude Include="MathFunction.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="SettingsItem.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionReaction.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -49,8 +52,11 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="SurfaceGenerate.cpp" />
+    <ClCompile Include="PlanetSelection.cpp" />
     <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

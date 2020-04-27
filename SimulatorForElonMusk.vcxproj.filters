@@ -37,6 +37,18 @@
     <ClCompile Include="Force.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceGenerate.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetSelection.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsItem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
@@ -94,6 +106,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Tests.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsItem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
