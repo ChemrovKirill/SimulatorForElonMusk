@@ -18,8 +18,7 @@ enum class Hole {
 	EMPTY_V,
 	LAKE,
 	ICE,
-	METEORITE,
-	FLAT
+	METEORITE
 };
 
 class Surface {
@@ -29,7 +28,7 @@ protected:
 	std::vector<VertexArray> snow;
 	std::vector<VertexArray> glaciers;
 	std::vector<VertexArray> meteorites;
-
+	std::map<float, float> planes;
 	Vector2f left_position;
 	int pixel_size;
 	int vertex_count;

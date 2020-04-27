@@ -92,6 +92,7 @@ void StartGame(RenderWindow& window) {
 
     RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
 
+
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
@@ -125,12 +126,13 @@ void StartGame(RenderWindow& window) {
 
         lander.control();
 
+        lander.CollisionDetection(s, window);
 
         lander.UpdateShipPosition(dt);
 
+        lander.DrawShip(window);
 
         lander.drow_all(window, true, true, false, true, true);
-
 
 
         view.setCenter(lander.GetCenterPosition());

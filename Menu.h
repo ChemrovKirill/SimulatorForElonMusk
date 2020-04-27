@@ -7,7 +7,11 @@
 #include "SettingsItem.h"
 #include <map>
 #include "Button.h"
+
 #include "Tests.h"
+
+#include "Lunar_Lander_Mark1.h"
+
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
