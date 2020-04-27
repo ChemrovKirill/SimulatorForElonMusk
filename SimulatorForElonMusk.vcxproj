@@ -36,6 +36,7 @@
     <ClInclude Include="MathFunction.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="RickAndMorty.h" />
     <ClInclude Include="SettingsItem.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
@@ -53,6 +54,7 @@
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="RickAndMorty.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />

@@ -89,7 +89,9 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
-    Lunar_Lander_Mark1 lander(Vector2f(0, s.YtoX(200) - 500));
+
+    RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
+
 
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
@@ -121,6 +123,7 @@ void StartGame(RenderWindow& window) {
 
         window.clear();
 
+
         lander.control();
 
         lander.CollisionDetection(s, window);
@@ -130,6 +133,7 @@ void StartGame(RenderWindow& window) {
         lander.DrawShip(window);
 
         lander.drow_all(window, true, true, false, true, true);
+
 
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
