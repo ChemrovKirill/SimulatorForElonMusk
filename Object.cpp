@@ -8,7 +8,7 @@ Object::Object(const String& f, const Vector2f& new_position,
 	//buffer.loadFromFile("sounds/" + f_sound);
 	//sound.setBuffer(buffer);
 	image.loadFromFile("images/" + f);
-	image.createMaskFromColor(Color(255, 255, 255));
+	//image.createMaskFromColor(Color(255, 255, 255));
 	texture.loadFromImage(image);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(IntRect(0, 0, w, h));

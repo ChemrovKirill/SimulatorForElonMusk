@@ -19,6 +19,7 @@ enum class Hole {
 	LAKE,
 	ICE,
 	METEORITE,
+	FLAT
 };
 
 class Surface {
@@ -38,7 +39,7 @@ protected:
 	int step = 500; //generation step
 	int down_board = 5 * window_y();
 	int up_board = -5 * window_y();
-	int max_angle = 70; //0-70
+	int max_angle; //0-70
 	int rough; //0-10...
 	int snow_coverage; //0-100 %
 	std::map<Hole, int> probability;
@@ -54,7 +55,7 @@ protected:
 	String file;
 	Image image;
 public:
-	Surface(const String& file, const int& rough, const int& snow_coverage, std::map<Hole, int> prob);
+	Surface(const String& file, const int& rough, const int& snow_coverage, std::map<Hole, int> prob, int _max_angle);
 	void SetTexture();
 	
 	size_t Get_VertexCount() const;
@@ -74,3 +75,5 @@ public:
 	void Update(const float& dt);
 	void Draw(RenderWindow&) const;
 };
+
+void mix(std::vector<int>& v);

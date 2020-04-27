@@ -3,8 +3,9 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <vector>
+#include "Geom/Geometric.h"
 
-#define PI 3.1415f
+//#define PI 3.1415f
 #define RAD (PI / 180.f)
 
 using namespace sf;
