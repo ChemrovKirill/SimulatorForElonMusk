@@ -91,21 +91,6 @@ void StartGame(RenderWindow& window) {
 
 
     RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
-    //Ship lander("Rick&Morty.png", RigidBodyParameters(Vector2f(0, s.YtoX(200) - 500), 200, 118, 0, 0.4, 100, Vector2f(0.5, 0.5),
-    //    Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-
-    //lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
-    //    Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "1");
-    //lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0),
-    //    Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)), 10), "3");
-    //lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 0),
-    //    Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)), 10), "4");
-    //lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 1),
-    //    Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), 10), "5");
-    //lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1),
-    //    Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), 10), "6");
-    //lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-    //lander.ForceOn("0");
 
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
