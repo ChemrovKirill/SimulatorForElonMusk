@@ -23,16 +23,12 @@ RigidBodyParameters RickAndMorty::download(sf::Vector2f position) {
 }
 
 void RickAndMorty::assembly() {
-    AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
-        Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "1");
-    AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0),
-        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)), 10), "3");
-    AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 0),
-        Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)), 10), "4");
-    AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 1),
-        Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), 10), "5");
-    AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1),
-        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), 10), "6");
+    AddEngine(Engine(Object("Plumbus.png", Vector2f(10, 10), 40, 80, 0), Vector2f(0.5, 1),
+        Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "down");
+    AddEngine(Engine(Object("Plumbus.png", Vector2f(10, 10), 40, 80, 0), Vector2f(0, 0.5),
+        Force(false, 100, Vector2f(0, -1), Vector2f(0, 0.5)), 10), "left");
+    AddEngine(Engine(Object("Plumbus.png", Vector2f(10, 10), 40, 80, 0), Vector2f(1, 0.5),
+        Force(false, 100, Vector2f(0, -1), Vector2f(1, 0.5)), 10), "right");
     AddForce("G", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
     ForceOn("G");
 
@@ -53,47 +49,32 @@ void RickAndMorty::updateAirForce(float k) {
 
 void RickAndMorty::control() {
     if (Keyboard::isKeyPressed(Keyboard::W)) {
-        ForceOn("1");
+        ForceOn("down");
     }
     else {
-        EngineOff("1");
+        ForceOff("down");
     }
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
-        EngineOn("3");
-        EngineOn("5");
-    }
-    else {
-        EngineOff("3");
-        EngineOff("5");
-    }
-    if (Keyboard::isKeyPressed(Keyboard::E)) {
-        EngineOn("4");
-        EngineOn("6");
+    if (Keyboard::isKeyPressed(Keyboard::A)) {
+        ForceOn("left");
     }
     else {
-        EngineOff("4");
-        EngineOff("6");
+        ForceOff("left");
     }
+    if (Keyboard::isKeyPressed(Keyboard::D)) {
+        ForceOn("right");
+    }
+    else {
+        ForceOff("right");
+    }
+        
     if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-        SetEngineThrust("1", 1);
+        SetEngineThrust("down", 1);
     }
     if (Keyboard::isKeyPressed(Keyboard::Num2)) {
-        SetEngineThrust("1", 0.5);
+        SetEngineThrust("down", 0.5);
     }
     if (Keyboard::isKeyPressed(Keyboard::Num3)) {
-        SetEngineThrust("1", 0.25);
-    }
-    if (Keyboard::isKeyPressed(Keyboard::D) && Keyboard::isKeyPressed(Keyboard::A)) {
-        SetEngineThrustAngle("1", 0);
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::A)) {
-        SetEngineThrustAngle("1", 1);
-    }
-    else if (Keyboard::isKeyPressed(Keyboard::D)) {
-        SetEngineThrustAngle("1", -1);
-    }
-    else {
-        SetEngineThrustAngle("1", 0);
+        SetEngineThrust("down", 0.25);
     }
 }
 
