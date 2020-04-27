@@ -40,6 +40,15 @@
     <ClCompile Include="SurfaceGenerate.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="PlanetSelection.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsItem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">

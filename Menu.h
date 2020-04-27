@@ -10,5 +10,5 @@
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
-Surface SurfaceSelection(RenderWindow& window, bool& if_back);
+Surface PlanetSelection(RenderWindow& window, bool& if_back);
 Ship ShipBuilding(RenderWindow& window);

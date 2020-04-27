@@ -42,6 +42,7 @@
     <ClInclude Include="Tests.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionReaction.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -51,9 +52,11 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceGenerate.cpp" />
+    <ClCompile Include="PlanetSelection.cpp" />
     <ClCompile Include="Tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
