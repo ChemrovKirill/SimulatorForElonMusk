@@ -32,6 +32,7 @@
     <ClInclude Include="Geom\Shape.h" />
     <ClInclude Include="Geom\Square.h" />
     <ClInclude Include="Geom\Triangle.h" />
+    <ClInclude Include="Lunar_Lander_Mark1.h" />
     <ClInclude Include="MathFunction.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="CollisionReaction.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Force.cpp" />
+    <ClCompile Include="Lunar_Lander_Mark1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />

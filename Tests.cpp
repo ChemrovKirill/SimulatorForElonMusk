@@ -22,21 +22,7 @@ void test_B2() {
     float dt = 0;
     Clock deltaTime;
 
-    Ship lander("Lunar_Lander_Mark1.png", RigidBodyParameters(Vector2f(0, s.YtoX(200) - 500), 170, 138, 0, 0.4, 100, Vector2f(0.5, 0.5),
-        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
-        Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "1");
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0),
-        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)), 10), "3");
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 0),
-        Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)), 10), "4");
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 1),
-        Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), 10), "5");
-    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1),
-        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), 10), "6");
-    lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-    lander.ForceOn("0");
+    Lunar_Lander_Mark1 lander(Vector2f(0, s.YtoX(200) - 500));
 
     View view;
 
@@ -55,49 +41,7 @@ void test_B2() {
 
         window.clear();
 
-        if (Keyboard::isKeyPressed(Keyboard::W)) {
-            lander.ForceOn("1");
-        }
-        else {
-            lander.ForceOff("1");
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Q)) {
-            lander.ForceOn("3");
-            lander.ForceOn("5");
-        }
-        else {
-            lander.ForceOff("3");
-            lander.ForceOff("5");
-        }
-        if (Keyboard::isKeyPressed(Keyboard::E)) {
-            lander.ForceOn("4");
-            lander.ForceOn("6");
-        }
-        else {
-            lander.ForceOff("4");
-            lander.ForceOff("6");
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-            lander.SetEngineThrust("1", 1);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Num2)) {
-            lander.SetEngineThrust("1", 0.5);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Num3)) {
-            lander.SetEngineThrust("1", 0.25);
-        }
-        if (Keyboard::isKeyPressed(Keyboard::D) && Keyboard::isKeyPressed(Keyboard::A)) {
-            lander.SetEngineThrustAngle("1", 0);
-        }
-        else if (Keyboard::isKeyPressed(Keyboard::A)) {
-            lander.SetEngineThrustAngle("1", 1);
-        }
-        else if (Keyboard::isKeyPressed(Keyboard::D)) {
-            lander.SetEngineThrustAngle("1", -1);
-        }
-        else {
-            lander.SetEngineThrustAngle("1", 0);
-        }
+        lander.control();
 
         lander.CollisionDetection(s, window);
 
@@ -105,24 +49,13 @@ void test_B2() {
 
         lander.DrawShip(window);
 
-        lander.DrawMassPosition(window);
-        //lander.DrawBodyWay(window);
-        lander.DrawSpeed(window);
-        lander.DrawForce(window, lander.GetForce("1"));
-        lander.DrawForce(window, lander.GetForce("3"));
-        lander.DrawForce(window, lander.GetForce("4"));
-        lander.DrawForce(window, lander.GetForce("5"));
-        lander.DrawForce(window, lander.GetForce("6"));
-        lander.DrawForce(window, lander.GetForce("0"));
-
-        lander.DrawForce(window, lander.GetForce("CollisionReactionWithSurface"));
+        lander.drow_all(window, true, true, false, true, true);
 
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
 
         s.Draw(window);
     
-        lander.CollisionModelDrow(window);
 
 
         window.display();
@@ -421,132 +354,6 @@ void test_B2() {
 //    RigidBody Body1("test2.png", RigidBodyParameters(Vector2f(200, 200), 50, 200, 0, 0.4, 100, Vector2f(0.5, 0.5),
 //        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
 //
-
-//void test_B1() {
-//    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");
-//
-//    Ship lander("test2.png", RigidBodyParameters(Vector2f(200, 200), 185, 140, 0, 0.4, 100, Vector2f(0.5, 0.5),
-//        Vector2f(0, 0), Vector2f(0, 0), 0, 0));
-//
-//    lander.AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.5, 1),
-//        Force(false, 400, Vector2f(0, -1), Vector2f(0.5, 1)), 10), "1");
-//    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 0),
-//        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 0)), 10), "3");
-//    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 0),
-//        Force(false, 200, Vector2f(1, 0), Vector2f(1, 0)), 10), "4");
-//    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(1, 1),
-//        Force(false, 200, Vector2f(1, 0), Vector2f(1, 1)), 10), "5");
-//    lander.AddEngine(Engine(Object("test3.png", Vector2f(0, 0), 30, 10, 180), Vector2f(0, 1),
-//        Force(false, 200, Vector2f(-1, 0), Vector2f(0, 1)), 10), "6");
-//    lander.AddForce("0", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-//    lander.ForceOn("0");
-//
-//
-//    Surface s("surface.png", 10, 50);
-//    float dt = 0, time = 0;
-//    Clock deltaTime;
-//
-//    sf::View view;
-//    view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
-//    view.setSize(sf::Vector2f(window_x(), window_y()));
-//
-//
-//    while (window.isOpen())
-//    {
-//        Event event;
-//        while (window.pollEvent(event))
-//        {
-//            if (event.type == sf::Event::Closed)
-//                window.close();
-//        }
-//
-//        window.clear();
-//
-//        if (Keyboard::isKeyPressed(Keyboard::W)) {
-//            lander.ForceOn("1");
-//        }
-//        else {
-//            lander.ForceOff("1");
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Q)) {
-//            lander.ForceOn("3");
-//            lander.ForceOn("5");
-//        }
-//        else {
-//            lander.ForceOff("3");
-//            lander.ForceOff("5");
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::E)) {
-//            lander.ForceOn("4");
-//            lander.ForceOn("6");
-//        }
-//        else {
-//            lander.ForceOff("4");
-//            lander.ForceOff("6");
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Num1)) {
-//            lander.SetEngineThrust("1", 1);
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Num2)) {
-//            lander.SetEngineThrust("1", 0.5);
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Num3)) {
-//            lander.SetEngineThrust("1", 0.25);
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::D) && Keyboard::isKeyPressed(Keyboard::A)) {
-//            lander.SetEngineThrustAngle("1", 0);
-//        }
-//        else if (Keyboard::isKeyPressed(Keyboard::A)) {
-//            lander.SetEngineThrustAngle("1", 1);
-//        }
-//        else if (Keyboard::isKeyPressed(Keyboard::D)) {
-//            lander.SetEngineThrustAngle("1", -1);
-//        }
-//        else {
-//            lander.SetEngineThrustAngle("1", 0);
-//        }
-//
-//
-//
-//
-//        lander.UpdateShipPosition(dt);
-//
-//        lander.DrawShip(window);
-//
-//        lander.DrawMassPosition(window);
-//        lander.DrawBodyWay(window);
-//        lander.DrawSpeed(window);
-//        lander.DrawForce(window, lander.GetForce("1"));
-//        lander.DrawForce(window, lander.GetForce("3"));
-//        lander.DrawForce(window, lander.GetForce("4"));
-//        lander.DrawForce(window, lander.GetForce("5"));
-//        lander.DrawForce(window, lander.GetForce("6"));
-//        lander.DrawForce(window, lander.GetForce("0"));
-//
-//
-//        if (Keyboard::isKeyPressed(Keyboard::Up)) {
-//            view.move({ 0,-2 });
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Down)) {
-//            view.move({ 0 ,2 });
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Right)) {
-//            view.move({ 2, 0 });
-//        }
-//        if (Keyboard::isKeyPressed(Keyboard::Left)) {
-//            view.move({ -2, 0 });
-//        }
-//        window.setView(view);
-//
-//        s.Draw(window);
-//
-//        window.display();
-//
-//        time += dt;
-//        dt = deltaTime.restart().asSeconds();
-//    }
-//
-//}
 
 //void Test1() {
 //    RenderWindow window(VideoMode(window_x(), window_y()), "SimulatorForElonMask");

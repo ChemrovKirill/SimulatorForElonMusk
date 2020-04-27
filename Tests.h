@@ -10,6 +10,7 @@
 #include "Ship.h"
 #include "Geom/Geometric.h"
 #include "Menu.h"
+#include "Lunar_Lander_Mark1.h"
 
 using namespace sf;
 

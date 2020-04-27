@@ -11,10 +11,11 @@ void Ship::AddEngine(const Engine& new_engine, const std::string& name) {
 }
 void Ship::EngineOn(const std::string& name) {
 	engines[name].SetOn(); 
-
+	forces[name].exist = true;
 }
 void Ship::EngineOff(const std::string& name) { 
 	engines[name].SetOff();
+	forces[name].exist = false;
 }
 void Ship::SetEngineThrust(const std::string& name, float new_thrust) { 
 	engines[name].SetThrust(new_thrust); 

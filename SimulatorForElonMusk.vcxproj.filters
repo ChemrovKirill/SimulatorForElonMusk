@@ -49,6 +49,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Lunar_Lander_Mark1.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
@@ -112,6 +115,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lunar_Lander_Mark1.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
