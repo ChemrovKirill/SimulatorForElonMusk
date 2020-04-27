@@ -18,7 +18,7 @@ public:
 
 	void UpdateEngines(const std::string& name);
 	void UpdateShipPosition(const float& dt);
-	void UpdateEnginesPosition(const std::string& name, const Vector2f& new_position);
+	void UpdateEnginesPosition(const std::string& name, const sf::Vector2f& new_position);
 
 	void DrawShip(RenderWindow& window) const;
 	void Destroy();

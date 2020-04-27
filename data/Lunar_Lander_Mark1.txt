@@ -1,0 +1,6 @@
+weight 			170
+height 			138
+angle 			0
+mass 			0.4
+moment_of_inertia 	100
+mass_position 		0.5 0.5
