@@ -98,7 +98,7 @@ void Lunar_Lander_Mark1::control() {
     }
 }
 
-void Lunar_Lander_Mark1::drow_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
+void Lunar_Lander_Mark1::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
     if (position == true) {
         DrawMassPosition(window);
     }

@@ -97,8 +97,8 @@ void RickAndMorty::control() {
     }
 }
 
+void RickAndMorty::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
 
-void RickAndMorty::drow_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
     if (position == true) {
         DrawMassPosition(window);
     }

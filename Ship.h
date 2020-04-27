@@ -22,4 +22,8 @@ public:
 
 	void DrawShip(RenderWindow& window) const;
 	void Destroy();
+	virtual void draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) = 0;
+	virtual RigidBodyParameters download(sf::Vector2f position) = 0;
+	virtual void assembly() = 0;
+	virtual void control() = 0;
 };
