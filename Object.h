@@ -34,6 +34,8 @@ public:
 	float GetHeight() const;
 	float GetWidth() const;
 	float GetAngle() const;
+	FloatRect GetFloatRect() const;
+	IntRect GetIntRect() const;
 
 	Sprite& Sprite();
 
@@ -44,11 +46,11 @@ public:
 
 	bool PointInside(const Vector2f& point) const;
 
-
 	void SetHeight(const float& new_height);
 	void SetWidth(const float& new_width);
 
 	void SetPosition(const Vector2f& new_position, const float& new_angle);
+	virtual void SetColor(const Color&);
 
 	void Rotate(const float& new_angle);
 	virtual void Draw(RenderWindow& window) const;

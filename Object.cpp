@@ -68,6 +68,13 @@ float Object::GetHeight() const { return height; }
 float Object::GetWidth() const { return width; }
 float Object::GetAngle() const { return angle; }
 std::string Object::GetFile() const { return file; }
+FloatRect Object::GetFloatRect() const {
+	return sprite.getGlobalBounds();
+}
+IntRect Object::GetIntRect() const {
+	return IntRect(position.x, position.y, width, height);
+}
+
 
 void Object::SetHeight(const float& new_height) { height = new_height; }
 void Object::SetWidth(const float& new_width) { width = new_width; }
@@ -81,3 +88,7 @@ void Object::SetPosition(const Vector2f& new_position, const float& new_angle) {
 	VertexesUpdate();
 }
 void Object::Draw(RenderWindow& window) const { window.draw(sprite); }
+
+void Object::SetColor(const Color& c) {
+	sprite.setColor(c);
+}
