@@ -1,10 +1,12 @@
 #pragma once
-
+#include "MathFunction.h"
 #include "Object.h"
+#include "Surface.h"
+#include "Force.h"
 #include <cmath>
-
-#define PI 3.1415f
-#define RAD (PI / 180.f)
+#include <set>
+#include <string>
+#include "Geom/Geometric.h"
 
 using namespace sf;
 
@@ -13,9 +15,9 @@ struct RigidBodyParameters {
 	float height;
 	float width;
 	float angle;
-
+	
 	float mass;
-	Vector2f mass_position; //принимает значения от 0 до 1
+	Vector2f mass_position; //accepts values from 0 to 1
 	float moment_of_inertia;
 
 	Vector2f velocity;
@@ -23,6 +25,8 @@ struct RigidBodyParameters {
 
 	float angle_velocity;
 	float angle_acceleration;
+
+	std::vector<Point> collision_vertex;
 
 	RigidBodyParameters();
 	RigidBodyParameters(const Vector2f new_position,
@@ -37,25 +41,11 @@ struct RigidBodyParameters {
 		const float& start_angle_acceleration);
 };
 
-struct Force {
-	bool exist;
-	bool is_force_field;
-
-	float force;
-	Vector2f force_vector; //если сила создает поле, то вектор - напряженность поля, иначе
-						   //единичный вектор, направленный относительно ориентации коробля: 
-						   //(0,-1) - вверх относительно носа, (0,1) - вниз, (1,0) - вправо, (-1,0) - влево
-	Vector2f force_point;  //точка приложения силы, принимает значения от 0 до 1
-
-	Force();
-	Force(bool field, float new_force, Vector2f start_vector, Vector2f start_force_point);
-};
-
 class RigidBody : public Object {
-private:
+protected:
 	float mass;
-	Vector2f mass_position; //принимает значения от 0 до 1
-	float moment_of_inertia; //Добавить авторассчет момента инерции и запихать в класс арктангенс и diag!!!
+	Vector2f mass_position; //accepts values from 0 to 1
+	float moment_of_inertia; //Add an auto-calculation of the moment of inertia and push it into the arctangent and diag class!!!
 
 	Vector2f velocity;
 	Vector2f acceleration;
@@ -63,18 +53,30 @@ private:
 	float angle_velocity;
 	float angle_acceleration;
 
-	Force forces[8]; //Переделать в set!!!
+	float diag = sqrt(pow(GetWidth() * GetMassPosition().x, 2) + pow(GetHeight() * GetMassPosition().y, 2));
+	//Distance from the center of mass to the upper-left corner
+	float b = atan((GetHeight() * GetMassPosition().y) / (GetWidth() * GetMassPosition().x));
+	//the angle between the horizon and the segment connecting the upper-left corner and the center of mass
+
+	VertexArray way;
+	std::vector<Point> collision_vertex;
+
+	std::map<String,Force> forces;
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
 	float GetMass() const;
 	float GetMomentOfInertia() const;
 	Vector2f GetMassPosition() const;
+	Vector2f GetCenterPosition() const;
+	Vector2f GetAbsMassPosition() const;
+
 	Vector2f GetVelocuty() const;
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
 	float GetAngleAcceleration() const;
-	
+	Force GetForce(const std::string& name) const;
+
 	void SetMass(const float& new_mass);
 	void SetMomentOfInertia(const float& new_moment_of_inertia);
 	void SetMassPosition(const Vector2f& new_mass_position);
@@ -84,8 +86,28 @@ public:
 	void SetAngleAcceleration(const float& new_angle_acceleration);
 
 	void UpdatePosition(const float& dt);
-	void AddForce(const Force& new_force, int num);
-	void ForceOn(int num);
-	void ForceOff(int num);
+	void AddForce(const std::string& name, const Force& new_force);
+	void DeleteForce(const std::string& name);
+	void ForceOn(const std::string& name);
+	void ForceOff(const std::string& name);
 	void UpdateForces();
+
+	void DrawMassPosition(RenderWindow& window) const;
+	void DrawBodyWay(RenderWindow& window);
+	void DeleteBodyWay(RenderWindow& window);
+
+	void DrawForce(RenderWindow& window, const Force& force) const;
+	void DrawSpeed(RenderWindow& window) const;
+
+	void CollisionModelDrow(RenderWindow& window);
+	void CollisionDetection(const Surface& s);
+	void CollisionDetection(const Surface& s, RenderWindow& window);
+private:
+	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
+	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
+	
+	void CollisionReactionWithSurface(const Line& l, bool first_collision, const Point& p);
+
+	void CollisionReaction(bool first_collision, Point force_point);
+	void NOCollisionReaction();
 };

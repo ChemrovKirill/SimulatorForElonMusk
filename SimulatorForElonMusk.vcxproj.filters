@@ -1,42 +1,141 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Surface.h">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Surface.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionReaction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MathFunction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Force.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceGenerate.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetSelection.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsItem.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Lunar_Lander_Mark1.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="RickAndMorty.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Geom\Circle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Ellipse.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Point.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Line.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Geometric.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Polygon.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Rectangle.h">
+      <Filter>Geom</Filter>
     </ClInclude>
     <ClInclude Include="RigidBody.h">
-      <Filter>Header Files</Filter>
+      <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Geom\Shape.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Triangle.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="MathFunction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom\Square.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsItem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lunar_Lander_Mark1.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RickAndMorty.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{e6b54d43-0df1-420a-bc44-3bedf72216ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geom">
+      <UniqueIdentifier>{f1c6c169-70ec-4392-a4c7-4a0acb8b7c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{ccba70f8-dc8a-485f-8e3f-820a1a82cc54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
