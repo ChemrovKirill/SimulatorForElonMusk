@@ -145,7 +145,6 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
                                             { Hole::EMPTY_V, items[2].GetValue() },
                                             { Hole::ICE, items[3].GetValue() },
                                             { Hole::METEORITE, items[4].GetValue() },
-                                            { Hole::FLAT, 100 }
     };
     int rough = 10;
     int max_angle = items[5].GetValue() / 100.0 * 70; //slopes

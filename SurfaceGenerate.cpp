@@ -28,7 +28,7 @@ void Surface::Generate() {
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
         float size = (rand() % 20+1.0) / 10;
-        switch (rand() % 6) {
+        switch (rand() % 5) {
         case 0:
             if (rand() % 100 < probability[Hole::LAKE]) {
                 GenerateHole(point, point.x + size*step, Hole::LAKE);
@@ -53,14 +53,15 @@ void Surface::Generate() {
             if (rand() % 100 < probability[Hole::EMPTY_V]) {
                 GenerateHole(point, point.x + size*step, Hole::EMPTY_V);
             }
-            break;
-        case 5:
-            if (rand() % 100 < probability[Hole::FLAT]) {
-                GenerateSlope(point, point.x + step, rand_rough, 0);
-            }
-            break;
+            break;           
         default:
             break;
+        }
+        //FLAT
+        if (rand() % 100 < 20) {
+            int angle = 0;
+            planes[point.x] = point.x + step * size;
+            GenerateSlope(point, point.x + step*size, rough*0, angle);
         }
         //GenerateSlope(point, point.x + step, rand_rough, rand() % 30);
     }
