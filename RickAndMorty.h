@@ -13,6 +13,6 @@ public:
 	void assembly();
 
 	void control();
-	void drow_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision);
+	void draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision);
 
 };

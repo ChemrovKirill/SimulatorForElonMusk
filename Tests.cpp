@@ -55,11 +55,7 @@ void test_B2() {
         lander.DrawShip(window);
 
 
-
-
-
-
-        lander.drow_all(window, true, true, false, true, true);
+        lander.draw_all(window, true, true, false, true, true);
 
         view.setCenter(lander.GetCenterPosition());
         window.setView(view);
