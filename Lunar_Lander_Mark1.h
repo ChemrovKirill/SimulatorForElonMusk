@@ -15,4 +15,5 @@ public:
 	void control();
 	void drow_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision);
 
+	void updateAirForce(float k);
 };

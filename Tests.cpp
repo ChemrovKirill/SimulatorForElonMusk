@@ -44,7 +44,7 @@ void test_B2() {
 
 
         lander.control();
-
+        lander.updateAirForce(1);
 
 
 
