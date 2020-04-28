@@ -29,21 +29,6 @@ void RickAndMorty::assembly() {
         Force(false, 100, Vector2f(0, -1), Vector2f(0, 0.5)), 10), "left");
     AddEngine(Engine(Object("Plumbus.png", Vector2f(10, 10), 40, 80, 0), Vector2f(1, 0.5),
         Force(false, 100, Vector2f(0, -1), Vector2f(1, 0.5)), 10), "right");
-    AddForce("G", Force(true, 100, Vector2f(0, 400), Vector2f(0, 0)));
-    ForceOn("G");
-
-    AddForce("Air", Force(false, sqal(velocity), Vector2f(0, 0), Vector2f(0.5, 0.5)));
-    ForceOn("Air");
-}
-
-void RickAndMorty::updateAirForce(float k) {
-    forces["Air"].force = k * sqal(velocity) / 10;
-    if (sqal(velocity) > 1) {
-        forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD) / sqal(velocity);
-    }
-    else {
-        forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD);
-    }
 }
 
 
@@ -75,31 +60,6 @@ void RickAndMorty::control() {
     }
     if (Keyboard::isKeyPressed(Keyboard::Num3)) {
         SetEngineThrust("down", 0.25);
-    }
-}
-
-void RickAndMorty::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
-
-    if (position == true) {
-        DrawMassPosition(window);
-    }
-    if (way == true) {
-        DrawBodyWay(window);
-    }
-    if (speed == true) {
-        DrawSpeed(window);
-    }
-    if (forces == true) {
-        DrawForce(window, GetForce("1"));
-        DrawForce(window, GetForce("3"));
-        DrawForce(window, GetForce("4"));
-        DrawForce(window, GetForce("5"));
-        DrawForce(window, GetForce("6"));
-        DrawForce(window, GetForce("G"));
-        DrawForce(window, GetForce("Air"));
-    }
-    if (collision == true) {
-        CollisionModelDrow(window);
     }
 }
 

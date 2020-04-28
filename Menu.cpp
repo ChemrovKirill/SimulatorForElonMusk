@@ -92,6 +92,7 @@ void StartGame(RenderWindow& window) {
     RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
     Ship* lander = &l;
     //RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
+    lander->AddMainForces();
 
 
     View view;
@@ -126,6 +127,7 @@ void StartGame(RenderWindow& window) {
 
 
         lander->control();
+        lander->updateAirForce(1);
 
         lander->CollisionDetection(s, window);
 
