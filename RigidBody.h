@@ -99,6 +99,8 @@ public:
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;
 
+	void Collision(const Surface& s);
+	void Collision(const Surface& s, RenderWindow& window);
 	void CollisionModelDrow(RenderWindow& window);
 	void CollisionDetection(const Surface& s);
 	void CollisionDetection(const Surface& s, RenderWindow& window);
