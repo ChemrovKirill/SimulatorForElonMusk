@@ -32,6 +32,7 @@ Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::m
 }
 
 int Surface::Get_iter_0() const { return iter_0; }
+
 float Surface::YtoX(const float& x) {
     int iter = iter_0 + 1 + 2*int(x)/ x_spacing;
     if (x < left_position.x || x > left_position.x + vertex_count*x_spacing) {

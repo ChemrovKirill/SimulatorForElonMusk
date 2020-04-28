@@ -35,7 +35,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 	int start = mid_iter - (height + width) /(2 * s.Get_spacing());
 	int end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start < 0 || end > s.Get_VertexCount()) { start = end = 0; }
+	if (start - mid_iter <= 0 || end + mid_iter >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
 
 	std::vector<Point> polygon_vertex;
 
@@ -141,8 +141,8 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 	int start = mid_iter - (height + width) /(2 * s.Get_spacing());
 	int end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start < 0 || end > s.Get_VertexCount()) { start = end = 0; }
-
+	if (start - mid_iter <= 0 || end + mid_iter >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
+	
 	std::vector<Point> polygon_vertex;
 
 	for (Point i : collision_vertex) {
