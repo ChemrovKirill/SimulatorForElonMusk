@@ -108,7 +108,7 @@ void Ship::updateAirForce(float k) {
 	}
 }
 
-void Ship::drow_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
+void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
 	if (position == true) {
 		DrawMassPosition(window);
 	}
