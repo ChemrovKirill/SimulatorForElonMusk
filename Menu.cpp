@@ -89,8 +89,9 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
-
-    RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
+    RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
+    Ship* lander = &l;
+    //RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
     lander.AddMainForces();
 
 
@@ -125,26 +126,26 @@ void StartGame(RenderWindow& window) {
         window.clear();
 
 
-        lander.control();
+        lander->control();
         lander.updateAirForce(1);
 
-        lander.CollisionDetection(s, window);
+        lander->CollisionDetection(s, window);
 
-        lander.UpdateShipPosition(dt);
+        lander->UpdateShipPosition(dt);
 
-        lander.DrawShip(window);
+        lander->DrawShip(window);
 
-        lander.drow_all(window, true, true, false, true, true);
+        lander->draw_all(window, true, true, false, true, true);
 
 
-        view.setCenter(lander.GetCenterPosition());
+        view.setCenter(lander->GetCenterPosition());
         window.setView(view);
 
         s.Update(dt);
         s.Draw(window);
 
-        lander.CollisionDetection(s, window);
-        lander.CollisionModelDrow(window);
+        lander->CollisionDetection(s, window);
+        lander->CollisionModelDrow(window);
 
         window.display();
 
