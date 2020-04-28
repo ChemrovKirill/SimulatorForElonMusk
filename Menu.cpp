@@ -89,7 +89,7 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
-    RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
+    Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
     Ship* lander = &l;
     //RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
     lander->AddMainForces();
@@ -129,8 +129,6 @@ void StartGame(RenderWindow& window) {
         lander->control();
         lander->updateAirForce(1);
 
-        lander->CollisionDetection(s, window);
-
         lander->UpdateShipPosition(dt);
 
         lander->DrawShip(window);
@@ -145,13 +143,15 @@ void StartGame(RenderWindow& window) {
         s.Draw(window);
 
         lander->CollisionDetection(s, window);
-        lander->CollisionModelDrow(window);
 
         window.display();
 
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
+
+        std::cout << lander->GetPosition() << lander->GetVelocuty() << std::endl;
+
         while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
     }
 }
