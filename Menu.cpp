@@ -72,6 +72,8 @@ void Menu(RenderWindow & window) {
 	}
 }
 
+Lander_Parametr par; //for STM32
+
 void StartGame(RenderWindow& window) {
     //5ea71d5d
     //5ea71d85
@@ -89,10 +91,11 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
-    Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
+    //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
+    Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
+    //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
     Ship* lander = &l;
-    //RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
-    lander->AddMainForces();
+    lander->AddMainForces(100);
 
 
     View view;
@@ -125,8 +128,9 @@ void StartGame(RenderWindow& window) {
 
         window.clear();
 
+        USART(par, par.data_to_send()); //for STM32
 
-        lander->control();
+        l.control_STM(par);
         lander->updateAirForce(1);
 
         lander->UpdateShipPosition(dt);
@@ -145,12 +149,15 @@ void StartGame(RenderWindow& window) {
         lander->CollisionDetection(s, window);
 
         window.display();
+        par.data_update(lander);
+
+
 
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
 
-        std::cout << lander->GetPosition() << lander->GetVelocuty() << std::endl;
+        std::cout <<  sqal(lander->GetVelocity()) << std::endl;
 
         while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
     }
