@@ -1,7 +1,8 @@
 #include "Tests.h"
 
 int main() {
-    try {
+    GetReady(); //for STM32
+try {
         test_menu();
         //test_B2();
     }

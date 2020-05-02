@@ -1,10 +1,10 @@
-#include "Lunar_Lander_Mark1.h"
+#include "Lunar_Lander_Mark1_STM32.h"
 
-Lunar_Lander_Mark1::Lunar_Lander_Mark1(sf::Vector2f position) : Ship("Lunar_Lander_Mark1.png", download(position)) {
+Lunar_Lander_Mark1_STM32::Lunar_Lander_Mark1_STM32(sf::Vector2f position) : Ship("Lunar_Lander_Mark1.png", download(position)) {
     assembly();
 }
 
-RigidBodyParameters Lunar_Lander_Mark1::download(sf::Vector2f position) {
+RigidBodyParameters Lunar_Lander_Mark1_STM32::download(sf::Vector2f position) {
     std::ifstream fin("data/Lunar_Lander_Mark1.txt");
     if (!fin.is_open()) { throw "Wrong file name"; }
     RigidBodyParameters par;
@@ -22,7 +22,7 @@ RigidBodyParameters Lunar_Lander_Mark1::download(sf::Vector2f position) {
     return par;
 }
 
-void Lunar_Lander_Mark1::assembly() {
+void Lunar_Lander_Mark1_STM32::assembly() {
     AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.4, 1),
         Force(false, 400, Vector2f(0, -1), Vector2f(0.4, 1)), 10), "1");
     AddEngine(Engine(Object("test3.png", Vector2f(10, 10), 20, 60, 0), Vector2f(0.6, 1),
@@ -37,8 +37,11 @@ void Lunar_Lander_Mark1::assembly() {
         Force(false, 200, Vector2f(-1, 0), Vector2f(0.7, 0.75)), 10), "6");
 }
 
-void Lunar_Lander_Mark1::control() {
-    if (Keyboard::isKeyPressed(Keyboard::W)) {
+void Lunar_Lander_Mark1_STM32::control() {}
+
+void Lunar_Lander_Mark1_STM32::control_STM(const Lander_Parametr& par)
+{
+    if (Keyboard::isKeyPressed(Keyboard::W) || par.en_stat[0] == 1) {
         ForceOn("1");
         ForceOn("2");
     }
@@ -46,7 +49,7 @@ void Lunar_Lander_Mark1::control() {
         EngineOff("1");
         EngineOff("2");
     }
-    if (Keyboard::isKeyPressed(Keyboard::E)) {
+    if (Keyboard::isKeyPressed(Keyboard::E) || par.en_stat[1] == 1) {
         EngineOn("3");
         EngineOn("6");
     }
@@ -54,7 +57,7 @@ void Lunar_Lander_Mark1::control() {
         EngineOff("3");
         EngineOff("6");
     }
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
+    if (Keyboard::isKeyPressed(Keyboard::Q) || par.en_stat[2] == 1) {
         EngineOn("5");
         EngineOn("4");
     }

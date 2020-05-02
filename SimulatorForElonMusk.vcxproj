@@ -33,6 +33,7 @@
     <ClInclude Include="Geom\Square.h" />
     <ClInclude Include="Geom\Triangle.h" />
     <ClInclude Include="Lunar_Lander_Mark1.h" />
+    <ClInclude Include="Lunar_Lander_Mark1_STM32.h" />
     <ClInclude Include="MathFunction.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
+    <ClInclude Include="Usart.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
@@ -50,6 +52,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Force.cpp" />
     <ClCompile Include="Lunar_Lander_Mark1.cpp" />
+    <ClCompile Include="Lunar_Lander_Mark1_STM32.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -62,6 +65,7 @@
     <ClCompile Include="SurfaceGenerate.cpp" />
     <ClCompile Include="PlanetSelection.cpp" />
     <ClCompile Include="Tests.cpp" />
+    <ClCompile Include="Usart.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

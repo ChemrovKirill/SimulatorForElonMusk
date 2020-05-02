@@ -10,7 +10,7 @@ private:
 public:
 	Ship(const String& f, const RigidBodyParameters& parameters);
 
-	void AddMainForces();
+	void AddMainForces(float gravity);
 
 	void AddEngine(const Engine& new_engine, const std::string& name);
 	void EngineOn(const std::string& name);

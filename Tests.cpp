@@ -23,7 +23,7 @@ void test_B2() {
     Clock deltaTime;
 
     RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
-    lander.AddMainForces();
+    lander.AddMainForces(100);
 
     View view;
 
