@@ -71,7 +71,7 @@ public:
 	Vector2f GetCenterPosition() const;
 	Vector2f GetAbsMassPosition() const;
 
-	Vector2f GetVelocuty() const;
+	Vector2f GetVelocity() const;
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
 	float GetAngleAcceleration() const;

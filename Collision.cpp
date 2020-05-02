@@ -2,7 +2,7 @@
 
 void  RigidBody::Collision(const Surface& s) {
 	CollisionDetection(s);
-
+	
 }
 
 void RigidBody::CollisionModelDrow(RenderWindow& window) {
@@ -40,7 +40,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 	long start = mid_iter - (height + width) /(2 * s.Get_spacing());
 	long end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start - (height + width) / 2 <= 0 || end + (height + width) / 2 >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
+	if (start - (height + width) / (2 * s.Get_spacing()) <= 0 || end + (height + width) / (2 * s.Get_spacing()) >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
 
 	std::vector<Point> polygon_vertex;
 
@@ -146,7 +146,7 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 	long start = mid_iter - (height + width) /(2 * s.Get_spacing());
 	long end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start - (height + width) / 2 <= 0 || end + (height + width) / 2 >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
+	if (start - (height + width) / (2 * s.Get_spacing()) <= 0 || end + (height + width) / (2 * s.Get_spacing()) >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
 	
 	std::vector<Point> polygon_vertex;
 

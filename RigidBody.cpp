@@ -44,7 +44,7 @@ RigidBody::RigidBody(const String& f, const RigidBodyParameters& parameters)
 float RigidBody::GetMass() const { return mass; }
 float RigidBody::GetMomentOfInertia() const { return moment_of_inertia; }
 Vector2f RigidBody::GetMassPosition() const { return mass_position; }
-Vector2f RigidBody::GetVelocuty() const { return velocity; }
+Vector2f RigidBody::GetVelocity() const { return velocity; }
 Vector2f RigidBody::GetAcceleration() const { return acceleration; }
 float RigidBody::GetAngleVelocity() const { return angle_velocity; }
 float RigidBody::GetAngleAcceleration() const { return angle_acceleration; }
