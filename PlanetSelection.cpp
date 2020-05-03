@@ -36,7 +36,13 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
     bool selecting = 1;
     int selected = 0; //selected item or button
 
+    View view;
     while (selecting) {
+
+        view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
+        view.setSize(sf::Vector2f(window_x(), window_y()));
+        window.setView(view);
+
         Event event;
         while (window.pollEvent(event))
         {

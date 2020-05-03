@@ -41,6 +41,7 @@
     <ClInclude Include="SettingsItem.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Space.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Usart.h" />
@@ -61,6 +62,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Space.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceGenerate.cpp" />
     <ClCompile Include="PlanetSelection.cpp" />

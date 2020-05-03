@@ -7,10 +7,10 @@ size_t screen_y() {
     return VideoMode::getDesktopMode().height;
 }
 size_t window_x() {
-    return screen_x() - 200;
+    return screen_x() - 300;
 }
 size_t window_y() {
-    return screen_y() - 200;
+    return screen_y() - 300;
 }
 
 void mix(std::vector<int>& v) {

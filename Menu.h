@@ -1,11 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <map>
 #include "Object.h"
 #include "Surface.h"
+#include "Space.h"
 #include "Ship.h"
 #include "SettingsItem.h"
-#include <map>
 #include "Button.h"
 
 #include "Tests.h"
