@@ -10,6 +10,8 @@ private:
 public:
 	Ship(const String& f, const RigidBodyParameters& parameters);
 
+	void AddMainForces(float gravity);
+
 	void AddEngine(const Engine& new_engine, const std::string& name);
 	void EngineOn(const std::string& name);
 	void EngineOff(const std::string& name);
@@ -22,8 +24,11 @@ public:
 
 	void DrawShip(RenderWindow& window) const;
 	void Destroy();
-	virtual void draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) = 0;
+	void draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision);
+
 	virtual RigidBodyParameters download(sf::Vector2f position) = 0;
 	virtual void assembly() = 0;
 	virtual void control() = 0;
+
+	void updateAirForce(float k);
 };

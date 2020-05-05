@@ -73,3 +73,69 @@ void Ship::Destroy() {
 	isDestroyed = true;
 	sprite.setColor(Color::Red);
 }
+
+void Ship::updateAirForce(float k) {
+	forces["Air"].force = k * sqal(velocity) / 10;
+
+	if (sqal(velocity) > 1) {
+		forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD) / sqal(velocity);
+	}
+	else {
+		forces["Air"].force_vector = -rotate_to_angle(velocity, -GetAngle() * RAD);
+	}
+
+
+	if (angle_velocity > 10) {
+		forces["AirLeft"].force_vector = Vector2f(0, 1);
+		forces["AirRight"].force_vector = Vector2f(0, -1);
+
+		forces["AirLeft"].force = k * angle_velocity / 10;
+		forces["AirRight"].force = k * angle_velocity / 10;
+	}
+	else if (angle_velocity < -10) {
+		forces["AirLeft"].force_vector = Vector2f(0, 1);
+		forces["AirRight"].force_vector = Vector2f(0, -1);
+
+		forces["AirLeft"].force = k * angle_velocity / 10;
+		forces["AirRight"].force = k * angle_velocity / 10;
+	}
+	else {
+		forces["AirLeft"].force_vector = Vector2f(0, 0);
+		forces["AirRight"].force_vector = Vector2f(0, 0);
+
+		forces["AirLeft"].force = 0;
+		forces["AirRight"].force = 0;
+	}
+}
+
+void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
+	if (position == true) {
+		DrawMassPosition(window);
+	}
+	if (way == true) {
+		DrawBodyWay(window);
+	}
+	if (speed == true) {
+		DrawSpeed(window);
+	}
+	if (forces == true) {
+		for (auto i : Ship::forces) {
+			DrawForce(window, i.second);
+		}
+	}
+	if (collision == true) {
+		CollisionModelDrow(window);
+	}
+}
+
+void Ship::AddMainForces(float gravity) {
+	AddForce("G", Force(true, gravity, Vector2f(0, 400), Vector2f(0, 0)));
+	ForceOn("G");
+
+	AddForce("Air", Force(false, sqal(velocity), Vector2f(0, 0), Vector2f(0.5, 0.5)));
+	ForceOn("Air");
+	AddForce("AirLeft", Force(false, 0, Vector2f(0, 0), Vector2f(0, 0.5)));
+	ForceOn("AirLeft");
+	AddForce("AirRight", Force(false, 0, Vector2f(0, 0), Vector2f(1, 0.5)));
+	ForceOn("AirRight");
+}

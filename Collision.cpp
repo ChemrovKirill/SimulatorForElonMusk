@@ -1,5 +1,10 @@
 #include"RigidBody.h"
 
+void  RigidBody::Collision(const Surface& s) {
+	CollisionDetection(s);
+	
+}
+
 void RigidBody::CollisionModelDrow(RenderWindow& window) {
 	std::vector<Point> polygon_vertex;
 
@@ -31,11 +36,11 @@ void RigidBody::CollisionModelDrow(RenderWindow& window) {
 
 void RigidBody::CollisionDetection(const Surface& s) {
 	
-	int mid_iter = s.Get_iter_0() + 2 * GetCenterPosition().x / s.Get_spacing();
-	int start = mid_iter - (height + width) /(2 * s.Get_spacing());
-	int end = mid_iter + (height + width) / (2 * s.Get_spacing());
+	long mid_iter = s.Get_iter_0() + 2 * GetCenterPosition().x / s.Get_spacing();
+	long start = mid_iter - (height + width) /(2 * s.Get_spacing());
+	long end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start < 0 || end > s.Get_VertexCount()) { start = end = 0; }
+	if (start - (height + width) / (2 * s.Get_spacing()) <= 0 || end + (height + width) / (2 * s.Get_spacing()) >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
 
 	std::vector<Point> polygon_vertex;
 
@@ -137,12 +142,12 @@ bool RigidBody::IntercectionWithSurface(const Point& p, const Line& surface_line
 //////////////////Function overloading is for visualization purposes only///////////////////////////////
 void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 	
-	int mid_iter = s.Get_iter_0() + 2 * GetCenterPosition().x / s.Get_spacing();
-	int start = mid_iter - (height + width) /(2 * s.Get_spacing());
-	int end = mid_iter + (height + width) / (2 * s.Get_spacing());
+	long mid_iter = s.Get_iter_0() + 2 * GetCenterPosition().x / s.Get_spacing();
+	long start = mid_iter - (height + width) /(2 * s.Get_spacing());
+	long end = mid_iter + (height + width) / (2 * s.Get_spacing());
 
-	if (start < 0 || end > s.Get_VertexCount()) { start = end = 0; }
-
+	if (start - (height + width) / (2 * s.Get_spacing()) <= 0 || end + (height + width) / (2 * s.Get_spacing()) >= s.Get_VertexCount()) { start = end = mid_iter = 0; return; }
+	
 	std::vector<Point> polygon_vertex;
 
 	for (Point i : collision_vertex) {
@@ -248,5 +253,10 @@ bool RigidBody::IntercectionWithSurface(const Point& p, const Line& surface_line
 
 	if (intersection % 2 == 1) { return	true; }
 	else { return false; }
+}
+
+
+void  RigidBody::Collision(const Surface& s, RenderWindow& window) {
+
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

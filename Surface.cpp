@@ -7,10 +7,10 @@ size_t screen_y() {
     return VideoMode::getDesktopMode().height;
 }
 size_t window_x() {
-    return screen_x() - 200;
+    return screen_x() - 300;
 }
 size_t window_y() {
-    return screen_y() - 200;
+    return screen_y() - 300;
 }
 
 void mix(std::vector<int>& v) {
@@ -32,6 +32,7 @@ Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::m
 }
 
 int Surface::Get_iter_0() const { return iter_0; }
+
 float Surface::YtoX(const float& x) {
     int iter = iter_0 + 1 + 2*int(x)/ x_spacing;
     if (x < left_position.x || x > left_position.x + vertex_count*x_spacing) {

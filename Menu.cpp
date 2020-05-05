@@ -18,6 +18,8 @@ void Menu(RenderWindow & window) {
 
 	int selected_button = 0;
 
+    View view; 
+
 	while (isMenu) {
 		Event event;
 		while (window.pollEvent(event))
@@ -36,6 +38,10 @@ void Menu(RenderWindow & window) {
 				}
 			}
 		}
+
+        view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
+        view.setSize(sf::Vector2f(window_x(), window_y()));
+        window.setView(view);
 
 		window.clear();
 		window.draw(bg_sprite);
@@ -72,6 +78,8 @@ void Menu(RenderWindow & window) {
 	}
 }
 
+Lander_Parametr par; //for STM32
+
 void StartGame(RenderWindow& window) {
     //5ea71d5d
     //5ea71d85
@@ -89,15 +97,17 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
+    //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
+    //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
     RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
     Ship* lander = &l;
-    //RickAndMorty lander(Vector2f(0, s.YtoX(200) - 500));
+    lander->AddMainForces(100);
 
+    Space space("Space2.png", lander->GetPosition());
 
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
-
 
     while (window.isOpen())
     {
@@ -116,7 +126,7 @@ void StartGame(RenderWindow& window) {
             }
         }
 
-       if (dt > 0.5){
+       if (dt > 0.3){
             dt = 0;
             //deltaTime.restart().asSeconds();
             continue;
@@ -124,10 +134,14 @@ void StartGame(RenderWindow& window) {
 
         window.clear();
 
+        space.Update(view);
+        space.Draw(window);
 
+        USART(par, par.data_to_send()); //for STM32
+
+        //l.control_STM(par);
         lander->control();
-
-        lander->CollisionDetection(s, window);
+        lander->updateAirForce(1);
 
         lander->UpdateShipPosition(dt);
 
@@ -143,13 +157,18 @@ void StartGame(RenderWindow& window) {
         s.Draw(window);
 
         lander->CollisionDetection(s, window);
-        lander->CollisionModelDrow(window);
 
         window.display();
+        par.data_update(lander);
+
+
 
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
+
+        std::cout <<  sqal(lander->GetVelocity()) << std::endl;
+
         while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
     }
 }

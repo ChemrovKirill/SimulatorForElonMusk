@@ -27,7 +27,8 @@ void Surface::Generate() {
         prev_angle = angle;
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
-        float size = (rand() % 20+1.0) / 10;
+        float size = (rand() % 19+1.0) / 10;
+        std::cout << size << std::endl;
         switch (rand() % 5) {
         case 0:
             if (rand() % 100 < probability[Hole::LAKE]) {
@@ -275,11 +276,11 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
         float mid_level = v.y;
         meteorite.append(Vertex({ v.x + x_spacing / 2, mid_level }, Color::Cyan));
         iter += 2;
-        while (iter < hole_board - 2) {
+        while (iter < hole_board) {
             v = surface[iter].position;
             meteorite.append(Vertex(v, Color::Cyan));
             ++iter;
-            v.y = -v.y + 2 * mid_level + rand() % 20 - 10;
+            v.y = -v.y + 2 * mid_level + rand() % 10 - 5;
             meteorite.append(Vertex(v, Color::Cyan));
             ++iter;
         }
