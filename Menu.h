@@ -22,5 +22,5 @@
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
 Surface PlanetSelection(RenderWindow& window, bool& if_back);
-bool PauseMenu(RenderWindow& window, bool& isPaused, View& view)
+bool PauseMenu(RenderWindow& window, bool& isPaused, View& view);
 //Ship ShipBuilding(RenderWindow& window);
