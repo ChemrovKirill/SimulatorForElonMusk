@@ -58,6 +58,7 @@
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="RickAndMorty.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SettingsItem.cpp" />

@@ -1,6 +1,5 @@
 #include "Menu.h"
 
-
 using namespace sf;
 
 void Menu(RenderWindow & window) {
@@ -28,8 +27,7 @@ void Menu(RenderWindow & window) {
 				window.close();
 				isMenu = false;
 			}
-			if (event.type == Event::KeyPressed)
-			{
+			if (event.type == Event::KeyPressed) {
 				if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up) {
 					selected_button = (selected_button + 1) % buttons.size();
 				}
@@ -37,6 +35,23 @@ void Menu(RenderWindow & window) {
 					selected_button = (selected_button - 1) % buttons.size();
 				}
 			}
+            if (event.type == Event::KeyReleased || event.type == Event::MouseButtonReleased) {
+                if (event.key.code == Keyboard::Enter || event.mouseButton.button == Mouse::Left) {
+                    switch (selected_button) {
+                    case 0:
+                        StartGame(window);
+                        //isMenu = false;
+                        break;
+                    case 1:
+                        window.close();
+                        isMenu = false;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+
 		}
 
         view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
@@ -60,21 +75,6 @@ void Menu(RenderWindow & window) {
 		}
 
 		window.display();
-
-		if (Mouse::isButtonPressed(Mouse::Left) || Keyboard::isKeyPressed(Keyboard::Enter)) {
-			switch (selected_button) {
-			case 0:
-				StartGame(window);
-				//isMenu = false;
-				break;	
-			case 1:
-				window.close();
-				isMenu = false;
-				break;
-			default:
-				break;
-			}
-		}
 	}
 }
 
@@ -97,9 +97,9 @@ void StartGame(RenderWindow& window) {
     float dt = 0, time = 0;
     Clock deltaTime;
 
-    //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
+    Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
     //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
-    RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
+    //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
     Ship* lander = &l;
     lander->AddMainForces(100);
 
@@ -108,6 +108,8 @@ void StartGame(RenderWindow& window) {
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
+
+    bool isPaused = 0;
 
     while (window.isOpen())
     {
@@ -121,54 +123,63 @@ void StartGame(RenderWindow& window) {
             {
                 if (event.key.code == Keyboard::Escape) {
                     window.setView(View({0, 0, float(window_x()), float(window_y())}));
-                    return;
+                    isPaused = (isPaused+1)%2;
+                    window.clear();
                 }
             }
         }
-
-       if (dt > 0.3){
+        
+        //pause in case of window moving
+        if (dt > 0.3){
             dt = 0;
             //deltaTime.restart().asSeconds();
             continue;
-       }
+        }
 
+        //START_DRAWING
         window.clear();
-
-        space.Update(view);
+        
         space.Draw(window);
-
-        USART(par, par.data_to_send()); //for STM32
-
-        //l.control_STM(par);
-        lander->control();
-        lander->updateAirForce(1);
-
-        lander->UpdateShipPosition(dt);
-
+        
         lander->DrawShip(window);
-
-        lander->draw_all(window, true, true, false, true, true);
-
-
+        lander->draw_all(window, true, true, true, true, true);
+        
         view.setCenter(lander->GetCenterPosition());
         window.setView(view);
 
-        s.Update(dt);
         s.Draw(window);
+        //END_DRAWING
 
-        lander->CollisionDetection(s, window);
+        if (isPaused) {
+            dt = 0;
+            if (!PauseMenu(window, isPaused, view)) { //if main menu
+                return;
+            }
+            
+        }
+        else {
+            lander->control();
+            lander->updateAirForce(1);
+            lander->UpdateShipPosition(dt);
+            lander->CollisionDetection(s, window);
+            //l.control_STM(par);
 
-        window.display();
-        par.data_update(lander);
+            space.Update(view);
 
+            s.Update(dt);
+            par.data_update(lander);
 
+            USART(par, par.data_to_send()); //for STM32
+        }
+        
 
         time += dt;
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
 
-        std::cout <<  sqal(lander->GetVelocity()) << std::endl;
+       //std::cout <<  sqal(lander->GetVelocity()) << std::endl;
 
-        while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
+        window.display();
+        //while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
     }
 }

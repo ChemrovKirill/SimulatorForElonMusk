@@ -84,9 +84,9 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
                     }
                 }
             }
-            //keyboard or mouse
-            if (event.type == Event::KeyPressed || event.type == Event::MouseButtonPressed) {
-                if (event.key.code == Keyboard::Enter || Mouse::isButtonPressed(Mouse::Left)) {
+            //keyboard or mouse Key Released
+            if (event.type == Event::KeyReleased || event.type == Event::MouseButtonReleased) {
+                if (event.key.code == Keyboard::Enter || event.mouseButton.button == Mouse::Left) {
                     //Buttons pressed
                     if (selected >= items.size()) {
                         switch (selected - items.size()) {
