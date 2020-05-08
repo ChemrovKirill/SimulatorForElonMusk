@@ -8,10 +8,14 @@ bool PauseMenu(RenderWindow& window, bool& isPaused, View& view) {
     buttons.push_back(Button("Menu", { x_pos, y_pos + 400 }));
 
     static int selected_button = 0;
-    bool if_pressed = 0;
+
     Event event;
     while (window.pollEvent(event))
     {
+        if (event.type == Event::Closed) {
+            window.close();
+            return 0;
+        }
         if (event.type == Event::KeyPressed)
         {
             if (event.key.code == Keyboard::Escape) {

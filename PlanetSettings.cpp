@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-Surface PlanetSelection(RenderWindow& window, bool& if_back) {
+Surface PlanetSettings(RenderWindow& window, bool& if_Menu) {
     Texture bg_texture;
     bg_texture.loadFromFile("images/background.png");
     bg_texture.setRepeated(true);
@@ -8,8 +8,8 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
     bg_sprite.setTexture(bg_texture);
     bg_sprite.setTextureRect({ 0, 0, int(window_x()), int(window_y()) });
 
-    Object title("PlanetSettings.png", { 0, 0 }, 783, 138, 0);
-    title.SetPosition({ (window_x() - title.GetWidth()) / 2, 30 }, 0);
+    Object title("PlanetSettings.png", { 0, 0 }, 600, 100, 0);
+    title.SetPosition({ (window_x() - title.GetWidth()) / 2, 20 }, 0);
     title.Sprite().setColor(Color(0x0000b0ff));
 
     int items_num = 5;
@@ -17,8 +17,8 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
     float space = window_x() / 2;
     std::vector<SettingsItem> items = {
                                              SettingsItem({ 100, 200 }, "Lakes"),
-                                             SettingsItem({ 100, 200 + gap }, "Holes U"),
-                                             SettingsItem({ 100, 200 + 2 * gap }, "Holes V"),
+                                             SettingsItem({ 100, 200 + gap }, "Holes"),
+                                             SettingsItem({ 100, 200 + 2 * gap }, "Gravity"),
                                              SettingsItem({ 100, 200 + 3 * gap }, "Ice"),
                                              SettingsItem({ 100 + space, 200 }, "Meteorites"),
                                              SettingsItem({ 100 + space, 200 + gap }, "Slopes"),
@@ -28,16 +28,16 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
 
     std::vector<Button> buttons;
     float x_mid = window_x() / 2 - 175;
-    buttons.push_back(Button("Back", { 100, float(window_y() - 150) }));
-    buttons.push_back(Button("Random", { x_mid, float(window_y() - 150) }));
-    buttons.push_back(Button("Next", { float(window_x() - 450), float(window_y() - 150) }));
+    buttons.push_back(Button("Menu", { 100, float(window_y() - 130) }));
+    buttons.push_back(Button("Random", { x_mid, float(window_y() - 130) }));
+    buttons.push_back(Button("Next", { float(window_x() - 450), float(window_y() - 130) }));
 
     int obj_num = items.size() + buttons.size();
     bool selecting = 1;
     int selected = 0; //selected item or button
 
     View view;
-    while (selecting) {
+    while (selecting && window.isOpen()) {
 
         view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
         view.setSize(sf::Vector2f(window_x(), window_y()));
@@ -66,7 +66,7 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
             //only keyboard
             if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Escape) {
-                    if_back = 1;
+                    if_Menu = 1;
                     selecting = 0;
                 }
                 if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up) {
@@ -90,8 +90,8 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
                     //Buttons pressed
                     if (selected >= items.size()) {
                         switch (selected - items.size()) {
-                        case 0: //back
-                            if_back = 1;
+                        case 0: //back to Menu
+                            if_Menu = 1;
                             selecting = 0;
                             break;
                         case 1: //random
@@ -100,7 +100,7 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
                             }
                             break;
                         case 2: //next
-                            if_back = 0;
+                            if_Menu = 0;
                             selecting = 0;
                             break;
                         default:
@@ -143,17 +143,20 @@ Surface PlanetSelection(RenderWindow& window, bool& if_back) {
             button.Draw(window);
         }
         title.Draw(window);
+
         window.display();
     }
 
     std::map<Hole, int> probability = {     { Hole::LAKE, items[0].GetValue() },
-                                            { Hole::EMPTY_U, items[1].GetValue()  },
-                                            { Hole::EMPTY_V, items[2].GetValue() },
+                                            { Hole::EMPTY_U, items[1].GetValue()/2  },
+                                            { Hole::EMPTY_V, items[1].GetValue()/2 },
                                             { Hole::ICE, items[3].GetValue() },
                                             { Hole::METEORITE, items[4].GetValue() },
     };
     int rough = 10;
     int max_angle = items[5].GetValue() / 100.0 * 70; //slopes
     int snow_coverage = items[6].GetValue();
-    return Surface("surface.png", rough, snow_coverage, probability, max_angle);
+    int gravity = items[2].GetValue();
+    int air_density = items[7].GetValue();
+    return Surface("surface.png", rough, snow_coverage, probability, max_angle, gravity, air_density);
 }

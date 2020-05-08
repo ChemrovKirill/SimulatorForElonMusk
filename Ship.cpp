@@ -75,6 +75,7 @@ void Ship::Destroy() {
 }
 
 void Ship::updateAirForce(float k) {
+	k /= 20.0;
 	forces["Air"].force = k * sqal(velocity) / 10;
 
 	if (sqal(velocity) > 1) {
@@ -108,28 +109,29 @@ void Ship::updateAirForce(float k) {
 	}
 }
 
-void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision) {
+void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, bool _forces, bool collision) {
 	if (position == true) {
 		DrawMassPosition(window);
 	}
 	if (way == true) {
 		DrawBodyWay(window);
 	}
+	std::cout << forces["G"].force_vector.y << std::endl;;
 	if (speed == true) {
 		DrawSpeed(window);
 	}
-	if (forces == true) {
+	if (_forces == true) {
 		for (auto i : Ship::forces) {
 			DrawForce(window, i.second);
 		}
 	}
 	if (collision == true) {
-		CollisionModelDrow(window);
+		CollisionModelDraw(window);
 	}
 }
 
 void Ship::AddMainForces(float gravity) {
-	AddForce("G", Force(true, gravity, Vector2f(0, 400), Vector2f(0, 0)));
+	AddForce("G", Force(true, 100, Vector2f(0, mass*gravity), Vector2f(0, 0)));
 	ForceOn("G");
 
 	AddForce("Air", Force(false, sqal(velocity), Vector2f(0, 0), Vector2f(0.5, 0.5)));

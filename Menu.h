@@ -8,6 +8,7 @@
 #include "Ship.h"
 #include "SettingsItem.h"
 #include "Button.h"
+#include "ShipStand.h"
 
 #include "Tests.h"
 
@@ -21,6 +22,6 @@
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
-Surface PlanetSelection(RenderWindow& window, bool& if_back);
+Surface PlanetSettings(RenderWindow& window, bool& if_back);
 bool PauseMenu(RenderWindow& window, bool& isPaused, View& view);
-//Ship ShipBuilding(RenderWindow& window);
+Ship* ShipSettings(RenderWindow& window, const Vector2f&, bool& if_Menu);

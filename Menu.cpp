@@ -19,7 +19,7 @@ void Menu(RenderWindow & window) {
 
     View view; 
 
-	while (isMenu) {
+	while (isMenu && window.isOpen()) {
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -88,26 +88,30 @@ void StartGame(RenderWindow& window) {
     std::cout << "seed: " << seed << std::endl;
     srand(seed);
 
-    bool if_back = 0;
-    Surface s = PlanetSelection(window, if_back);
-    if(if_back) {
+    bool if_Menu = 0;
+    Surface surface = PlanetSettings(window, if_Menu);
+    if(if_Menu) {
         return;
     }
 
-    float dt = 0, time = 0;
-    Clock deltaTime;
+    Ship* lander = ShipSettings(window, Vector2f(0, surface.YtoX(200) - 500), if_Menu);
+    lander->AddMainForces(surface.GetGravity());
+    if (if_Menu) {
+        return;
+    }
 
-    Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
     //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
+    //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
     //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
-    Ship* lander = &l;
-    lander->AddMainForces(100);
 
     Space space("Space2.png", lander->GetPosition());
 
     View view;
     view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));
     view.setSize(sf::Vector2f(window_x(), window_y()));
+
+    float dt = 0, time = 0;
+    Clock deltaTime;
 
     bool isPaused = 0;
 
@@ -147,7 +151,7 @@ void StartGame(RenderWindow& window) {
         view.setCenter(lander->GetCenterPosition());
         window.setView(view);
 
-        s.Draw(window);
+        surface.Draw(window);
         //END_DRAWING
 
         if (isPaused) {
@@ -159,14 +163,14 @@ void StartGame(RenderWindow& window) {
         }
         else {
             lander->control();
-            lander->updateAirForce(1);
+            lander->updateAirForce(surface.GetAirDensity());
             lander->UpdateShipPosition(dt);
-            lander->CollisionDetection(s, window);
+            lander->CollisionDetection(surface, window);
             //l.control_STM(par);
 
             space.Update(view);
 
-            s.Update(dt);
+            surface.Update(dt);
             par.data_update(lander);
 
             USART(par, par.data_to_send()); //for STM32
@@ -182,4 +186,6 @@ void StartGame(RenderWindow& window) {
         window.display();
         //while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }
     }
+    delete lander;
+    return;
 }

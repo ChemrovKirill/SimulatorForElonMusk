@@ -43,6 +43,7 @@ protected:
 	int snow_coverage; //0-100 %
 	std::map<Hole, int> probability;
 	int air_density;
+	int gravity;
 
 	Color surface_color;
 	Color meteorites_color;
@@ -54,7 +55,7 @@ protected:
 	String file;
 	Image image;
 public:
-	Surface(const String& file, const int& rough, const int& snow_coverage, std::map<Hole, int> prob, int _max_angle);
+	Surface(const String&, const int& rough, const int& snow_coverage, std::map<Hole, int>, int _max_angle, int gravity, int air_d);
 	void SetTexture();
 	
 	size_t Get_VertexCount() const;
@@ -62,6 +63,8 @@ public:
 	int Get_iter_0() const;
 	float Get_spacing() const;
 	float YtoX(const float&);
+	int GetGravity() const;
+	int GetAirDensity() const;
 
 	void Generate();
 	void ColorGenerate();

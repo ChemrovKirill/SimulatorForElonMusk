@@ -40,9 +40,6 @@
     <ClCompile Include="SurfaceGenerate.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="PlanetSelection.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="SettingsItem.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -65,6 +62,15 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="PauseMenu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetSettings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipSettings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipStand.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -145,6 +151,9 @@
       <Filter>Ship_models</Filter>
     </ClInclude>
     <ClInclude Include="Space.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipStand.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
