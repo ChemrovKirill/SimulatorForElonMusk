@@ -34,22 +34,22 @@ void RickAndMorty::assembly() {
 
 void RickAndMorty::control() {
     if (Keyboard::isKeyPressed(Keyboard::W)) {
-        ForceOn("down");
+        EngineOn("down");
     }
     else {
-        ForceOff("down");
+        EngineOff("down");
     }
     if (Keyboard::isKeyPressed(Keyboard::A)) {
-        ForceOn("left");
+        EngineOn("left");
     }
     else {
-        ForceOff("left");
+        EngineOff("left");
     }
     if (Keyboard::isKeyPressed(Keyboard::D)) {
-        ForceOn("right");
+        EngineOn("right");
     }
     else {
-        ForceOff("right");
+        EngineOff("right");
     }
         
     if (Keyboard::isKeyPressed(Keyboard::Num1)) {

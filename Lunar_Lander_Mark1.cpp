@@ -39,8 +39,8 @@ void Lunar_Lander_Mark1::assembly() {
 
 void Lunar_Lander_Mark1::control() {
     if (Keyboard::isKeyPressed(Keyboard::W)) {
-        ForceOn("1");
-        ForceOn("2");
+        EngineOn("1");
+        EngineOn("2");
     }
     else {
         EngineOff("1");

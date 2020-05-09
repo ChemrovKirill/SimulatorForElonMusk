@@ -32,7 +32,7 @@ void RigidBody::CollisionReactionWithSurface(const Line& l, bool first_collision
 		//	angle_velocity = (sin(deviation_angle) * 100 * RESTITUTION) / (sqal(collision_center_line) * RAD);
 		//}
 		//angle_velocity += RESTITUTION * sqal(collision_center_line) * other_velocity * mass / moment_of_inertia;
-		std::cout << angle_velocity << " " << other_velocity << " " << sqal(collision_center_line) << std::endl;
+		//std::cout << angle_velocity << " " << other_velocity << " " << sqal(collision_center_line) << std::endl;
 		old_position = position;
 		position = old_position + normal_to_line(l) / 4;
 	}
@@ -81,7 +81,7 @@ void RigidBody::CollisionReaction(bool first_collision, Point force_point) {
 	}
 	static int i = 0;
 	++i;
-	std::cout << "Collision! " << i << std::endl;
+	//std::cout << "Collision! " << i << std::endl;
 }
 
 void RigidBody::NOCollisionReaction() {

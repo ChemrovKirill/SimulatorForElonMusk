@@ -116,7 +116,7 @@ void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, b
 	if (way == true) {
 		DrawBodyWay(window);
 	}
-	std::cout << forces["G"].force_vector.y << std::endl;;
+	
 	if (speed == true) {
 		DrawSpeed(window);
 	}
