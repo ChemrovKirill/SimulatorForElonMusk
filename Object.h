@@ -27,6 +27,7 @@ public:
 	Object() : height(0), width(0), angle(0) {}
 	Object(const String& f, const Vector2f& new_position,
 		const float& w, const float& h, const float& start_angle); //êîñÿê ñ óãëîì!!!
+	Object(const String& f, const Vector2f& new_position, const float& start_angle);
 	Object(const Object& o);
 		
 	bool Exist() const;

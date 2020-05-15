@@ -1,13 +1,25 @@
 #include "Engine.h"
 
-Engine::Engine() : on(false), relative_position(0, 0), max_thrust_angle(0), thrust_angle(0), thrust(0), engine_vector(0, 0) {}
+Engine::Engine() : on(false), relative_position(0, 0), max_thrust_angle(0), thrust_angle(0), thrust(0), engine_vector(0, 0) {
+	buffer.loadFromFile("sounds/" + f_sound);
+	sound.setBuffer(buffer);
+	sound.setLoop(1);
+}
 Engine::Engine(const Object& object, const Vector2f& start_rel_pos, const Force& start_force, const float& start_max_thrust_angle)
 	: Object(object.GetFile(), object.GetPosition(), object.GetWidth(), object.GetHeight(), object.GetAngle()),
 	on(false), relative_position(start_rel_pos), force(Force(start_force)),
-	max_thrust_angle(start_max_thrust_angle), thrust_angle(0), thrust(1), engine_vector(start_force.force_vector) {}
+	max_thrust_angle(start_max_thrust_angle), thrust_angle(0), thrust(1), engine_vector(start_force.force_vector) {
+	buffer.loadFromFile("sounds/" + f_sound);
+	sound.setBuffer(buffer);
+	sound.setLoop(1);
+}
 Engine::Engine(const Engine& e) : Object(e.GetFile(), e.GetPosition(), e.GetWidth(), e.GetHeight(), e.GetAngle()),
 on(e.on), relative_position(e.relative_position), force(e.force), max_thrust_angle(e.max_thrust_angle), thrust_angle(e.thrust_angle),
-thrust(e.thrust), engine_vector(e.force.force_vector) {}
+thrust(e.thrust), engine_vector(e.force.force_vector) {
+	buffer.loadFromFile("sounds/" + f_sound);
+	sound.setBuffer(buffer);
+	sound.setLoop(1);
+}
 
 Force Engine::GetForce() const { return force; }
 Vector2f Engine::GetRelPos() const { return relative_position; }
@@ -23,8 +35,23 @@ void Engine::SetMaxThrustAngle(const float& new_max_thrust_angle) { max_thrust_a
 void Engine::SetEngineVector(const Vector2f& new_engine_vector) { engine_vector = new_engine_vector; }
 
 bool Engine::If_on() const { return on; }
-void Engine::SetOn() { on = true; force.exist = true; }
-void Engine::SetOff() { on = false; force.exist = false; }
+void Engine::SetOn() { 
+	if (!If_on()) {
+		on = true;
+		force.exist = true;
+		//std::cout << "sound on" << std::endl;
+		sound.setVolume(30);
+		sound.play();
+	}
+}
+void Engine::SetOff() { 
+	if (If_on()) {
+		on = false;
+		//std::cout << "sound off" << std::endl;
+		force.exist = false;
+		sound.stop();
+	}
+}
 
 Engine Engine::operator = (const Engine& e) {
 	force.exist = e.force.exist;

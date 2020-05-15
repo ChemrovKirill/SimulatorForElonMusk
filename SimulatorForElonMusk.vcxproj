@@ -41,6 +41,7 @@
     <ClInclude Include="SettingsItem.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="ShipStand.h" />
     <ClInclude Include="Space.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
@@ -58,14 +59,17 @@
     <ClCompile Include="MathFunction.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="RickAndMorty.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="ShipSettings.cpp" />
+    <ClCompile Include="ShipStand.cpp" />
     <ClCompile Include="Space.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceGenerate.cpp" />
-    <ClCompile Include="PlanetSelection.cpp" />
+    <ClCompile Include="PlanetSettings.cpp" />
     <ClCompile Include="Tests.cpp" />
     <ClCompile Include="Usart.cpp" />
   </ItemGroup>

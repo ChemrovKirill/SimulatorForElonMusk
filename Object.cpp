@@ -16,6 +16,19 @@ Object::Object(const String& f, const Vector2f& new_position,
 	sprite.rotate(angle);
 }
 
+Object::Object(const String& f, const Vector2f& new_position, const float& start_angle)
+	: file(f), position(new_position), angle(start_angle) {
+	image.loadFromFile("images/" + f);
+	height = image.getSize().y;
+	width = image.getSize().x;
+	//image.createMaskFromColor(Color(255, 255, 255));
+	texture.loadFromImage(image);
+	sprite.setTexture(texture);
+	sprite.setTextureRect(IntRect(0, 0, width, height));
+	sprite.setPosition(position.x, position.y);
+	sprite.rotate(angle);
+}
+
 void Object::VertexesUpdate() {
 	Vector2f p_1 = { width * cos(RAD * angle), width * sin(RAD * angle) };
 	Vector2f p_2 = p_1 + Vector2f(-height * sin(RAD * angle), height * cos(RAD * angle));
@@ -39,19 +52,10 @@ std::vector<Vector2f> Object::GetVertexes() const {
 	return vertexes;
 }
 
-Sprite& Object::Sprite() {return sprite;}
+Sprite& Object::Sprite() {
+	return sprite;
+}
 
-//bool Object::PointInside(const Vector2f& point) const {
-//	std::vector<gs::Point> points;
-//	for (size_t i = 0; i < 4; ++i) {
-//		points.push_back(gs::Point(GetVertexes()[i].x, GetVertexes()[i].y));
-//	}
-//	gs::Polygon obj(points);
-//	gs::Point p(gs::Point(point.x, point.y));
-//	//std::cout << p << "  " << points[0] << ";" << points[2] << std::endl;
-//
-//	return obj.containsPoint(p);
-//}
 Object::Object(const Object& o) : position(o.position), height(o.height), width(o.width), angle(o.angle), exist(o.exist), file(o.file) {
 	image.loadFromFile("images/" + file);
 	image.createMaskFromColor(Color(0,0,0));

@@ -42,8 +42,8 @@ void Lunar_Lander_Mark1_STM32::control() {}
 void Lunar_Lander_Mark1_STM32::control_STM(const Lander_Parametr& par)
 {
     if (Keyboard::isKeyPressed(Keyboard::W) || par.en_stat[0] == 1) {
-        ForceOn("1");
-        ForceOn("2");
+        EngineOn("1");
+        EngineOn("2");
     }
     else {
         EngineOff("1");

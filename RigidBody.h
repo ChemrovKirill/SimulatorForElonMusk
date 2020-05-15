@@ -101,7 +101,7 @@ public:
 
 	void Collision(const Surface& s);
 	void Collision(const Surface& s, RenderWindow& window);
-	void CollisionModelDrow(RenderWindow& window);
+	void CollisionModelDraw(RenderWindow& window);
 	void CollisionDetection(const Surface& s);
 	void CollisionDetection(const Surface& s, RenderWindow& window);
 private:

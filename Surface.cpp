@@ -22,8 +22,10 @@ void mix(std::vector<int>& v) {
     }
 }
 
-Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::map<Hole, int> prob, int m_angle)
-: rough(_rough), file(f), snow_coverage(snow_cov), probability(prob), max_angle(m_angle) {
+Surface::Surface(const String& f, const int& _rough, const int& snow_cov, std::map<Hole, int> prob, 
+            int m_angle, int _gravity, int air_d)
+: rough(_rough), file(f), snow_coverage(snow_cov), probability(prob), 
+        max_angle(m_angle), gravity(_gravity), air_density(air_d) {
     pixel_size = 20 * window_x();
     left_position = Vector2f(-pixel_size/2, window_y() - 100);
     vertex_count = size_t(pixel_size / x_spacing);
@@ -50,6 +52,13 @@ Vertex Surface::GetVertex(const int& i) const {
     if (i >= 0 && i < surface.getVertexCount()) { return surface[i]; }
     else if (i < 0) { return surface[0]; }
     else { return surface[surface.getVertexCount() - 1]; }
+}
+
+int Surface::GetGravity() const {
+    return gravity;
+}
+int Surface::GetAirDensity() const {
+    return air_density;
 }
 
 void Surface::SetTexture() {

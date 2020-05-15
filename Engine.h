@@ -11,6 +11,10 @@ private:
 	float thrust; //from 0 (0%) to 1 (100%) of force.force
 	float thrust_angle; //from -1 (-100%) to 1 (100%) of max_thrust_angle
 	float max_thrust_angle; //the angle at which the engine can deviate
+
+	String f_sound = "engine.wav";
+	SoundBuffer buffer;
+	Sound sound;
 public:
 	Engine();
 	Engine(const Object& object, const Vector2f& start_rel_pos, const Force& start_force, const float& start_max_thrust_angle);

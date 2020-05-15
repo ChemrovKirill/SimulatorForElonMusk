@@ -5,7 +5,7 @@ void  RigidBody::Collision(const Surface& s) {
 	
 }
 
-void RigidBody::CollisionModelDrow(RenderWindow& window) {
+void RigidBody::CollisionModelDraw(RenderWindow& window) {
 	std::vector<Point> polygon_vertex;
 
 	for (Point i : collision_vertex) {
