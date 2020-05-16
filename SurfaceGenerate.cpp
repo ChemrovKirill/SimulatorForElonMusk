@@ -186,10 +186,10 @@ void Surface::Generate_U(Vector2f& point, const float& step, const int& step_cou
     }
 }
 
-void Surface::GenerateHole(Vector2f& point, const int& x_borderer, Hole h) {
+void Surface::GenerateHole(Vector2f& point, const int& x_border, Hole h) {
     int level = point.y;
     int step_count = 10; //only descent
-    float length = x_borderer - point.x;
+    float length = x_border - point.x;
     float step = length / (2 * step_count + 2);
     GenerateSlope(point, point.x + step, rough, 40);    //ascent before hole
     int iter = surface.getVertexCount();
@@ -314,8 +314,8 @@ void Surface::GenerateSnow() {
     }
 }
 
-void Surface::GenerateSlope(Vector2f& point, const int& x_borderer, const int& loc_rough, const float& angle) {
-    while (point.x < x_borderer) {
+void Surface::GenerateSlope(Vector2f& point, const int& x_border, const int& loc_rough, const float& angle) {
+    while (point.x < x_border) {
         float slope_direction = 0;
         surface.append(Vertex(point, Color::White));
         surface.append(Vertex(Vector2f(point.x, down_border), Color::White));

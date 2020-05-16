@@ -68,8 +68,8 @@ public:
 
 	void Generate();
 	void ColorGenerate();
-	void GenerateSlope(Vector2f& point, const int& x_borderer, const int& loc_rough, const float& angle);
-	void GenerateHole(Vector2f& point, const int& x_borderer, Hole);
+	void GenerateSlope(Vector2f& point, const int& x_border, const int& loc_rough, const float& angle);
+	void GenerateHole(Vector2f& point, const int& x_border, Hole);
 	void Generate_V(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
 	void Generate_U(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
 	void GenerateSnow();
