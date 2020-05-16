@@ -32,12 +32,12 @@ protected:
 	Vector2f left_position;
 	int pixel_size;
 	int vertex_count;
-	int iter_0; //surface[iter_0].position.x = 0 (.y = down_board)
+	int iter_0; //surface[iter_0].position.x = 0 (.y = down_border)
 
 	float x_spacing = 20; //space between vertexes
 	int step = 500; //generation step
-	int down_board = 5 * window_y();
-	int up_board = -5 * window_y();
+	int down_border = 5 * window_y();
+	int up_border = -5 * window_y();
 	int max_angle; //0-70
 	int rough; //0-10...
 	int snow_coverage; //0-100 %
@@ -68,8 +68,8 @@ public:
 
 	void Generate();
 	void ColorGenerate();
-	void GenerateSlope(Vector2f& point, const int& x_boarder, const int& loc_rough, const float& angle);
-	void GenerateHole(Vector2f& point, const int& x_boarder, Hole);
+	void GenerateSlope(Vector2f& point, const int& x_borderer, const int& loc_rough, const float& angle);
+	void GenerateHole(Vector2f& point, const int& x_borderer, Hole);
 	void Generate_V(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
 	void Generate_U(Vector2f& point, const float& step, const int& step_count, const int& loc_rough);
 	void GenerateSnow();
