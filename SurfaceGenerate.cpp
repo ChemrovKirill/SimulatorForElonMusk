@@ -9,12 +9,12 @@ void Surface::Generate() {
     float angle = 0;
     float prev_angle = 0;
     while (point.x < left_position.x + pixel_size) {
-        int down_turn_board = down_board - tan(max_angle) * 6 * step;   //down y from which U-turn starts
-        int up_turn_board = up_board + tan(max_angle) * 4 * step;       //up y from which U-turn starts
-        if (point.y > down_turn_board) {
+        int down_turn_border = down_border - tan(max_angle) * 6 * step;   //down y from which U-turn starts
+        int up_turn_border = up_border + tan(max_angle) * 4 * step;       //up y from which U-turn starts
+        if (point.y > down_turn_border) {
             angle = rand() % 50 + 10;
         }
-        else if (point.y < up_turn_board) {
+        else if (point.y < up_turn_border) {
             angle = rand() % 50 - 60;
         }
         else {
@@ -27,7 +27,8 @@ void Surface::Generate() {
         prev_angle = angle;
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
-        float size = (rand() % 20+1.0) / 10;
+        float size = (rand() % 19+1.0) / 10;
+        std::cout << size << std::endl;
         switch (rand() % 5) {
         case 0:
             if (rand() % 100 < probability[Hole::LAKE]) {
@@ -185,10 +186,10 @@ void Surface::Generate_U(Vector2f& point, const float& step, const int& step_cou
     }
 }
 
-void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
+void Surface::GenerateHole(Vector2f& point, const int& x_border, Hole h) {
     int level = point.y;
     int step_count = 10; //only descent
-    float length = x_boarder - point.x;
+    float length = x_border - point.x;
     float step = length / (2 * step_count + 2);
     GenerateSlope(point, point.x + step, rough, 40);    //ascent before hole
     int iter = surface.getVertexCount();
@@ -208,7 +209,7 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
         break;
     }
 
-    int hole_board = surface.getVertexCount();
+    int hole_border = surface.getVertexCount();
     GenerateSlope(point, point.x + step, rough, -40);   //descent before hole
 
     switch (h) {
@@ -220,7 +221,7 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
         VertexArray lake;
         lake.setPrimitiveType(TrianglesStrip);
         Vector2f v1, v2;
-        while (iter < hole_board) {
+        while (iter < hole_border) {
             v2 = Vector2f(surface[iter].position.x, level + rand() % 3 + 20);
             lake.append(Vertex(v2, Color::Blue));
             ++iter;
@@ -237,10 +238,10 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
         glacier.setPrimitiveType(TrianglesStrip);
         Vector2f v1;
         Vector2f v2 = Vector2f(surface[iter].position.x, level);
-        int mid_iter = (hole_board + iter) / 2;
+        int mid_iter = (hole_border + iter) / 2;
         int slope = rand() % 20 + 20;
         int dy;
-        while (iter < hole_board) {
+        while (iter < hole_border) {
             dy = rand() % slope / 10.0 * x_spacing;
             if (iter < mid_iter) {
                 v2.y -= dy;
@@ -275,11 +276,11 @@ void Surface::GenerateHole(Vector2f& point, const int& x_boarder, Hole h) {
         float mid_level = v.y;
         meteorite.append(Vertex({ v.x + x_spacing / 2, mid_level }, Color::Cyan));
         iter += 2;
-        while (iter < hole_board - 2) {
+        while (iter < hole_border) {
             v = surface[iter].position;
             meteorite.append(Vertex(v, Color::Cyan));
             ++iter;
-            v.y = -v.y + 2 * mid_level + rand() % 20 - 10;
+            v.y = -v.y + 2 * mid_level + rand() % 10 - 5;
             meteorite.append(Vertex(v, Color::Cyan));
             ++iter;
         }
@@ -313,11 +314,11 @@ void Surface::GenerateSnow() {
     }
 }
 
-void Surface::GenerateSlope(Vector2f& point, const int& x_boarder, const int& loc_rough, const float& angle) {
-    while (point.x < x_boarder) {
+void Surface::GenerateSlope(Vector2f& point, const int& x_border, const int& loc_rough, const float& angle) {
+    while (point.x < x_border) {
         float slope_direction = 0;
         surface.append(Vertex(point, Color::White));
-        surface.append(Vertex(Vector2f(point.x, down_board), Color::White));
+        surface.append(Vertex(Vector2f(point.x, down_border), Color::White));
         if (rand() % 100 < 50) {
             slope_direction = ((float)(rand() % 100)) / 100.0 - 0.5f;
         }

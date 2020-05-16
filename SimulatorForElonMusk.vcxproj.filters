@@ -40,25 +40,37 @@
     <ClCompile Include="SurfaceGenerate.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="PlanetSelection.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="SettingsItem.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Lunar_Lander_Mark1.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="RickAndMorty.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Usart.cpp">
-      <Filter>Sources</Filter>
+      <Filter>_STM32</Filter>
+    </ClCompile>
+    <ClCompile Include="Lunar_Lander_Mark1.cpp">
+      <Filter>Ship_models</Filter>
     </ClCompile>
     <ClCompile Include="Lunar_Lander_Mark1_STM32.cpp">
+      <Filter>Ship_models</Filter>
+    </ClCompile>
+    <ClCompile Include="RickAndMorty.cpp">
+      <Filter>Ship_models</Filter>
+    </ClCompile>
+    <ClCompile Include="Space.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanetSettings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipSettings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipStand.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,16 +138,22 @@
     <ClInclude Include="Button.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Lunar_Lander_Mark1.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="RickAndMorty.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Usart.h">
-      <Filter>Headers</Filter>
+      <Filter>_STM32</Filter>
+    </ClInclude>
+    <ClInclude Include="Lunar_Lander_Mark1.h">
+      <Filter>Ship_models</Filter>
     </ClInclude>
     <ClInclude Include="Lunar_Lander_Mark1_STM32.h">
+      <Filter>Ship_models</Filter>
+    </ClInclude>
+    <ClInclude Include="RickAndMorty.h">
+      <Filter>Ship_models</Filter>
+    </ClInclude>
+    <ClInclude Include="Space.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipStand.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -148,6 +166,12 @@
     </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{ccba70f8-dc8a-485f-8e3f-820a1a82cc54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_STM32">
+      <UniqueIdentifier>{c2b325cb-f8ed-4d57-b831-175cfb27a57f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ship_models">
+      <UniqueIdentifier>{aafa721d-90bf-4fab-ae67-5c0b455cfddd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

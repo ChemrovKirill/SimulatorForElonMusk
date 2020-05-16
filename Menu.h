@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <map>
 #include "Object.h"
 #include "Surface.h"
+#include "Space.h"
 #include "Ship.h"
 #include "SettingsItem.h"
-#include <map>
 #include "Button.h"
+#include "ShipStand.h"
 
 #include "Tests.h"
 
@@ -20,5 +22,6 @@
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
-Surface PlanetSelection(RenderWindow& window, bool& if_back);
-//Ship ShipBuilding(RenderWindow& window);
+Surface PlanetSettings(RenderWindow& window, bool& if_back);
+bool PauseMenu(RenderWindow& window, bool& isPaused, View& view);
+Ship* ShipSettings(RenderWindow& window, const Vector2f&, bool& if_Menu);

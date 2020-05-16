@@ -17,7 +17,7 @@ void test_B2() {
                             { Hole::METEORITE, 50 }
     };
 
-    Surface s("surface.png", 20, 50, p, 70);
+    Surface s("surface.png", 20, 50, p, 70, 100, 50);
     float time = 0;
     float dt = 0;
     Clock deltaTime;
