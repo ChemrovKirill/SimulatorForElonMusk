@@ -71,6 +71,7 @@ protected:
 	std::map<String,Force> forces;
 
 	int fly_status = 0; //0 - fly, 1 - succes landing, (2, 3, 4, 5) - bad landing
+	int status = 1;
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -103,7 +104,7 @@ public:
 	void ForceOff(const std::string& name);
 	void UpdateForces();
 
-	void DrawFlyStatus(float dt) const;
+	void DrawFlyStatus(float dt);
 	void DrawMassPosition(RenderWindow& window) const;
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;

@@ -182,7 +182,7 @@ void StartGame(RenderWindow& window) {
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
 
-        std::cout <<  lander->GetFuel() << std::endl;
+        //std::cout <<  lander->GetFuel() << std::endl;
 
         window.display();
         //while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }

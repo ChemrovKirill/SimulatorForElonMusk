@@ -270,9 +270,9 @@ bool RigidBody::LandingCheck(const Surface& s) {
 	//std::cout << start << " " << end << " " << surface_angle << " " << ship_angle << std::endl;
 }
 
-void RigidBody::DrawFlyStatus(float dt) const {
+void RigidBody::DrawFlyStatus(float dt) {
 	static float t = 0;
-	static int status = 1;
+	//static int status = 1;
 	int new_status = GetFlyStatus();
 
 	t += dt;
