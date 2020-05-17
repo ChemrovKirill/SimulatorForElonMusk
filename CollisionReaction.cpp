@@ -2,7 +2,7 @@
 
 #define RESTITUTION 0.2f
 
-void RigidBody::CollisionReactionWithSurface(const Line& l, bool first_collision, const Point& p) {
+void RigidBody::CollisionReactionWithSurface(const Line& l, bool first_collision, const Point& p, const Surface& s) {
 	static Vector2f old_position{ 0,0 };
 	if (first_collision == true) {
 		Vector2f collision_point(p.x - position.x, p.y - position.y);
@@ -44,6 +44,8 @@ void RigidBody::CollisionReactionWithSurface(const Line& l, bool first_collision
 	else if (angle_velocity < 0) { angle_velocity -= 2; }
  		 
 	position += normal_to_line(l) / 4;
+
+	LandingCheck(s);
 }
 
 /*void RigidBody::CollisionReactionWithSurface(const Line& l, bool first_collision) {
@@ -84,6 +86,3 @@ void RigidBody::CollisionReaction(bool first_collision, Point force_point) {
 	//std::cout << "Collision! " << i << std::endl;
 }
 
-void RigidBody::NOCollisionReaction() {
-
-}

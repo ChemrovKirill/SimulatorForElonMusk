@@ -75,7 +75,8 @@ void RigidBody::CollisionDetection(const Surface& s) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s)) {
-					CollisionReactionWithSurface(surface_line, first_collision, i);
+					CollisionReactionWithSurface(surface_line, first_collision, i, s);
+					
 					first_collision = false;
 					collision_detected = true;
 				}
@@ -90,7 +91,7 @@ void RigidBody::CollisionDetection(const Surface& s) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
 			for (Line ii : collision_polygon.GetLines()) {
-				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p); }
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p, s); }
 			}
 
 			first_collision = false;
@@ -181,7 +182,7 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 					Point(s.GetVertex(it_point + step+ small_step).position.x, s.GetVertex(it_point + step+ small_step).position.y));
 
 				if (IntercectionWithSurface(i, surface_line, s, window)) {
-					CollisionReactionWithSurface(surface_line, first_collision, i);
+					CollisionReactionWithSurface(surface_line, first_collision, i, s);
 
 					CircleShape Cshape(10.f);
 					Cshape.setFillColor(Color::Red);
@@ -202,7 +203,7 @@ void RigidBody::CollisionDetection(const Surface& s, RenderWindow& window) {
 		Point p(s.GetVertex(i).position.x, s.GetVertex(i).position.y);
 		if (collision_polygon.containsPoint(p)) {
 			for (Line ii : collision_polygon.GetLines()) {
-				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p); }
+				if (ii.IsOnLine(p)) { CollisionReactionWithSurface(ii, first_collision, p, s); }
 			}
 
 			CircleShape Cshape(10.f);

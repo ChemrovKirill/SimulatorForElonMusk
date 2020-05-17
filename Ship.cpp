@@ -131,7 +131,7 @@ void Ship::draw_all(RenderWindow& window, bool position, bool speed, bool way, b
 }
 
 void Ship::AddMainForces(float gravity) {
-	AddForce("G", Force(true, 100, Vector2f(0, mass*gravity), Vector2f(0, 0)));
+	AddForce("G", Force(true, 0, Vector2f(0, 4 * gravity), Vector2f(0, 0)));
 	ForceOn("G");
 
 	AddForce("Air", Force(false, sqal(velocity), Vector2f(0, 0), Vector2f(0.5, 0.5)));
