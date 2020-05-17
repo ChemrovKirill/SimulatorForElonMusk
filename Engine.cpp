@@ -27,12 +27,14 @@ float Engine::GetThrust() const { return thrust; }
 float Engine::GetThrustAngle() const { return thrust_angle; }
 float Engine::GetMaxThrustAngle() const { return max_thrust_angle; }
 Vector2f Engine::GetEngineVector() const { return engine_vector; }
+float Engine::GetConsumption() const { return consumption; }
 
 void Engine::SetRelPos(const Vector2f& new_relative_position) { relative_position = new_relative_position; }
 void Engine::SetThrust(const float& new_thrust) { thrust = new_thrust; }
 void Engine::SetThrustAngle(const float& new_thrust_angle) { thrust_angle = new_thrust_angle; }
 void Engine::SetMaxThrustAngle(const float& new_max_thrust_angle) { max_thrust_angle = new_max_thrust_angle; }
 void Engine::SetEngineVector(const Vector2f& new_engine_vector) { engine_vector = new_engine_vector; }
+void Engine::SetConsumption(const float& new_consumption) { consumption = new_consumption; }
 
 bool Engine::If_on() const { return on; }
 void Engine::SetOn() { 

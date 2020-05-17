@@ -1,8 +1,12 @@
 #include "Ship.h"
 #include "iostream"
+#include "map"
 
 Ship::Ship(const String& f, const RigidBodyParameters& parameters)
-	: RigidBody(f, parameters) {}
+	: RigidBody(f, parameters) , fuel(10) {}
+
+float Ship::GetFuel() const { return fuel; }
+void Ship::SetFuel(const float& new_fuel) { fuel = new_fuel; }
 
 void Ship::AddEngine(const Engine& new_engine, const std::string& name) { 
 	engines[name] = new_engine; 
@@ -28,7 +32,7 @@ void Ship::SetEngineThrustAngle(const std::string& name, float new_thrust_angle)
 
 void Ship::UpdateEngines(const std::string& name) {
 	forces[name].force = engines[name].GetForce().force * engines[name].GetThrust();
-	
+
 	forces[name].force_vector.x = cos(acos(engines[name].GetEngineVector().x) - RAD * engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle());
 	forces[name].force_vector.y = sin(asin(engines[name].GetEngineVector().y) - RAD * engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle());
 }
@@ -60,6 +64,16 @@ void Ship::UpdateEnginesPosition(const std::string& name, const Vector2f& new_po
 		new_position.y + sin(RAD * GetAngle() + fb) * diag_engine),
 		angle + engines[name].GetMaxThrustAngle() * engines[name].GetThrustAngle()
 	);
+
+	static std::map<std::string, Clock> t;
+	static std::map<std::string, float> dt;
+	if (GetFuel() > 0 && engines[name].If_on()) {
+		SetFuel(GetFuel() - dt[name] * engines[name].GetConsumption() * engines[name].GetThrust());
+	}
+	else if (GetFuel() < 0){
+		SetFuel(0);
+	}
+	dt[name] = t[name].restart().asSeconds();
 }
 
 void Ship::DrawShip(RenderWindow& window) const {

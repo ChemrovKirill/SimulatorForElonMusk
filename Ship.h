@@ -7,8 +7,12 @@ class Ship : public RigidBody {
 private:
 	bool isDestroyed = false;
 	std::map<std::string, Engine> engines;
+	float fuel;
 public:
 	Ship(const String& f, const RigidBodyParameters& parameters);
+
+	float GetFuel() const; 
+	void SetFuel(const float& new_fuel); 
 
 	void AddMainForces(float gravity);
 
