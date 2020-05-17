@@ -12,4 +12,5 @@ public:
 	RigidBodyParameters download(sf::Vector2f position);
 	void assembly();
 	void control();
+	virtual void DrawShip(RenderWindow& window) const;
 };

@@ -4,7 +4,7 @@
 #include <cmath>
 
 class Ship : public RigidBody {
-private:
+protected:
 	bool isDestroyed = false;
 	std::map<std::string, Engine> engines;
 	float fuel;
@@ -26,7 +26,7 @@ public:
 	void UpdateShipPosition(const float& dt);
 	void UpdateEnginesPosition(const std::string& name, const sf::Vector2f& new_position);
 
-	void DrawShip(RenderWindow& window) const;
+	virtual void DrawShip(RenderWindow& window) const;
 	void Destroy();
 	void draw_all(RenderWindow& window, bool position, bool speed, bool way, bool forces, bool collision);
 
