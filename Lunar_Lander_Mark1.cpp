@@ -38,7 +38,7 @@ void Lunar_Lander_Mark1::assembly() {
 }
 
 void Lunar_Lander_Mark1::control() {
-    if (Keyboard::isKeyPressed(Keyboard::W)) {
+    if (Keyboard::isKeyPressed(Keyboard::W) && GetFuel() > 0) {
         EngineOn("1");
         EngineOn("2");
     }
@@ -46,7 +46,7 @@ void Lunar_Lander_Mark1::control() {
         EngineOff("1");
         EngineOff("2");
     }
-    if (Keyboard::isKeyPressed(Keyboard::E)) {
+    if (Keyboard::isKeyPressed(Keyboard::E) && GetFuel() > 0) {
         EngineOn("3");
         EngineOn("6");
     }
@@ -54,7 +54,7 @@ void Lunar_Lander_Mark1::control() {
         EngineOff("3");
         EngineOff("6");
     }
-    if (Keyboard::isKeyPressed(Keyboard::Q)) {
+    if (Keyboard::isKeyPressed(Keyboard::Q) && GetFuel() > 0) {
         EngineOn("5");
         EngineOn("4");
     }

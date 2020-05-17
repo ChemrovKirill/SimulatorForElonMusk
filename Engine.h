@@ -11,6 +11,7 @@ private:
 	float thrust; //from 0 (0%) to 1 (100%) of force.force
 	float thrust_angle; //from -1 (-100%) to 1 (100%) of max_thrust_angle
 	float max_thrust_angle; //the angle at which the engine can deviate
+	float consumption = 0.1;
 
 	String f_sound = "engine.wav";
 	SoundBuffer buffer;
@@ -26,12 +27,14 @@ public:
 	float GetThrustAngle() const;
 	float GetMaxThrustAngle() const;
 	Vector2f GetEngineVector() const;
+	float GetConsumption() const;
 
 	void SetRelPos(const Vector2f& new_relative_position);
 	void SetThrust(const float& new_thrust);
 	void SetThrustAngle(const float& new_thrust_angle);
 	void SetMaxThrustAngle(const float& new_max_thrust_angle);
 	void SetEngineVector(const Vector2f& new_engine_vector);
+	void SetConsumption(const float& new_consumption);
 
 	bool If_on() const;
 	void SetOn();
