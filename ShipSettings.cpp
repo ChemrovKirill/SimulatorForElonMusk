@@ -20,7 +20,7 @@ Ship* ShipSettings(RenderWindow& window, const Vector2f& position, bool& if_Menu
     //gap.y = window_y()/2 - title.GetPosition().y - title.GetFloatRect().height - stand_size;
 
     std::vector<ShipStand> stands = {   ShipStand("Lunar_Lander_Mark1.png", "Mark 1", {gap.x, 250}),
-                                        ShipStand("Lunar_Lander_Mark1.png", "Mark 1", {stand_size + 2*gap.x, 250}),
+                                        ShipStand("Dron.png", "Dron", {stand_size + 2*gap.x, 250}),
                                         ShipStand("Rick&Morty.png", "Rick & Morty", {2*stand_size + 3*gap.x, 250}),
                                         ShipStand("Rick&Morty.png", "Rick & Morty", {3*stand_size + 4*gap.x, 250}),
     };
@@ -139,7 +139,7 @@ Ship* ShipSettings(RenderWindow& window, const Vector2f& position, bool& if_Menu
     case 0:
         return new Lunar_Lander_Mark1(position);
     case 1:
-        return new Lunar_Lander_Mark1(position);
+        return new Dron(position);
     case 2:
         return new RickAndMorty(position);
     case 3:

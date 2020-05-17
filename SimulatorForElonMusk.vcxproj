@@ -46,6 +46,7 @@
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Usart.h" />
+    <ClInclude Include="Dron.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="PlanetSettings.cpp" />
     <ClCompile Include="Tests.cpp" />
     <ClCompile Include="Usart.cpp" />
+    <ClCompile Include="Dron.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
