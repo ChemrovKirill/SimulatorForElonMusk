@@ -81,6 +81,26 @@ void Menu(RenderWindow & window) {
 Lander_Parametr par; //for STM32
 
 void StartGame(RenderWindow& window) {
+
+    Music music;
+    switch (rand() % 4) {
+    case 0:
+        music.openFromFile("music/phantom_from_space.wav");
+        break;
+    case 1:
+        music.openFromFile("music/decisions.wav");
+        break;
+    case 2:
+        music.openFromFile("music/myst_on_the_moor.wav");
+        break;
+    case 3:
+        music.openFromFile("music/deep_haze.wav");
+        break;
+    }
+    music.setLoop(true);
+    music.setVolume(10);
+    music.play();
+
     //5ea71d5d
     //5ea71d85
     //5ea71d8f
