@@ -29,7 +29,7 @@ void Dron::assembly() {
 	AddEngine(Engine(Object("fireleft.png", Vector2f(0, 0),0), Vector2f(0.22, 0.87),
 		Force(false, 100, Vector2f(-0.5, -1), Vector2f(0, 0.5)), 10), "2");
 	AddEngine(Engine(Object("fireright.png", Vector2f(0, 0), 0), Vector2f(0.78, 0.87),
-		Force(false, 100, Vector2f(0.5, -0.5), Vector2f(1, 0.5)), 10), "3");
+		Force(false, 100, Vector2f(0.5, -1), Vector2f(1, 0.5)), 10), "3");
 }
 void Dron::control() {
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
@@ -59,5 +59,14 @@ void Dron::control() {
 	}
 	else {
 		SetEngineThrust("1", 1);
+	}
+}
+
+void Dron::DrawShip(RenderWindow& window) const {
+	Draw(window);
+	for (const auto& e : engines) {
+		if (e.second.If_on()) {
+			e.second.Draw(window);
+		}
 	}
 }

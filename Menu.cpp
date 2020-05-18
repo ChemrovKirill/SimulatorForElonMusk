@@ -81,6 +81,26 @@ void Menu(RenderWindow & window) {
 Lander_Parametr par; //for STM32
 
 void StartGame(RenderWindow& window) {
+
+    Music music;
+    switch (rand() % 4) {
+    case 0:
+        music.openFromFile("music/phantom_from_space.wav");
+        break;
+    case 1:
+        music.openFromFile("music/decisions.wav");
+        break;
+    case 2:
+        music.openFromFile("music/myst_on_the_moor.wav");
+        break;
+    case 3:
+        music.openFromFile("music/deep_haze.wav");
+        break;
+    }
+    music.setLoop(true);
+    music.setVolume(10);
+    music.play();
+
     //5ea71d5d
     //5ea71d85
     //5ea71d8f
@@ -147,7 +167,8 @@ void StartGame(RenderWindow& window) {
         
         lander->DrawShip(window);
         lander->draw_all(window, true, true, true, true, true);
-        
+        lander->DrawFlyStatus(dt);
+
         view.setCenter(lander->GetCenterPosition());
         window.setView(view);
 
@@ -163,7 +184,7 @@ void StartGame(RenderWindow& window) {
         }
         else {
             lander->control();
-            lander->updateAirForce(surface.GetAirDensity());
+            //lander->updateAirForce(surface.GetAirDensity());
             lander->UpdateShipPosition(dt);
             lander->CollisionDetection(surface, window);
             //l.control_STM(par);
@@ -181,7 +202,7 @@ void StartGame(RenderWindow& window) {
         //std::cout << dt << std::endl;
         dt = deltaTime.restart().asSeconds();
 
-       //std::cout <<  sqal(lander->GetVelocity()) << std::endl;
+        //std::cout <<  lander->GetFuel() << std::endl;
 
         window.display();
         //while (Keyboard::isKeyPressed(Keyboard::Space)) { dt = deltaTime.restart().asSeconds(); }

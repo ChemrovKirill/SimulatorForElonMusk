@@ -8,6 +8,13 @@
 #include <string>
 #include "Geom/Geometric.h"
 
+#define MAX_ANGLE 20
+#define MAX_ANGLE_BETWEEN 5
+#define MAX_VELOCITY 100
+#define MAX_ANGLE_VELOCITY 50
+
+static Clock timer;
+
 using namespace sf;
 
 struct RigidBodyParameters {
@@ -62,6 +69,9 @@ protected:
 	std::vector<Point> collision_vertex;
 
 	std::map<String,Force> forces;
+
+	int fly_status = 0; //0 - fly, 1 - succes landing, (2, 3, 4, 5) - bad landing
+	int status = 1;
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -75,6 +85,7 @@ public:
 	Vector2f GetAcceleration() const;
 	float GetAngleVelocity() const;
 	float GetAngleAcceleration() const;
+	int GetFlyStatus() const;
 	Force GetForce(const std::string& name) const;
 
 	void SetMass(const float& new_mass);
@@ -84,6 +95,7 @@ public:
 	void SetAcceleration(const Vector2f& new_acceleration);
 	void SetAngleVelocity(const float& new_angle_velocity);
 	void SetAngleAcceleration(const float& new_angle_acceleration);
+	void SetFlyStatus(const int& new_status);
 
 	void UpdatePosition(const float& dt);
 	void AddForce(const std::string& name, const Force& new_force);
@@ -92,23 +104,25 @@ public:
 	void ForceOff(const std::string& name);
 	void UpdateForces();
 
+	void DrawFlyStatus(float dt);
 	void DrawMassPosition(RenderWindow& window) const;
-	void DrawBodyWay(RenderWindow& window);
-	void DeleteBodyWay(RenderWindow& window);
-
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;
+	void DrawBodyWay(RenderWindow& window);
+	void DeleteBodyWay(RenderWindow& window);
 
 	void Collision(const Surface& s);
 	void Collision(const Surface& s, RenderWindow& window);
 	void CollisionModelDraw(RenderWindow& window);
 	void CollisionDetection(const Surface& s);
 	void CollisionDetection(const Surface& s, RenderWindow& window);
+
+	bool LandingCheck(const Surface& s);
 private:
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s) const;
 	bool IntercectionWithSurface(const Point& p, const Line& surface_line, const Surface& s, RenderWindow& window) const;
 	
-	void CollisionReactionWithSurface(const Line& l, bool first_collision, const Point& p);
+	void CollisionReactionWithSurface(const Line& l, bool first_collision, const Point& p, const Surface& s);
 
 	void CollisionReaction(bool first_collision, Point force_point);
 	void NOCollisionReaction();

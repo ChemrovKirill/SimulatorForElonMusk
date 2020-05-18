@@ -227,3 +227,74 @@ void RigidBody::DrawSpeed(RenderWindow& window) const {
 	));
 	window.draw(speed_line);
 }
+
+
+int RigidBody::GetFlyStatus() const { return fly_status; }
+void RigidBody::SetFlyStatus(const int& new_status) { fly_status = new_status; }
+
+bool RigidBody::LandingCheck(const Surface& s) {
+	long mid_iter = s.Get_iter_0() + 2 * GetCenterPosition().x / s.Get_spacing();
+	long start = mid_iter - sqrt(pow(height, 2) + pow(width, 2)) / (2 * s.Get_spacing());
+	long end = mid_iter + sqrt(pow(height, 2) + pow(width, 2)) / (2 * s.Get_spacing());
+	start = (start / 2) * 2;
+	end = (end / 2) * 2;
+	Line surface_line(Point(s.GetVertex(start).position.x, s.GetVertex(start).position.y),
+		Point(s.GetVertex(end).position.x, s.GetVertex(end).position.y));
+
+	int ship_angle = GetAngle();
+	ship_angle %= 360;
+	int surface_angle = surface_line.GetAngle();
+
+	timer.restart();
+
+	if (sqal(GetVelocity()) > MAX_VELOCITY) { 
+		if (GetFlyStatus() == 0) { SetFlyStatus(2); }
+		return false; 
+	}
+	if (GetAngleVelocity() > MAX_ANGLE_VELOCITY) { 
+		if (GetFlyStatus() == 0) { SetFlyStatus(3); }
+		return false; 
+	}
+	if (mod(surface_angle) > MAX_ANGLE) { 
+		if (GetFlyStatus() == 0) { SetFlyStatus(4); }
+		return false; 
+	}
+	if (mod(surface_angle - ship_angle) > MAX_ANGLE_BETWEEN) { 
+		if (GetFlyStatus() == 0) { SetFlyStatus(5); }
+		return false; 
+	}
+	else {
+		if (GetFlyStatus() == 0) { SetFlyStatus(1); }
+		return true; 
+	}
+	//std::cout << start << " " << end << " " << surface_angle << " " << ship_angle << std::endl;
+}
+
+void RigidBody::DrawFlyStatus(float dt) {
+	static float t = 0;
+	//static int status = 1;
+	int new_status = GetFlyStatus();
+
+	t += dt;
+
+	if (t > 0.5) {
+		t = 0;
+		if (new_status != status && (status == 0 || status == 1)) {
+			switch (new_status) {
+			case 0: std::cout << "You are in flight" << std::endl; break;
+			case 1:	std::cout << "Landing succesfull!" << std::endl;  break;
+			case 2: std::cout << "Crash! Your speed was to high!" << std::endl; break;
+			case 3: std::cout << "Crash! Your rotation speed was to high!" << std::endl; break;
+			case 4: std::cout << "Crash! Bad landing zone!" << std::endl; break;
+			case 5: std::cout << "Crash! It was really bad!" << std::endl; break;
+			}	
+			status = new_status;
+		}
+	}
+}
+
+void RigidBody::NOCollisionReaction() {
+	if (timer.getElapsedTime().asSeconds() > 0.5) {
+		SetFlyStatus(0);
+	}
+}
