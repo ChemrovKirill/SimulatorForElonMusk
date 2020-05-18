@@ -43,6 +43,7 @@
     <ClInclude Include="Ship.h" />
     <ClInclude Include="ShipStand.h" />
     <ClInclude Include="Space.h" />
+    <ClInclude Include="SuperPuperShip.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Usart.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="ShipSettings.cpp" />
     <ClCompile Include="ShipStand.cpp" />
     <ClCompile Include="Space.cpp" />
+    <ClCompile Include="SuperPuperShip.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceGenerate.cpp" />
     <ClCompile Include="PlanetSettings.cpp" />

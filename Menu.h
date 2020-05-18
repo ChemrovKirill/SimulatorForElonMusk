@@ -11,11 +11,11 @@
 #include "ShipStand.h"
 
 #include "Tests.h"
-#include "Dron.h"
+#include "SuperPuperShip.h"
 #include "Lunar_Lander_Mark1.h"
 #include "Lunar_Lander_Mark1_STM32.h"
 #include "RickAndMorty.h"
-
+#include "Dron.h"
 
 #include "Usart.h"
 
