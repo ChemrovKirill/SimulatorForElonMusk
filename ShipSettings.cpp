@@ -22,7 +22,7 @@ Ship* ShipSettings(RenderWindow& window, const Vector2f& position, bool& if_Menu
     std::vector<ShipStand> stands = {   ShipStand("Lunar_Lander_Mark1.png", "Mark 1", {gap.x, 250}),
                                         ShipStand("Dron.png", "Dron", {stand_size + 2*gap.x, 250}),
                                         ShipStand("Rick&Morty.png", "Rick & Morty", {2*stand_size + 3*gap.x, 250}),
-                                        ShipStand("Rick&Morty.png", "Rick & Morty", {3*stand_size + 4*gap.x, 250}),
+                                        ShipStand("SuperPuperShip.png", "SuperPuperShip", {3*stand_size + 4*gap.x, 250}),
     };
 
     std::vector<Button> buttons;
@@ -143,6 +143,6 @@ Ship* ShipSettings(RenderWindow& window, const Vector2f& position, bool& if_Menu
     case 2:
         return new RickAndMorty(position);
     case 3:
-        return new RickAndMorty(position);
+        return new SuperPuperShip(position);
     }
 }
