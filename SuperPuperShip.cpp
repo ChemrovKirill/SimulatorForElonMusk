@@ -73,6 +73,8 @@ void SuperPuperShip::control() {
 		SetEngineThrust("1", 2);
 		EngineOn("4");
 		EngineOn("5");
+		SetEngineThrust("4", 2);
+		SetEngineThrust("5", 2);
 	}
 	else {
 		SetEngineThrust("1", 1);
