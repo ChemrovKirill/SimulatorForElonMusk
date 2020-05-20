@@ -10,6 +10,7 @@ SettingsItem::SettingsItem()
 SettingsItem::SettingsItem(const Vector2f& pos, const String& s, const int& val) 
 	: SettingsItem(pos, s) { 
 	value = val;
+	Update();
 }
 
 SettingsItem::SettingsItem(const Vector2f& pos, const String& s) :

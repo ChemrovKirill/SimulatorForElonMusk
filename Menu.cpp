@@ -69,10 +69,10 @@ void Menu(RenderWindow & window) {
 			}
 			if (event.type == Event::KeyPressed) {
 				if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up) {
-					selected_button = (selected_button + 1) % buttons.size();
+					selected_button = (selected_button - 1 + buttons.size()) % buttons.size();
 				}
 				if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down) {
-					selected_button = (selected_button - 1) % buttons.size();
+					selected_button = (selected_button + 1 + buttons.size()) % buttons.size();
 				}
 			}
             if (event.type == Event::KeyReleased || event.type == Event::MouseButtonReleased) {
@@ -134,9 +134,13 @@ void StartGame(RenderWindow& window) {
         return;
     }
 
+    Vector2f start_pos = Vector2f(0, surface.YtoX(200) - 500);
+
+    Space space("Space2.png", start_pos);
+
     while (!if_Menu) {
 
-        Ship* lander = ShipSettings(window, Vector2f(0, surface.YtoX(200) - 500), if_Menu);
+        Ship* lander = ShipSettings(window, start_pos, if_Menu);
         lander->AddMainForces(surface.GetGravity());
         if (if_Menu) {
             return;
@@ -144,9 +148,7 @@ void StartGame(RenderWindow& window) {
 
         //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
         //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
-        //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
-
-        Space space("Space2.png", lander->GetPosition());
+        //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));   
 
         View view;
         view.setCenter(sf::Vector2f(window_x() / 2, window_y() / 2));

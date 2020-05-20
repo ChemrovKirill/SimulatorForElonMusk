@@ -23,10 +23,10 @@ bool PauseMenu(RenderWindow& window, bool& isPaused, bool& Restart, View& view) 
                 isPaused = false;
             }
             if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up) {
-                selected_button = (selected_button + 1) % buttons.size();
+                selected_button = (selected_button - 1 + buttons.size()) % buttons.size();
             }
             if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down) {
-                selected_button = (selected_button - 1) % buttons.size();
+                selected_button = (selected_button + 1 + buttons.size()) % buttons.size();
             }
         }
         if (event.type == Event::KeyReleased || event.type == Event::MouseButtonReleased) {

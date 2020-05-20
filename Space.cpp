@@ -8,6 +8,24 @@ Space::Space(const String& f, const Vector2f& pos) : file(f), start_pos(pos) {
 	sprite.setTextureRect(IntRect(rand() % 1000, rand() % 1000, 3 * window_x(), 3 * window_y()));
 
 	bodies.push_back(Object{ "Venera.png", {0,0}, 152, 152, 0 });
+	switch (rand() % 5) {
+	case 0:
+		bodies[0].SetColor(Color::Cyan);
+		break;
+	case 1:
+		bodies[0].SetColor(Color::Magenta);
+		break;
+	case 2:
+		bodies[0].SetColor(Color::Yellow);
+		break;
+	case 3:
+		bodies[0].SetColor(Color::Red);
+		break;
+	default:
+		bodies[0].SetColor(Color::White);
+		break;
+	}
+
 	float x = (rand() % 10 / 10.0 - 0.5) * window_x();
 	float y = -(rand() % 10 / 20.0) * window_y();
 	positions.push_back({ x,y });
@@ -17,8 +35,8 @@ void Space::Update(const View& view) {
 	float y = view.getCenter().y - 1.5*window_y() - view.getCenter().y / 100;
 	sprite.setPosition(x, y);
 
-	x = positions[0].x + view.getCenter().x + (start_pos.x +-view.getCenter().x) / 50;
-	y = positions[0].y + view.getCenter().y + (start_pos.y - view.getCenter().y) / 50;
+	x = positions[0].x + view.getCenter().x + (start_pos.x - view.getCenter().x) / 100;
+	y = positions[0].y + view.getCenter().y + (start_pos.y - view.getCenter().y) / 100;
 	bodies[0].SetPosition({x,y}, 0);
 }
 void Space::Draw(RenderWindow& window) const {
