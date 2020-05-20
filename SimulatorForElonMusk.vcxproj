@@ -64,6 +64,7 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="RickAndMorty.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="ShipSettings.cpp" />

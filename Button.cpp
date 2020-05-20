@@ -7,7 +7,7 @@ Button::Button(const String& _name, const Vector2f& position) :
 	font.loadFromFile("fonts/FRAHV.ttf");
 	text = Text(name, font, 65);
 	text.setPosition({ position.x + width / 2 - text.getLocalBounds().width / 2,
-					   position.y + height / 2 - text.getLocalBounds().height / 2 - 15 });
+					   position.y + height / 2 - text.getLocalBounds().height / 2 - 10 });
 }
 void Button::Draw(RenderWindow& window) const {
 	Object::Draw(window);

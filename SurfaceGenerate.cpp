@@ -28,7 +28,6 @@ void Surface::Generate() {
         int rand_rough = ((rand() % 3) + 1) * rough;
         GenerateSlope(point, point.x + step, rand_rough, angle);
         float size = (rand() % 19+1.0) / 10;
-        std::cout << size << std::endl;
         switch (rand() % 5) {
         case 0:
             if (rand() % 100 < probability[Hole::LAKE]) {

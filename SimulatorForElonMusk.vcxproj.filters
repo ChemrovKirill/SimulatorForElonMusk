@@ -79,6 +79,9 @@
     <ClCompile Include="SuperPuperShip.cpp">
       <Filter>Ship_models</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Geom\Circle.h">
