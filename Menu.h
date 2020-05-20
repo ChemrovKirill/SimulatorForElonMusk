@@ -19,9 +19,12 @@
 #include "Interface.h"
 #include "Usart.h"
 
+extern int SoundVolume;
+extern int MusicVolume;
 
 void Menu(RenderWindow& window);
 void StartGame(RenderWindow& window);
+void Settings(RenderWindow& window, Music& music);
 Surface PlanetSettings(RenderWindow& window, bool& if_back);
-bool PauseMenu(RenderWindow& window, bool& isPaused, View& view);
+bool PauseMenu(RenderWindow& window, bool& isPause, bool& Restart, View& view);
 Ship* ShipSettings(RenderWindow& window, const Vector2f&, bool& if_Menu);

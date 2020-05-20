@@ -80,6 +80,7 @@
       <Filter>Ship_models</Filter>
     </ClCompile>
     <ClCompile Include="Interface.cpp">
+    <ClCompile Include="Settings.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,11 +1,12 @@
 #include "Menu.h"
 
-bool PauseMenu(RenderWindow& window, bool& isPaused, View& view) {
+bool PauseMenu(RenderWindow& window, bool& isPaused, bool& Restart, View& view) {
     std::vector<Button> buttons;
     float x_pos = -175 + view.getCenter().x;
     float y_pos = view.getCenter().y - window_y() / 2;
     buttons.push_back(Button("Continue", { x_pos, y_pos + 200 }));
-    buttons.push_back(Button("Menu", { x_pos, y_pos + 400 }));
+    buttons.push_back(Button("Restart", { x_pos, y_pos + 350 }));
+    buttons.push_back(Button("Menu", { x_pos, y_pos + 500 }));
 
     static int selected_button = 0;
 
@@ -22,20 +23,24 @@ bool PauseMenu(RenderWindow& window, bool& isPaused, View& view) {
                 isPaused = false;
             }
             if (event.key.code == Keyboard::W || event.key.code == Keyboard::Up) {
-                selected_button = (selected_button + 1) % buttons.size();
+                selected_button = (selected_button - 1 + buttons.size()) % buttons.size();
             }
             if (event.key.code == Keyboard::S || event.key.code == Keyboard::Down) {
-                selected_button = (selected_button - 1) % buttons.size();
+                selected_button = (selected_button + 1 + buttons.size()) % buttons.size();
             }
         }
         if (event.type == Event::KeyReleased || event.type == Event::MouseButtonReleased) {
             if (event.key.code == Keyboard::Enter || event.mouseButton.button == Mouse::Left) {
                 switch (selected_button) {
-                case 0:
+                case 0: //Continue
                     isPaused = false;
                     return 1;
                     break;
-                case 1:
+                case 1: //Restart
+                    Restart = true;
+                    return 1;
+                    break;
+                case 2: //Menu
                     return 0;
                     break;
                 default:

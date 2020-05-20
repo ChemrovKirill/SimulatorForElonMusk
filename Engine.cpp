@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Menu.h"
 
 Engine::Engine() : on(false), relative_position(0, 0), max_thrust_angle(0), thrust_angle(0), thrust(0), engine_vector(0, 0) {
 	buffer.loadFromFile("sounds/" + f_sound);
@@ -42,7 +43,7 @@ void Engine::SetOn() {
 		on = true;
 		force.exist = true;
 		//std::cout << "sound on" << std::endl;
-		sound.setVolume(30);
+		sound.setVolume(SoundVolume);
 		sound.play();
 	}
 }
