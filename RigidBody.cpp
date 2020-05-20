@@ -48,6 +48,7 @@ Vector2f RigidBody::GetVelocity() const { return velocity; }
 Vector2f RigidBody::GetAcceleration() const { return acceleration; }
 float RigidBody::GetAngleVelocity() const { return angle_velocity; }
 float RigidBody::GetAngleAcceleration() const { return angle_acceleration; }
+String RigidBody::GetStatusText() const { return status_text; }
 Force RigidBody::GetForce(const std::string& name) const { 
 	if (forces.count(name) == 1) {
 		return forces.at(name);
@@ -281,14 +282,15 @@ void RigidBody::DrawFlyStatus(float dt) {
 		t = 0;
 		if (new_status != status && (status == 0 || status == 1)) {
 			switch (new_status) {
-			case 0: std::cout << "You are in flight" << std::endl; break;
-			case 1:	std::cout << "Landing succesfull!" << std::endl;  break;
-			case 2: std::cout << "Crash! Your speed was to high!" << std::endl; break;
-			case 3: std::cout << "Crash! Your rotation speed was to high!" << std::endl; break;
-			case 4: std::cout << "Crash! Bad landing zone!" << std::endl; break;
-			case 5: std::cout << "Crash! It was really bad!" << std::endl; break;
+			case 0: std::cout << "You are in flight" << std::endl; status_text = "You are in flight";  break;
+			case 1:	std::cout << "Landing succesfull!" << std::endl; status_text = "Landing succesfull!"; break;
+			case 2: std::cout << "Crash! Your velosity was to high!" << std::endl; status_text = "Crash! Your speed was to high!"; break;
+			case 3: std::cout << "Crash! Your rotation speed was to high!" << std::endl; status_text = "Crash! Your rotation speed was to high!";  break;
+			case 4: std::cout << "Crash! Bad landing zone!" << std::endl; status_text = "Crash! Bad landing zone!"; break;
+			case 5: std::cout << "Crash! It was really bad!" << std::endl; status_text = "Crash! It was really bad!";  break;
 			}	
 			status = new_status;
+			
 		}
 	}
 }

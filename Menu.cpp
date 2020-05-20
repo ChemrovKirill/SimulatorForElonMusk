@@ -14,13 +14,14 @@ void Menu(RenderWindow & window) {
 	Sprite bg_sprite;
 	bg_sprite.setTexture(bg_texture);
 	bg_sprite.setTextureRect({ 0, 0, int(window_x()), int(window_y()) });
-
+	
 	int selected_button = 0;
 
     View view; 
 
 	while (isMenu && window.isOpen()) {
 		Event event;
+		
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed) {
@@ -51,6 +52,7 @@ void Menu(RenderWindow & window) {
                     }
                 }
             }
+			
 
 		}
 
@@ -73,7 +75,7 @@ void Menu(RenderWindow & window) {
 		for (int i = 0; i < buttons.size(); ++i) {
 			buttons[i].Draw(window);
 		}
-
+		
 		window.display();
 	}
 }
@@ -81,7 +83,7 @@ void Menu(RenderWindow & window) {
 Lander_Parametr par; //for STM32
 
 void StartGame(RenderWindow& window) {
-
+	
     Music music;
     switch (rand() % 4) {
     case 0:
@@ -100,7 +102,6 @@ void StartGame(RenderWindow& window) {
     music.setLoop(true);
     music.setVolume(10);
     music.play();
-
     //5ea71d5d
     //5ea71d85
     //5ea71d8f
@@ -119,7 +120,7 @@ void StartGame(RenderWindow& window) {
     if (if_Menu) {
         return;
     }
-
+	Interface interf(lander->GetHeight(),lander->GetAngle(),0,0,0,0,0, "Strat");
     //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
     //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
     //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
@@ -173,6 +174,15 @@ void StartGame(RenderWindow& window) {
         window.setView(view);
 
         surface.Draw(window);
+		interf.SetAngle(lander->GetAngle());
+		interf.SetHeight(-lander->GetPosition().y);
+		interf.SetAngVelocity(lander->GetAngleVelocity());
+		interf.SetFuel(lander->GetFuel());
+		interf.SetVelocityX(lander->GetVelocity().x);
+		interf.SetVelocityY(lander->GetVelocity().y);
+		interf.SetCoordinate_X(lander->GetPosition().x);
+		interf.SetStatus(lander->GetStatusText());
+		interf.Draw(window, view);
         //END_DRAWING
 
         if (isPaused) {
@@ -196,6 +206,7 @@ void StartGame(RenderWindow& window) {
 
             USART(par, par.data_to_send()); //for STM32
         }
+		
         
 
         time += dt;
