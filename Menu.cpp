@@ -54,13 +54,14 @@ void Menu(RenderWindow & window) {
 	Sprite bg_sprite;
 	bg_sprite.setTexture(bg_texture);
 	bg_sprite.setTextureRect({ 0, 0, int(window_x()), int(window_y()) });
-
+	
 	int selected_button = 0;
 
     View view; 
 
 	while (isMenu && window.isOpen()) {
 		Event event;
+		
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed) {
@@ -94,6 +95,7 @@ void Menu(RenderWindow & window) {
                     }
                 }
             }
+			
 
 		}
 
@@ -127,6 +129,31 @@ void Menu(RenderWindow & window) {
 Lander_Parametr par; //for STM32
 
 void StartGame(RenderWindow& window) {
+	
+    Music music;
+    switch (rand() % 4) {
+    case 0:
+        music.openFromFile("music/phantom_from_space.wav");
+        break;
+    case 1:
+        music.openFromFile("music/decisions.wav");
+        break;
+    case 2:
+        music.openFromFile("music/myst_on_the_moor.wav");
+        break;
+    case 3:
+        music.openFromFile("music/deep_haze.wav");
+        break;
+    }
+    music.setLoop(true);
+    music.setVolume(10);
+    music.play();
+    //5ea71d5d
+    //5ea71d85
+    //5ea71d8f
+    unsigned int seed = time(NULL);
+    std::cout << "seed: " << seed << std::endl;
+    srand(seed);
 
     bool if_Menu = 0;
     Surface surface = PlanetSettings(window, if_Menu);
@@ -134,9 +161,20 @@ void StartGame(RenderWindow& window) {
         return;
     }
 
+    Ship* lander = ShipSettings(window, Vector2f(0, surface.YtoX(200) - 500), if_Menu);
+    lander->AddMainForces(surface.GetGravity());
+    if (if_Menu) {
+        return;
+    }
+	Interface interf(lander->GetHeight(),lander->GetAngle(),0,0,0,0,0, "Strat");
+    //Lunar_Lander_Mark1_STM32 l(Vector2f(0, s.YtoX(200) - 500));   //for STM32
+    //Lunar_Lander_Mark1 l(Vector2f(0, s.YtoX(200) - 500));
+    //RickAndMorty l(Vector2f(0, s.YtoX(200) - 500));
+
     Vector2f start_pos = Vector2f(0, surface.YtoX(200) - 500);
 
     Space space("Space2.png", start_pos);
+
 
     while (!if_Menu) {
 
@@ -188,6 +226,17 @@ void StartGame(RenderWindow& window) {
             //START_DRAWING
             window.clear();
 
+        surface.Draw(window);
+		interf.SetAngle(lander->GetAngle());
+		interf.SetHeight(-lander->GetPosition().y);
+		interf.SetAngVelocity(lander->GetAngleVelocity());
+		interf.SetFuel(lander->GetFuel());
+		interf.SetVelocityX(lander->GetVelocity().x);
+		interf.SetVelocityY(lander->GetVelocity().y);
+		interf.SetCoordinate_X(lander->GetPosition().x);
+		interf.SetStatus(lander->GetStatusText());
+		interf.Draw(window, view);
+        //END_DRAWING
             space.Draw(window);
 
             lander->DrawShip(window);
@@ -222,6 +271,9 @@ void StartGame(RenderWindow& window) {
                 USART(par, par.data_to_send()); //for STM32
             }
 
+            USART(par, par.data_to_send()); //for STM32
+        }
+		
 
             time += dt;
             //std::cout << dt << std::endl;

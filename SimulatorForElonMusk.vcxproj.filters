@@ -79,6 +79,7 @@
     <ClCompile Include="SuperPuperShip.cpp">
       <Filter>Ship_models</Filter>
     </ClCompile>
+    <ClCompile Include="Interface.cpp">
     <ClCompile Include="Settings.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -170,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="SuperPuperShip.h">
       <Filter>Ship_models</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
