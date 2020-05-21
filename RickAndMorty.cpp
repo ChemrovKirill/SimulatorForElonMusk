@@ -33,6 +33,11 @@ void RickAndMorty::assembly() {
 
 
 void RickAndMorty::control() {
+    if (status != 0 && status != 1) {
+        for (auto& i : engines) { EngineOff(i.first); }
+        return;
+    }
+
     if (Keyboard::isKeyPressed(Keyboard::W)) {
         EngineOn("down");
     }

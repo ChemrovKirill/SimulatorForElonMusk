@@ -32,6 +32,11 @@ void Dron::assembly() {
 		Force(false, 100, Vector2f(0.5, -1), Vector2f(1, 0.5)), 10), "3");
 }
 void Dron::control() {
+	if (status != 0 && status != 1) {
+		for (auto& i : engines) { EngineOff(i.first); }
+		return;
+	}
+
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
 		EngineOn("1");
 	}
