@@ -53,7 +53,7 @@ protected:
 	float mass;
 	Vector2f mass_position; //accepts values from 0 to 1
 	float moment_of_inertia; //Add an auto-calculation of the moment of inertia and push it into the arctangent and diag class!!!
-
+	String status_text;
 	Vector2f velocity;
 	Vector2f acceleration;
 
@@ -71,6 +71,7 @@ protected:
 	std::map<String,Force> forces;
 
 	int fly_status = 0; //0 - fly, 1 - succes landing, (2, 3, 4, 5) - bad landing
+	int status = 1;
 public:
 	RigidBody(const String& f, const RigidBodyParameters& parameters);
 
@@ -86,7 +87,7 @@ public:
 	float GetAngleAcceleration() const;
 	int GetFlyStatus() const;
 	Force GetForce(const std::string& name) const;
-
+	String GetStatusText() const;
 	void SetMass(const float& new_mass);
 	void SetMomentOfInertia(const float& new_moment_of_inertia);
 	void SetMassPosition(const Vector2f& new_mass_position);
@@ -103,7 +104,7 @@ public:
 	void ForceOff(const std::string& name);
 	void UpdateForces();
 
-	void DrawFlyStatus(float dt) const;
+	void DrawFlyStatus(float dt);
 	void DrawMassPosition(RenderWindow& window) const;
 	void DrawForce(RenderWindow& window, const Force& force) const;
 	void DrawSpeed(RenderWindow& window) const;

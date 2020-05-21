@@ -32,6 +32,7 @@
     <ClInclude Include="Geom\Shape.h" />
     <ClInclude Include="Geom\Square.h" />
     <ClInclude Include="Geom\Triangle.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Lunar_Lander_Mark1.h" />
     <ClInclude Include="Lunar_Lander_Mark1_STM32.h" />
     <ClInclude Include="MathFunction.h" />
@@ -43,9 +44,11 @@
     <ClInclude Include="Ship.h" />
     <ClInclude Include="ShipStand.h" />
     <ClInclude Include="Space.h" />
+    <ClInclude Include="SuperPuperShip.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="Usart.h" />
+    <ClInclude Include="Dron.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
@@ -53,6 +56,7 @@
     <ClCompile Include="CollisionReaction.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Force.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Lunar_Lander_Mark1.cpp" />
     <ClCompile Include="Lunar_Lander_Mark1_STM32.cpp" />
     <ClCompile Include="main.cpp" />
@@ -62,16 +66,19 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="RickAndMorty.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SettingsItem.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="ShipSettings.cpp" />
     <ClCompile Include="ShipStand.cpp" />
     <ClCompile Include="Space.cpp" />
+    <ClCompile Include="SuperPuperShip.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceGenerate.cpp" />
     <ClCompile Include="PlanetSettings.cpp" />
     <ClCompile Include="Tests.cpp" />
     <ClCompile Include="Usart.cpp" />
+    <ClCompile Include="Dron.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

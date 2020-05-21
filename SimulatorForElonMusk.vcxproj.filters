@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Collision.cpp">
@@ -71,6 +71,18 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="ShipStand.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Dron.cpp">
+      <Filter>Ship_models</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperPuperShip.cpp">
+      <Filter>Ship_models</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
+  <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,6 +166,15 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ShipStand.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Dron.h">
+      <Filter>Ship_models</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperPuperShip.h">
+      <Filter>Ship_models</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

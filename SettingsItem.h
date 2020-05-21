@@ -20,6 +20,7 @@ public:
 	SettingsItem(const SettingsItem& si);
 	SettingsItem();
 	SettingsItem(const Vector2f& pos, const String& s);
+	SettingsItem(const Vector2f& pos, const String& s, const int& val);
 	void Draw(RenderWindow& window) const;
 	void Inc(const int& n);
 	void Dec(const int& n);

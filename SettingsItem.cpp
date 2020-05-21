@@ -2,10 +2,16 @@
 
 
 SettingsItem::SettingsItem(const SettingsItem& si)
-	: SettingsItem::SettingsItem(si.position, si.name) {}
+	: SettingsItem::SettingsItem(si.position, si.name, si.value) {}
 
 SettingsItem::SettingsItem()
 	: SettingsItem({ 0, 0 }, "") {}
+
+SettingsItem::SettingsItem(const Vector2f& pos, const String& s, const int& val) 
+	: SettingsItem(pos, s) { 
+	value = val;
+	Update();
+}
 
 SettingsItem::SettingsItem(const Vector2f& pos, const String& s) :
 	position(pos), name(s),
