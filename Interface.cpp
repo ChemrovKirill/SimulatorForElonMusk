@@ -44,13 +44,13 @@ void Interface::Draw(RenderWindow& window, const View& v) {
 	std::ostringstream s_angle;
 	s_angle << "Angle: " << angle;
 	text_angle.setString(s_angle.str());
-	text_angle.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 15);
+	text_angle.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + gap);
 	text_angle.setFillColor(Color::Blue);
 	window.draw(text_angle);
 	std::ostringstream s_angular_velocity;
 	s_angular_velocity << "Angular_velocity: " << angular_velocity;
 	text_angular_velocity.setString(s_angular_velocity.str());
-	text_angular_velocity.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 30);
+	text_angular_velocity.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 2*gap);
 	if (angular_velocity < 150) {
 		text_angular_velocity.setFillColor(Color::Green);
 	}
@@ -64,7 +64,7 @@ void Interface::Draw(RenderWindow& window, const View& v) {
 	std::ostringstream s_velocity_X;
 	s_velocity_X << "velocity_X: " << velocity_X;
 	text_velocity_X.setString(s_velocity_X.str());
-	text_velocity_X.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 45);
+	text_velocity_X.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 3*gap);
 	if (abs(velocity_X) < 1500) {
 		text_velocity_X.setFillColor(Color::Green);
 	}
@@ -78,7 +78,7 @@ void Interface::Draw(RenderWindow& window, const View& v) {
 	std::ostringstream s_velocity_Y;
 	s_velocity_Y << "velocity_Y: " << -velocity_Y;
 	text_velocity_Y.setString(s_velocity_Y.str());
-	text_velocity_Y.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 60);
+	text_velocity_Y.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 4*gap);
 	if (abs(velocity_Y) < 1500) {
 		text_velocity_Y.setFillColor(Color::Green);
 	}
@@ -93,7 +93,7 @@ void Interface::Draw(RenderWindow& window, const View& v) {
 	s_fuel << "fuel: " << fuel << "/10";
 
 	text_fuel.setString(s_fuel.str());
-	text_fuel.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 75);
+	text_fuel.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 5*gap);
 	if (fuel > 6) {
 		text_fuel.setFillColor(Color::Green);
 	}
@@ -107,12 +107,12 @@ void Interface::Draw(RenderWindow& window, const View& v) {
 	std::ostringstream s_Position;
 	s_Position << "Coordinate: (" << Coordinate_X << "," << height << ")";
 	Position.setString(s_Position.str());
-	Position.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 90);
+	Position.setPosition(v.getCenter().x - window_x() / 2, v.getCenter().y - window_y() / 2 + 6*gap);
 	Position.setFillColor(Color::Blue);
 	window.draw(Position);
 	
 	text_status.setString(status);
-	text_status.setPosition(v.getCenter().x - text_status.getLocalBounds().width/2 , v.getCenter().y - window_y() / 2 + 90);
+	text_status.setPosition(v.getCenter().x - text_status.getLocalBounds().width/2 , v.getCenter().y - window_y() / 2 + 6*gap);
 	text_status.setFillColor(Color::Blue);
 	text_status.setStyle(sf::Text::Bold);
 	if (status == "You are in flight") {
